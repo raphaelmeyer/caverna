@@ -14,6 +14,7 @@ public class PlayerTest extends InstrumentationTestCase {
         testee = new Player();
     }
 
+    @Test
     public void test_each_dwarf_counts_a_point() throws  Exception {
         testee.setDwarfs(2);
         assertEquals(2, testee.score());
@@ -22,6 +23,7 @@ public class PlayerTest extends InstrumentationTestCase {
         assertEquals(5, testee.score());
     }
 
+    @Test
     public void test_each_animal_scores_a_point() {
         testee.setDogs(1);
         testee.setSheep(1);
@@ -32,6 +34,7 @@ public class PlayerTest extends InstrumentationTestCase {
         assertEquals(5, testee.score());
     }
 
+    @Test
     public void test_each_missing_NUTZTIER_scores_two_minus_points() {
         assertEquals(-8, testee.score());
     }
