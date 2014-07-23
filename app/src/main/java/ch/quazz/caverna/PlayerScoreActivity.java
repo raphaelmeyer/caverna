@@ -14,6 +14,8 @@ import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
+    private Player player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,8 @@ public class PlayerScoreActivity extends Activity {
 
             }
         });
+
+        player = new Player();
     }
 
     private void initTabs() {

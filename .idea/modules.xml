@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Caverna.iml" filepath="$PROJECT_DIR$/Caverna.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/caverna.iml" filepath="$PROJECT_DIR$/caverna.iml" />
     </modules>
   </component>
 </project>
