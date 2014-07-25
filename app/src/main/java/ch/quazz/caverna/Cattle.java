@@ -7,7 +7,41 @@ public class Cattle {
     private int boars = 0;
     private int cattle = 0;
 
-    public int score() {
-        return -8;
+    public int score()
+    {
+        return dogs + farmAnimalScore();
+    }
+
+    public void setDogs(int dogs) {
+        this.dogs = dogs;
+    }
+
+    public void setSheep(int sheep) {
+        this.sheep = sheep;
+    }
+
+    public void setDonkeys(int donkeys) {
+        this.donkeys = donkeys;
+    }
+
+    public void setBoars(int boars) {
+        this.boars = boars;
+    }
+
+    public void setCattle(int cattle) {
+        this.cattle = cattle;
+    }
+
+    private int farmAnimalScore() {
+        int sum = 0;
+        for(int num : new int[]{sheep, donkeys, boars, cattle}) {
+            if(num < 1) {
+                sum -= 2;
+            }
+            else {
+                sum += num;
+            }
+        }
+        return sum;
     }
 }
