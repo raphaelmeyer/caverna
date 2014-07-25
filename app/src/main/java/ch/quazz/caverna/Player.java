@@ -1,38 +1,22 @@
 package ch.quazz.caverna;
 
 public class Player {
-    public int score() {
-        return 0;
+
+    private Family family;
+    private Inventory inventory;
+    private Cattle cattle;
+    private Homeboard homeboard;
+
+    public Player() {
+        family = new Family();
+        inventory = new Inventory();
+        cattle = new Cattle();
+        homeboard = new Homeboard();
     }
 
-
-    public void setDwarfs(int i) {
+    public int score()
+    {
+        return family.score() + inventory.score() + cattle.score() + homeboard.score();
     }
 
-    public void setDogs(int i) {
-    }
-
-    public void setSheep(int i) {
-    }
-
-    public void setDonkey(int i) {
-    }
-
-    public void setCow(int i) {
-    }
-
-    public void setRoar(int i) {
-    }
-
-    public int dwarfs() {
-        return 2;
-    }
-
-    public int dogs() {
-        return 0;
-    }
-
-    public int sheep() {
-        return 0;
-    }
 }
