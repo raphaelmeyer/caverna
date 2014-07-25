@@ -14,6 +14,10 @@ import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
+    private Family family;
+    private Inventory inventory;
+    private Cattle cattle;
+    private Homeboard homeboard;
     private Player player;
 
     @Override
@@ -61,7 +65,12 @@ public class PlayerScoreActivity extends Activity {
             }
         });
 
-        player = new Player();
+        family = new Family();
+        inventory = new Inventory();
+        cattle = new Cattle();
+        homeboard = new Homeboard();
+
+        player = new Player(family, inventory, cattle, homeboard);
     }
 
     private void initTabs() {

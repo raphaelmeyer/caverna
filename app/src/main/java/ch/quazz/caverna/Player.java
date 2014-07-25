@@ -7,11 +7,12 @@ public class Player {
     private Cattle cattle;
     private Homeboard homeboard;
 
-    public Player() {
-        family = new Family();
-        inventory = new Inventory();
-        cattle = new Cattle();
-        homeboard = new Homeboard();
+    public Player(Family family, Inventory inventory, Cattle cattle, Homeboard homeboard) {
+        this.family = family;
+        this.inventory = inventory;
+        this.cattle = cattle;
+        this.homeboard = homeboard;
+
     }
 
     public int score()
