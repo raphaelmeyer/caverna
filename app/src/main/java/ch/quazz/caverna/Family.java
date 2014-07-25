@@ -4,6 +4,14 @@ public class Family {
     private int dwarfs = 2;
 
     public int score() {
-        return 0;
+        return dwarfs;
+    }
+
+    public int dwarfs() {
+        return dwarfs;
+    }
+
+    public void setDwarfs(int dwarfs) {
+        this.dwarfs = dwarfs;
     }
 }
