@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SeekBar;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
@@ -25,52 +23,14 @@ public class PlayerScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
-        initTabs();
-
-        SeekBar seekBar = (SeekBar)findViewById(R.id.seekbar_dwarfs);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                TextView dwarfs = (TextView)findViewById(R.id.number_of_dwarfs);
-                dwarfs.setText(Integer.toString(seekBar.getProgress() + 2));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        seekBar = (SeekBar)findViewById(R.id.seekbar_donkeys);
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                TextView donkeys = (TextView)findViewById(R.id.number_of_donkeys);
-                donkeys.setText(Integer.toString(seekBar.getProgress()));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
         family = new Family();
         inventory = new Inventory();
         cattle = new Cattle();
         homeboard = new Homeboard();
 
         player = new Player(family, inventory, cattle, homeboard);
+
+        initTabs();
     }
 
     private void initTabs() {
