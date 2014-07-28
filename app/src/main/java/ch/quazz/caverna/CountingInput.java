@@ -13,6 +13,7 @@ public class CountingInput extends LinearLayout {
     private int count = 0;
     private int min = 0;
     private int max = 0;
+    private String label = "";
 
     private TextView countText;
 
@@ -28,24 +29,18 @@ public class CountingInput extends LinearLayout {
     }
 
     private void setup(TypedArray attributes) {
-        String label = attributes.getString(R.styleable.CountingInput_label);
+        label = attributes.getString(R.styleable.CountingInput_label);
         min = attributes.getInteger(R.styleable.CountingInput_min, 0);
         max = attributes.getInteger(R.styleable.CountingInput_max, 100);
 
-        countText = (TextView)findViewById(R.id.count);
+        countText = (TextView)findViewById(R.id.count_text);
         updateCount(0);
 
-        setupLabel(label);
         setupSeekbar();
     }
 
-    private void setupLabel(String label) {
-        TextView labelText = (TextView)findViewById(R.id.label);
-        labelText.setText(label + ": ");
-    }
-
     private void setupSeekbar() {
-        SeekBar seekBar = (SeekBar)findViewById(R.id.seekbar);
+        SeekBar seekBar = (SeekBar)findViewById(R.id.count_slider);
 
         seekBar.setMax(max - min);
         seekBar.setProgress(0);
@@ -68,6 +63,6 @@ public class CountingInput extends LinearLayout {
 
     private void updateCount(int progress) {
         count = min + progress;
-        countText.setText(Integer.toString(count));
+        countText.setText(label + ": " + Integer.toString(count));
     }
 }
