@@ -1,14 +1,13 @@
 package ch.quazz.caverna;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
-
-import org.w3c.dom.Text;
-
-import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
@@ -34,17 +33,61 @@ public class PlayerScoreActivity extends Activity {
     }
 
     private void initTabs() {
-        TabHost tabHost = (TabHost)findViewById(android.R.id.tabhost);
-        tabHost.setup();
+        ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        tabHost.addTab(tabHost.newTabSpec("Resources").setIndicator("Resources")
-                .setContent(R.id.tab1));
+        final Fragment scoreInventory = new ScoreInventory();
 
-        tabHost.addTab(tabHost.newTabSpec("Landscape").setIndicator("Landscape")
-                .setContent(R.id.tab2));
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.inventory_tab)
+                .setTabListener(new ActionBar.TabListener() {
+                    @Override
+                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                        fragmentTransaction.replace(R.id.player_score_fragment, scoreInventory);
+                    }
 
-        tabHost.addTab(tabHost.newTabSpec("Furnishing").setIndicator("Furnishing")
-                .setContent(R.id.tab3));
+                    @Override
+                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                        fragmentTransaction.remove(scoreInventory);
+                    }
+
+                    @Override
+                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+                }));
+
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.landscape_tab)
+                .setTabListener(new ActionBar.TabListener() {
+                    @Override
+                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+
+                    @Override
+                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+
+                    @Override
+                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+                }));
+
+
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.furnishings_tab)
+                .setTabListener(new ActionBar.TabListener() {
+                    @Override
+                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+
+                    @Override
+                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+
+                    @Override
+                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+                    }
+                }));
     }
 
 
