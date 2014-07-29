@@ -17,6 +17,40 @@ public class PlayerScoreActivity extends Activity {
     private Homeboard homeboard;
     private Player player;
 
+    private class TabListener<T extends Fragment> implements ActionBar.TabListener {
+
+        private Fragment fragment;
+
+        private final Activity activity;
+
+        TabListener(Activity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            if(fragment == null) {
+                fragment = Fragment.instantiate(activity, T.class.getName());
+                fragmentTransaction.add(R.id.player_score_fragment, fragment);
+            } else {
+                fragmentTransaction.attach(fragment);
+            }
+
+        }
+
+        @Override
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+            if(fragment != null) {
+                fragmentTransaction.detach(fragment);
+            }
+        }
+
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,58 +70,9 @@ public class PlayerScoreActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        final Fragment scoreInventory = new ScoreInventory();
-
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.inventory_tab)
-                .setTabListener(new ActionBar.TabListener() {
-                    @Override
-                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                        fragmentTransaction.replace(R.id.player_score_fragment, scoreInventory);
-                    }
-
-                    @Override
-                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                        fragmentTransaction.remove(scoreInventory);
-                    }
-
-                    @Override
-                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-                }));
-
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.landscape_tab)
-                .setTabListener(new ActionBar.TabListener() {
-                    @Override
-                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-
-                    @Override
-                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-
-                    @Override
-                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-                }));
-
-
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.furnishings_tab)
-                .setTabListener(new ActionBar.TabListener() {
-                    @Override
-                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-
-                    @Override
-                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-
-                    @Override
-                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-                    }
-                }));
+                .setTabListener(new TabListener<ScoreInventory>(this)));
     }
 
 
