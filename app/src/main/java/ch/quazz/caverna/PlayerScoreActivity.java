@@ -22,15 +22,17 @@ public class PlayerScoreActivity extends Activity {
         private Fragment fragment;
 
         private final Activity activity;
+        private final Class type;
 
-        TabListener(Activity activity) {
+        TabListener(Activity activity, Class type) {
             this.activity = activity;
+            this.type = type;
         }
 
         @Override
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
             if(fragment == null) {
-                fragment = Fragment.instantiate(activity, T.class.getName());
+                fragment = Fragment.instantiate(activity, type.getName());
                 fragmentTransaction.add(R.id.player_score_fragment, fragment);
             } else {
                 fragmentTransaction.attach(fragment);
@@ -72,7 +74,7 @@ public class PlayerScoreActivity extends Activity {
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.inventory_tab)
-                .setTabListener(new TabListener<ScoreInventory>(this)));
+                .setTabListener(new TabListener<ScoreInventory>(this, ScoreInventory.class)));
     }
 
 
