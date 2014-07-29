@@ -7,7 +7,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 
 public class PlayerScoreActivity extends Activity {
 
@@ -17,34 +16,22 @@ public class PlayerScoreActivity extends Activity {
     private Homeboard homeboard;
     private Player player;
 
-    private class TabListener<T extends Fragment> implements ActionBar.TabListener {
+    private class TabListener implements ActionBar.TabListener {
 
         private Fragment fragment;
 
-        private final Activity activity;
-        private final Class type;
-
-        TabListener(Activity activity, Class type) {
-            this.activity = activity;
-            this.type = type;
+        TabListener(Fragment fragment) {
+            this.fragment = fragment;
         }
 
         @Override
         public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-            if(fragment == null) {
-                fragment = Fragment.instantiate(activity, type.getName());
-                fragmentTransaction.add(R.id.player_score_fragment, fragment);
-            } else {
-                fragmentTransaction.attach(fragment);
-            }
-
+            fragmentTransaction.replace(R.id.player_score_fragment, fragment);
         }
 
         @Override
         public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-            if(fragment != null) {
-                fragmentTransaction.detach(fragment);
-            }
+            fragmentTransaction.remove(fragment);
         }
 
         @Override
@@ -69,20 +56,25 @@ public class PlayerScoreActivity extends Activity {
     }
 
     private void initTabs() {
+
+        ScoreInventory scoreInventory = new ScoreInventory();
+        ScoreLandscape scoreLandscape = new ScoreLandscape();
+        ScoreFurnishings scoreFurnishings = new ScoreFurnishings();
+
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.inventory_tab)
-                .setTabListener(new TabListener<ScoreInventory>(this, ScoreInventory.class)));
+                .setTabListener(new TabListener(scoreInventory)));
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.landscape_tab)
-                .setTabListener(new TabListener<ScoreLandscape>(this, ScoreLandscape.class)));
+                .setTabListener(new TabListener(scoreLandscape)));
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.furnishings_tab)
-                .setTabListener(new TabListener<ScoreFurnishings>(this, ScoreFurnishings.class)));
+                .setTabListener(new TabListener(scoreFurnishings)));
     }
 
 
@@ -99,7 +91,9 @@ public class PlayerScoreActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_ok) {
+            return true;
+        } else if (id == R.id.action_cancel) {
             return true;
         }
         return super.onOptionsItemSelected(item);

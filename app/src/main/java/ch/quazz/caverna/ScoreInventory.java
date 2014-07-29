@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 public class ScoreInventory extends Fragment {
 
     public ScoreInventory() {
-        // Required empty public constructor
     }
 
     @Override
@@ -17,6 +16,4 @@ public class ScoreInventory extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_score_inventory, container, false);
     }
-
-
 }
