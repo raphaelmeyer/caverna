@@ -75,6 +75,10 @@ public class PlayerScoreActivity extends Activity {
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.inventory_tab)
                 .setTabListener(new TabListener<ScoreInventory>(this, ScoreInventory.class)));
+
+        actionBar.addTab(actionBar.newTab()
+                .setText(R.string.landscape_tab)
+                .setTabListener(new TabListener<ScoreLandscape>(this, ScoreLandscape.class)));
     }
 
 
