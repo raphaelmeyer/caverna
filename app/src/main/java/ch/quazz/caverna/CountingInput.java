@@ -2,6 +2,8 @@ package ch.quazz.caverna;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -34,6 +36,31 @@ public class CountingInput extends LinearLayout {
 
         countSlider.setProgress(count - min);
         updateText();
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable instanceState = super.onSaveInstanceState();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("count", count);
+        bundle.putParcelable("instanceState", instanceState);
+
+        return bundle;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle)state;
+            count = bundle.getInt("count");
+
+            countSlider.setProgress(count - min);
+            updateText();
+
+            state = bundle.getParcelable("instanceState");
+        }
+        super.onRestoreInstanceState(state);
     }
 
     private void setup(TypedArray attributes) {

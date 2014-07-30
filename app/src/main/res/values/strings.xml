@@ -20,7 +20,7 @@
     <string name="ore_mines">Ore Mines</string>
     <string name="ruby_mines">Ruby Mines</string>
 
-    <string name="unused_tiles">[Unused]</string>
+    <string name="unused_tiles">Unused Space</string>
 
     <string name="score">Score</string>
     <string name="cancel">Cancel</string>

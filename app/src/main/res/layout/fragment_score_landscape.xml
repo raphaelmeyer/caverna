@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 caverna:min="0"
-                caverna:max="6"
+                caverna:max="5"
                 caverna:label="@string/ore_mines" />
 
             <ch.quazz.caverna.CountingInput
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 caverna:min="0"
-                caverna:max="6"
+                caverna:max="10"
                 caverna:label="@string/ruby_mines" />
 
             <include layout="@layout/separator" />
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 caverna:min="0"
-                caverna:max="6"
+                caverna:max="22"
                 caverna:label="@string/unused_tiles" />
 
         </LinearLayout>
