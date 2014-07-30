@@ -1,4 +1,4 @@
-# ![ruby](https://github.com/raphaelmeyer/caverna/raw/master/app/src/main/res/drawable/ruby.png)caverna
+# ![ruby](https://github.com/raphaelmeyer/caverna/raw/master/ruby.png)caverna
 
 ## UI structure
 
