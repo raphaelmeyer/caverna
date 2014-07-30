@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="50"
-                caverna:label="Dogs" />
+                caverna:label="@string/dogs" />
 
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/sheep"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="50"
-                caverna:label="Sheep" />
+                caverna:label="@string/sheep" />
 
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/donkeys"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="50"
-                caverna:label="Donkeys" />
+                caverna:label="@string/donkeys" />
 
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/boars"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="50"
-                caverna:label="Wild boars" />
+                caverna:label="@string/boars" />
 
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/cattle"
@@ -58,14 +58,9 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="50"
-                caverna:label="Cattle" />
+                caverna:label="@string/cattle" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/holo_blue_dark" />
+            <include layout="@layout/separator" />
 
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/dwarfs"
@@ -73,7 +68,7 @@
                 android:layout_height="wrap_content"
                 caverna:min="2"
                 caverna:max="6"
-                caverna:label="Dwarfs" />
+                caverna:label="@string/dwarfs" />
 
         </LinearLayout>
     </ScrollView>

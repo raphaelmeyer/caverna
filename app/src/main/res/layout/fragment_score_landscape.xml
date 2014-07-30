@@ -11,4 +11,59 @@
 
     tools:context="ch.quazz.caverna.ScoreLandscape">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ch.quazz.caverna.CountingInput
+                android:id="@+id/small_pastures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                caverna:min="0"
+                caverna:max="12"
+                caverna:label="@string/small_pastures" />
+
+            <ch.quazz.caverna.CountingInput
+                android:id="@+id/large_pastures"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                caverna:min="0"
+                caverna:max="6"
+                caverna:label="@string/large_pastures" />
+
+            <include layout="@layout/separator" />
+
+            <ch.quazz.caverna.CountingInput
+                android:id="@+id/ore_mines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                caverna:min="0"
+                caverna:max="6"
+                caverna:label="@string/ore_mines" />
+
+            <ch.quazz.caverna.CountingInput
+                android:id="@+id/ruby_mines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                caverna:min="0"
+                caverna:max="6"
+                caverna:label="@string/ruby_mines" />
+
+            <include layout="@layout/separator" />
+
+            <ch.quazz.caverna.CountingInput
+                android:id="@+id/unused_tiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                caverna:min="0"
+                caverna:max="6"
+                caverna:label="@string/unused_tiles" />
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>
