@@ -4,21 +4,28 @@
 
 ### Proposal
 
-* Pasture/Forest/...
+* Forest
   * Dogs
   * Sheep
   * ...
   * Small Pastures
   * Large Pastures
+  * Unused Space
 
-* Furnishings
+* Cave
+  * Dwelling
+  * Storage
+  * Chamber
+  * Parlor
+  * ...
 
-* Cave/Cavern
+* Mountain
   * Dwarfs
   * [Dwarf 1 weapon]
   * [...]
   * Ore Mines
   * Ruby Mines
+  * Unused Space
 
 * Goods
   * Ruby
