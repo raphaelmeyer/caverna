@@ -23,12 +23,20 @@ public class CountingInput extends LinearLayout {
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
 
+        setOrientation(LinearLayout.VERTICAL);
+//        android:orientation="vertical"
+//        android:layout_width="match_parent"
+//        android:layout_height="match_parent"
+//        android:layout_marginBottom="2dp"
+//        android:layout_marginTop="2dp">
+
         final LayoutInflater inflater =
                 (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.counting_input, this);
+        inflater.inflate(R.layout.counting_input, this, true);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CountingInput);
         setup(attributes);
+        attributes.recycle();
     }
 
     public void setCount(int count) {
