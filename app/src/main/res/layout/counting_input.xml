@@ -3,7 +3,6 @@
         android:id="@+id/count_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
     <SeekBar
         android:id="@+id/count_slider"
         android:layout_width="match_parent"

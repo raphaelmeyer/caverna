@@ -5,6 +5,8 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -23,20 +25,31 @@ public class CountingInput extends LinearLayout {
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        setOrientation(LinearLayout.VERTICAL);
-//        android:orientation="vertical"
-//        android:layout_width="match_parent"
-//        android:layout_height="match_parent"
-//        android:layout_marginBottom="2dp"
-//        android:layout_marginTop="2dp">
+        LayoutInflater.from(context).inflate(R.layout.counting_input, this, true);
 
-        final LayoutInflater inflater =
-                (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.counting_input, this, true);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        int padding = Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics()));
+
+        setOrientation(LinearLayout.VERTICAL);
+        setPadding(0, padding, 0, padding);
+        setLayoutParams(layoutParams);
 
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CountingInput);
-        setup(attributes);
+
+        label = attributes.getString(R.styleable.CountingInput_label);
+        min = attributes.getInteger(R.styleable.CountingInput_min, 0);
+        max = attributes.getInteger(R.styleable.CountingInput_max, 100);
+
         attributes.recycle();
+
+        count = min;
+
+        countText = (TextView)findViewById(R.id.count_text);
+        countSlider = (SeekBar)findViewById(R.id.count_slider);
+
+        setupSeekbar();
     }
 
     public void setCount(int count) {
@@ -63,25 +76,15 @@ public class CountingInput extends LinearLayout {
             Bundle bundle = (Bundle)state;
             count = bundle.getInt("count");
 
+            state = bundle.getParcelable("instanceState");
+            super.onRestoreInstanceState(state);
+
             countSlider.setProgress(count - min);
             updateText();
 
-            state = bundle.getParcelable("instanceState");
+            return;
         }
         super.onRestoreInstanceState(state);
-    }
-
-    private void setup(TypedArray attributes) {
-        label = attributes.getString(R.styleable.CountingInput_label);
-        min = attributes.getInteger(R.styleable.CountingInput_min, 0);
-        max = attributes.getInteger(R.styleable.CountingInput_max, 100);
-
-        count = min;
-
-        countText = (TextView)findViewById(R.id.count_text);
-        countSlider = (SeekBar)findViewById(R.id.count_slider);
-
-        setupSeekbar();
     }
 
     private void setupSeekbar() {
