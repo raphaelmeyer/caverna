@@ -59,34 +59,6 @@ public class CountingInput extends LinearLayout {
         updateText();
     }
 
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Parcelable instanceState = super.onSaveInstanceState();
-
-        Bundle bundle = new Bundle();
-        bundle.putInt("count", count);
-        bundle.putParcelable("instanceState", instanceState);
-
-        return bundle;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle)state;
-            count = bundle.getInt("count");
-
-            state = bundle.getParcelable("instanceState");
-            super.onRestoreInstanceState(state);
-
-            countSlider.setProgress(count - min);
-            updateText();
-
-            return;
-        }
-        super.onRestoreInstanceState(state);
-    }
-
     private void setupSeekbar() {
 
         countSlider.setMax(max - min);
