@@ -45,14 +45,20 @@ public class PlayerScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
-        family = new Family();
-        inventory = new Inventory();
-        cattle = new Cattle();
-        homeboard = new Homeboard();
+        if (savedInstanceState == null) {
+            family = new Family();
+            inventory = new Inventory();
+            cattle = new Cattle();
+            homeboard = new Homeboard();
 
-        player = new Player(family, inventory, cattle, homeboard);
+            player = new Player(family, inventory, cattle, homeboard);
 
-        initTabs();
+            initTabs();
+        }
+    }
+
+    private void updateScore() {
+        setTitle("Score: " + Integer.toString(player.score()));
     }
 
     private void initTabs() {
@@ -75,6 +81,31 @@ public class PlayerScoreActivity extends Activity {
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.furnishings_tab)
                 .setTabListener(new TabListener(scoreFurnishings)));
+
+
+        scoreInventory.addCountListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                cattle.setDogs(count);
+                updateScore();
+            }
+        }, R.id.dogs);
+
+        scoreInventory.addCountListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                cattle.setSheep(count);
+                updateScore();
+            }
+        }, R.id.sheep);
+
+        scoreInventory.addCountListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                cattle.setDonkeys(count);
+                updateScore();
+            }
+        }, R.id.donkeys);
     }
 
 
@@ -82,6 +113,9 @@ public class PlayerScoreActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.player_score, menu);
+
+        updateScore();
+
         return true;
     }
 

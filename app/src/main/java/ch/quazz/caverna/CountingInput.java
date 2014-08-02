@@ -2,15 +2,15 @@ package ch.quazz.caverna;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CountingInput extends LinearLayout {
 
@@ -21,6 +21,8 @@ public class CountingInput extends LinearLayout {
 
     private TextView countText;
     private SeekBar countSlider;
+
+    private List<OnCountChangeListener> listeners;
 
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,13 +52,23 @@ public class CountingInput extends LinearLayout {
         countSlider = (SeekBar)findViewById(R.id.count_slider);
 
         setupSeekbar();
+
+        listeners = new ArrayList<OnCountChangeListener>();
     }
 
     public void setCount(int count) {
         this.count = count;
 
-        countSlider.setProgress(count - min);
+        countSlider.setProgress(this.count - min);
         updateText();
+    }
+
+    public interface OnCountChangeListener {
+        public abstract void onCountChanged(int count);
+    }
+
+    public void addOnCountChangeListener(OnCountChangeListener listener) {
+        listeners.add(listener);
     }
 
     private void setupSeekbar() {
@@ -70,6 +82,9 @@ public class CountingInput extends LinearLayout {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 count = min + progress;
                 updateText();
+                for (OnCountChangeListener listener : listeners) {
+                    listener.onCountChanged(count);
+                }
             }
 
             @Override
