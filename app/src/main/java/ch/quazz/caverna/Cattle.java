@@ -12,12 +12,24 @@ public class Cattle {
         return dogs + farmAnimalScore();
     }
 
+    public int dogs() {
+        return dogs;
+    }
+
     public void setDogs(int dogs) {
         this.dogs = dogs;
     }
 
+    public int sheep() {
+        return sheep;
+    }
+
     public void setSheep(int sheep) {
         this.sheep = sheep;
+    }
+
+    public int donkeys() {
+        return donkeys;
     }
 
     public void setDonkeys(int donkeys) {

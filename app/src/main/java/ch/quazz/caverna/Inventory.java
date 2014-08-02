@@ -17,8 +17,16 @@ public class Inventory {
         return grainsScore() + vegetables + rubies + gold + beggingCost();
     }
 
+    public int grains() {
+        return grains;
+    }
+
     public void setGrains(int grains) {
         this.grains = grains;
+    }
+
+    public int vegetables() {
+        return vegetables;
     }
 
     public void setVegetables(int vegetables) {

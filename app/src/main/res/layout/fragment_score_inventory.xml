@@ -36,6 +36,7 @@
                 caverna:max="30"
                 caverna:label="@string/sheep" />
 
+            <!--
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/donkeys"
                 android:layout_width="match_parent"
@@ -69,7 +70,7 @@
                 caverna:min="2"
                 caverna:max="6"
                 caverna:label="@string/dwarfs" />
-
+-->
         </LinearLayout>
     </ScrollView>
 </FrameLayout>
