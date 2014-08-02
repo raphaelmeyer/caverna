@@ -18,6 +18,13 @@ public class PlayerScoreActivity extends Activity {
     private final String scoreLandscapeTag = "landscape";
     private final String scoreFurnishingsTag = "furnishings";
 
+
+    private Cattle cattle;
+    private Family family;
+    private Homeboard homeboard;
+    private Inventory inventory;
+    private Player player;
+
     private class TabListener implements ActionBar.TabListener {
 
         private Fragment fragment;
@@ -49,6 +56,12 @@ public class PlayerScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
+        if (cattle == null) cattle = new Cattle();
+        if (family == null) family = new Family();
+        if (homeboard == null) homeboard = new Homeboard();
+        if (inventory == null) inventory = new Inventory();
+        if (player == null) player = new Player(family, inventory, cattle, homeboard);
+
         if (savedInstanceState != null) {
             scoreInventory =
                     (ScoreInventory)getFragmentManager().findFragmentByTag(scoreInventoryTag);
@@ -60,15 +73,17 @@ public class PlayerScoreActivity extends Activity {
 
         if (scoreInventory == null) {
             scoreInventory = new ScoreInventory();
+            scoreInventory.setCattle(cattle);
         }
         if (scoreLandscape == null) {
             scoreLandscape = new ScoreLandscape();
+            scoreLandscape.setHomeboard(homeboard);
         }
         if (scoreFurnishings == null) {
             scoreFurnishings = new ScoreFurnishings();
         }
 
-        setupTags();
+        setupTabs();
     }
 
     @Override
@@ -82,10 +97,10 @@ public class PlayerScoreActivity extends Activity {
     }
 
     private void updateScore() {
-        setTitle("Score: " + Integer.toString(0));
+        setTitle("Score: " + Integer.toString(player.score()));
     }
 
-    private void setupTags() {
+    private void setupTabs() {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 

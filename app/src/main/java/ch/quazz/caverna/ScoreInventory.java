@@ -13,37 +13,33 @@ public class ScoreInventory extends Fragment {
     public ScoreInventory() {
     }
 
+    public void setCattle(Cattle cattle) {
+        this.cattle = cattle;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_score_inventory, container, false);
 
-        if (cattle == null) {
-            cattle = new Cattle();
-        }
+        CountingInput dogs = (CountingInput)view.findViewById(R.id.dogs);
+        CountingInput sheep = (CountingInput)view.findViewById(R.id.sheep);
 
-        if (savedInstanceState != null) {
-            cattle.setDogs(savedInstanceState.getInt("dogs"));
-            cattle.setSheep(savedInstanceState.getInt("sheep"));
-        }
-        return inflater.inflate(R.layout.fragment_score_inventory, container, false);
-    }
+        dogs.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                cattle.setDogs(count);
+            }
+        });
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("dogs", cattle.dogs());
-        outState.putInt("sheep", cattle.sheep());
-        super.onSaveInstanceState(outState);
-    }
+        sheep.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                cattle.setSheep(count);
+            }
+        });
 
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        CountingInput dogs = (CountingInput)getActivity().findViewById(R.id.dogs);
-        CountingInput sheep = (CountingInput)getActivity().findViewById(R.id.sheep);
-
-        cattle.setDogs(dogs.getCount());
-        cattle.setSheep(sheep.getCount());
+        return view;
     }
 
     @Override

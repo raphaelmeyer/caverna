@@ -2,9 +2,7 @@ package ch.quazz.caverna;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -56,9 +54,6 @@ public class CountingInput extends LinearLayout {
         setupSeekbar();
 
         listeners = new ArrayList<OnCountChangeListener>();
-
-        Log.i("CountingInput/" + label, "CountingInput");
-
     }
 
     public void setCount(int count) {
@@ -94,7 +89,6 @@ public class CountingInput extends LinearLayout {
                 for (OnCountChangeListener listener : listeners) {
                     listener.onCountChanged(count);
                 }
-                Log.i("CountingInput/" + label, "onProgressChanged(" + Integer.toString(progress) + ")");
             }
 
             @Override

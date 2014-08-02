@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--
             <ch.quazz.caverna.CountingInput
                 android:id="@+id/small_pastures"
                 android:layout_width="match_parent"
@@ -37,6 +36,7 @@
                 caverna:max="6"
                 caverna:label="@string/large_pastures" />
 
+            <!--
             <include layout="@layout/separator" />
 
             <ch.quazz.caverna.CountingInput

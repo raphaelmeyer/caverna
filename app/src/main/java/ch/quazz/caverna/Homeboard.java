@@ -13,8 +13,16 @@ public class Homeboard {
         return pastureScore() + mineScore();
     }
 
+    public int smallPastures() {
+        return smallPastures;
+    }
+
     public void setSmallPastures(int smallPastures) {
         this.smallPastures = smallPastures;
+    }
+
+    public int largePastures() {
+        return largePastures;
     }
 
     public void setLargePastures(int largePastures) {
