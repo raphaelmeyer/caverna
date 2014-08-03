@@ -18,12 +18,8 @@ public class PlayerScoreActivity extends Activity {
     private final String scoreLandscapeTag = "landscape";
     private final String scoreFurnishingsTag = "furnishings";
 
-
-    private Cattle cattle;
-    private Family family;
-    private Homeboard homeboard;
-    private Inventory inventory;
-    private Player player;
+    private PlayerScore playerScore;
+    private CavernaDbHelper dbHelper;
 
     private class TabListener implements ActionBar.TabListener {
 
@@ -56,11 +52,12 @@ public class PlayerScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
-        if (cattle == null) cattle = new Cattle();
-        if (family == null) family = new Family();
-        if (homeboard == null) homeboard = new Homeboard();
-        if (inventory == null) inventory = new Inventory();
-        if (player == null) player = new Player(family, inventory, cattle, homeboard);
+        if (playerScore == null) {
+            playerScore = new PlayerScore();
+        }
+        if (dbHelper == null) {
+            dbHelper = new CavernaDbHelper(this);
+        }
 
         if (savedInstanceState != null) {
             scoreInventory =
@@ -73,31 +70,46 @@ public class PlayerScoreActivity extends Activity {
 
         if (scoreInventory == null) {
             scoreInventory = new ScoreInventory();
-            scoreInventory.setCattle(cattle);
         }
         if (scoreLandscape == null) {
             scoreLandscape = new ScoreLandscape();
-            scoreLandscape.setHomeboard(homeboard);
         }
         if (scoreFurnishings == null) {
             scoreFurnishings = new ScoreFurnishings();
         }
 
+        scoreInventory.setPlayerScore(playerScore);
+        scoreLandscape.setPlayerScore(playerScore);
+
         setupTabs();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        playerScore.save(dbHelper.getWritableDatabase());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerScore.load(dbHelper.getReadableDatabase());
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt("navigation_index", getActionBar().getSelectedNavigationIndex());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        getActionBar().setSelectedNavigationItem(savedInstanceState.getInt("navigation_index"));
     }
 
     private void updateScore() {
-        setTitle("Score: " + Integer.toString(player.score()));
+        setTitle("Score: " + Integer.toString(playerScore.score()));
     }
 
     private void setupTabs() {

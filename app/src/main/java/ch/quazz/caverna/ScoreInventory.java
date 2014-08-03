@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 
 public class ScoreInventory extends Fragment {
 
-    private Cattle cattle;
+    private PlayerScore playerScore;
 
     public ScoreInventory() {
     }
 
-    public void setCattle(Cattle cattle) {
-        this.cattle = cattle;
+    public void setPlayerScore(PlayerScore playerScore) {
+        this.playerScore = playerScore;
     }
 
     @Override
@@ -23,19 +23,18 @@ public class ScoreInventory extends Fragment {
         View view = inflater.inflate(R.layout.fragment_score_inventory, container, false);
 
         CountingInput dogs = (CountingInput)view.findViewById(R.id.dogs);
-        CountingInput sheep = (CountingInput)view.findViewById(R.id.sheep);
-
         dogs.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                cattle.setDogs(count);
+                playerScore.getCattle().setDogs(count);
             }
         });
 
+        CountingInput sheep = (CountingInput)view.findViewById(R.id.sheep);
         sheep.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                cattle.setSheep(count);
+                playerScore.getCattle().setSheep(count);
             }
         });
 
@@ -49,7 +48,7 @@ public class ScoreInventory extends Fragment {
         CountingInput dogs = (CountingInput)getActivity().findViewById(R.id.dogs);
         CountingInput sheep = (CountingInput)getActivity().findViewById(R.id.sheep);
 
-        dogs.setCount(cattle.dogs());
-        sheep.setCount(cattle.sheep());
+        dogs.setCount(playerScore.getCattle().dogs());
+        sheep.setCount(playerScore.getCattle().sheep());
     }
 }

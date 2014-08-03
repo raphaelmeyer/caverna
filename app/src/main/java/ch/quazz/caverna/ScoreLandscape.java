@@ -8,19 +8,38 @@ import android.view.ViewGroup;
 
 public class ScoreLandscape extends Fragment {
 
-    private Homeboard homeboard;
+    private PlayerScore playerScore;
 
     public ScoreLandscape() {
     }
 
-    public void setHomeboard(Homeboard homeboard) {
-        this.homeboard = homeboard;
+    public void setPlayerScore(PlayerScore playerScore) {
+        this.playerScore = playerScore;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_score_landscape, container, false);
+        View view = inflater.inflate(R.layout.fragment_score_landscape, container, false);
+
+
+        CountingInput smallPastures = (CountingInput)view.findViewById(R.id.small_pastures);
+        smallPastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                playerScore.getHomeboard().setSmallPastures(count);
+            }
+        });
+
+        CountingInput largePastures = (CountingInput)view.findViewById(R.id.large_pastures);
+        largePastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(int count) {
+                playerScore.getHomeboard().setLargePastures(count);
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -30,6 +49,6 @@ public class ScoreLandscape extends Fragment {
         CountingInput smallPastures = (CountingInput)getActivity().findViewById(R.id.small_pastures);
         CountingInput largePastures = (CountingInput)getActivity().findViewById(R.id.large_pastures);
 
-        smallPastures.setCount(homeboard.smallPastures());
-        largePastures.setCount(homeboard.largePastures());
+        smallPastures.setCount(playerScore.getHomeboard().smallPastures());
+        largePastures.setCount(playerScore.getHomeboard().largePastures());
     }}

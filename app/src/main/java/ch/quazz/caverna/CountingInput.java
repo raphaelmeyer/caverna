@@ -86,8 +86,10 @@ public class CountingInput extends LinearLayout {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 count = min + progress;
                 updateText();
-                for (OnCountChangeListener listener : listeners) {
-                    listener.onCountChanged(count);
+                if (fromUser) {
+                    for (OnCountChangeListener listener : listeners) {
+                        listener.onCountChanged(count);
+                    }
                 }
             }
 
