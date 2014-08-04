@@ -6,11 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScoreInventory extends Fragment {
 
     private PlayerScore playerScore;
 
+    private List<OnItemChangeListener> listeners;
+
+    public interface OnItemChangeListener {
+        public abstract void onItemChanged();
+    }
+
     public ScoreInventory() {
+        listeners = new ArrayList<OnItemChangeListener>();
     }
 
     public void setPlayerScore(PlayerScore playerScore) {
@@ -27,6 +37,7 @@ public class ScoreInventory extends Fragment {
             @Override
             public void onCountChanged(int count) {
                 playerScore.getCattle().setDogs(count);
+                notifyListeners();
             }
         });
 
@@ -35,10 +46,17 @@ public class ScoreInventory extends Fragment {
             @Override
             public void onCountChanged(int count) {
                 playerScore.getCattle().setSheep(count);
+                notifyListeners();
             }
         });
 
         return view;
+    }
+
+    private void notifyListeners() {
+        for (OnItemChangeListener listener : listeners) {
+            listener.onItemChanged();
+        }
     }
 
     @Override
@@ -50,5 +68,13 @@ public class ScoreInventory extends Fragment {
 
         dogs.setCount(playerScore.getCattle().dogs());
         sheep.setCount(playerScore.getCattle().sheep());
+    }
+
+    public void addOnItemChangeListener(OnItemChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeOnItemChangeListener(OnItemChangeListener listener) {
+        listeners.remove(listener);
     }
 }

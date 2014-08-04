@@ -69,4 +69,8 @@ public class PlayerScore {
             homeboard.setLargePastures(cursor.getInt(cursor.getColumnIndex("large_pastures")));
         }
     }
+
+    public void erase(SQLiteDatabase db) {
+        db.delete("player_score", null, null);
+    }
 }

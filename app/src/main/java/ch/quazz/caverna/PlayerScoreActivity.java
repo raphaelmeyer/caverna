@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,8 @@ public class PlayerScoreActivity extends Activity {
 
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
+
+    private ScoreInventory.OnItemChangeListener listener;
 
     private class TabListener implements ActionBar.TabListener {
 
@@ -81,6 +84,14 @@ public class PlayerScoreActivity extends Activity {
         scoreInventory.setPlayerScore(playerScore);
         scoreLandscape.setPlayerScore(playerScore);
 
+        listener = new ScoreInventory.OnItemChangeListener() {
+            @Override
+            public void onItemChanged() {
+                updateScore();
+            }
+        };
+        scoreInventory.addOnItemChangeListener(listener);
+
         setupTabs();
     }
 
@@ -88,12 +99,15 @@ public class PlayerScoreActivity extends Activity {
     protected void onPause() {
         super.onPause();
         playerScore.save(dbHelper.getWritableDatabase());
+
+        scoreInventory.removeOnItemChangeListener(listener);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         playerScore.load(dbHelper.getReadableDatabase());
+        updateScore();
     }
 
     @Override

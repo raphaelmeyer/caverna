@@ -48,6 +48,12 @@ public class MainActivity extends Activity {
     }
 
     public void addPlayer(View view) {
+
+        PlayerScore playerScore = new PlayerScore();
+        CavernaDbHelper dbHelper = new CavernaDbHelper(this);
+
+        playerScore.erase(dbHelper.getWritableDatabase());
+
         Intent intent = new Intent(this, PlayerScoreActivity.class);
         startActivity(intent);
     }
