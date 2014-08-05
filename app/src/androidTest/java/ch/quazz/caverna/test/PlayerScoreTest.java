@@ -1,12 +1,6 @@
 package ch.quazz.caverna.test;
 
 import android.test.AndroidTestCase;
-import org.mockito.Mockito;
-
-import ch.quazz.caverna.Cattle;
-import ch.quazz.caverna.Family;
-import ch.quazz.caverna.Homeboard;
-import ch.quazz.caverna.Inventory;
 import ch.quazz.caverna.PlayerScore;
 
 public class PlayerScoreTest extends AndroidTestCase {
@@ -66,4 +60,37 @@ public class PlayerScoreTest extends AndroidTestCase {
 
         assertEquals(initialScoreWithoutFarmAnimals + 5, testee.score());
     }
+
+    public void test_each_small_pasture_scores_two_points() {
+        testee.setCount(PlayerScore.Item.SmallPastures, 1);
+        assertEquals(initialScore + 2, testee.score());
+
+        testee.setCount(PlayerScore.Item.SmallPastures, 3);
+        assertEquals(initialScore + 6, testee.score());
+    }
+
+    public void test_each_large_pasture_scores_four_points() {
+        testee.setCount(PlayerScore.Item.LargePastures, 1);
+        assertEquals(initialScore + 4, testee.score());
+
+        testee.setCount(PlayerScore.Item.LargePastures, 3);
+        assertEquals(initialScore + 12, testee.score());
+    }
+
+    public void test_each_ore_mine_scores_three_points() {
+        testee.setCount(PlayerScore.Item.OreMines, 1);
+        assertEquals(initialScore + 3, testee.score());
+
+        testee.setCount(PlayerScore.Item.OreMines, 3);
+        assertEquals(initialScore + 9, testee.score());
+    }
+
+    public void test_each_ruby_mine_scores_four_points() {
+        testee.setCount(PlayerScore.Item.RubyMines, 1);
+        assertEquals(initialScore + 4, testee.score());
+
+        testee.setCount(PlayerScore.Item.RubyMines, 2);
+        assertEquals(initialScore + 8, testee.score());
+    }
+
 }

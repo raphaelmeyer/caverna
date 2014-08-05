@@ -27,7 +27,7 @@ public class ScoreLandscape extends Fragment {
         smallPastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.getHomeboard().setSmallPastures(count);
+                playerScore.setCount(PlayerScore.Item.SmallPastures, count);
             }
         });
 
@@ -35,7 +35,7 @@ public class ScoreLandscape extends Fragment {
         largePastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.getHomeboard().setLargePastures(count);
+                playerScore.setCount(PlayerScore.Item.LargePastures, count);
             }
         });
 
@@ -49,6 +49,6 @@ public class ScoreLandscape extends Fragment {
         CountingInput smallPastures = (CountingInput)getActivity().findViewById(R.id.small_pastures);
         CountingInput largePastures = (CountingInput)getActivity().findViewById(R.id.large_pastures);
 
-        smallPastures.setCount(playerScore.getHomeboard().smallPastures());
-        largePastures.setCount(playerScore.getHomeboard().largePastures());
+        smallPastures.setCount(playerScore.getCount(PlayerScore.Item.SmallPastures));
+        largePastures.setCount(playerScore.getCount(PlayerScore.Item.LargePastures));
     }}

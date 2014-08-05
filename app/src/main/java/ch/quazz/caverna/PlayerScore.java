@@ -41,15 +41,9 @@ public class PlayerScore {
 
     private Map<Item, Integer> itemCount;
 
-    private Homeboard homeboard;
-    private Inventory inventory;
-
     public PlayerScore() {
         itemCount = new HashMap<Item, Integer>();
         itemCount.put(Item.Dwarfs, 2);
-
-        homeboard = new Homeboard();
-        inventory = new Inventory();
     }
 
     public void setCount(Item item, int count) {
@@ -65,7 +59,7 @@ public class PlayerScore {
 
     public int score()
     {
-        return familyScore() + inventory.score() + animalScore() + homeboard.score();
+        return familyScore() + inventoryScore() + animalScore() + homeboardScore();
     }
 
     private int familyScore() {
@@ -74,6 +68,14 @@ public class PlayerScore {
 
     private int animalScore() {
         return getCount(Item.Dogs) + farmAnimalScore();
+    }
+
+    private int homeboardScore() {
+        return pastureScore() + mineScore();
+    }
+
+    private int inventoryScore() {
+        return 0;
     }
 
     private  int farmAnimalScore() {
@@ -88,12 +90,12 @@ public class PlayerScore {
         return sum;
     }
 
-    public Homeboard getHomeboard() {
-        return homeboard;
+    private int pastureScore() {
+        return 2 * getCount(Item.SmallPastures) + 4 * getCount(Item.LargePastures);
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    private int mineScore() {
+        return 3 * getCount(Item.OreMines) + 4 * getCount(Item.RubyMines);
     }
 
     public void save(SQLiteDatabase db) {
