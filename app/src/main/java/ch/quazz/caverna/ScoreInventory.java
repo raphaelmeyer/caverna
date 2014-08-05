@@ -36,7 +36,7 @@ public class ScoreInventory extends Fragment {
         dogs.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.getCattle().setDogs(count);
+                playerScore.setCount(PlayerScore.Item.Dogs, count);
                 notifyListeners();
             }
         });
@@ -45,7 +45,7 @@ public class ScoreInventory extends Fragment {
         sheep.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.getCattle().setSheep(count);
+                playerScore.setCount(PlayerScore.Item.Sheep, count);
                 notifyListeners();
             }
         });
@@ -66,8 +66,8 @@ public class ScoreInventory extends Fragment {
         CountingInput dogs = (CountingInput)getActivity().findViewById(R.id.dogs);
         CountingInput sheep = (CountingInput)getActivity().findViewById(R.id.sheep);
 
-        dogs.setCount(playerScore.getCattle().dogs());
-        sheep.setCount(playerScore.getCattle().sheep());
+        dogs.setCount(playerScore.getCount(PlayerScore.Item.Dogs));
+        sheep.setCount(playerScore.getCount(PlayerScore.Item.Sheep));
     }
 
     public void addOnItemChangeListener(OnItemChangeListener listener) {

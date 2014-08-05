@@ -41,16 +41,13 @@ public class PlayerScore {
 
     private Map<Item, Integer> itemCount;
 
-    private Cattle cattle;
     private Homeboard homeboard;
     private Inventory inventory;
 
     public PlayerScore() {
         itemCount = new HashMap<Item, Integer>();
-
         itemCount.put(Item.Dwarfs, 2);
 
-        cattle = new Cattle();
         homeboard = new Homeboard();
         inventory = new Inventory();
     }
@@ -91,10 +88,6 @@ public class PlayerScore {
         return sum;
     }
 
-    public Cattle getCattle() {
-        return cattle;
-    }
-
     public Homeboard getHomeboard() {
         return homeboard;
     }
@@ -107,10 +100,11 @@ public class PlayerScore {
         db.delete("player_score", null, null);
 
         ContentValues values = new ContentValues();
-        values.put("dogs", cattle.dogs());
-        values.put("sheep", cattle.sheep());
-        values.put("small_pastures", homeboard.smallPastures());
-        values.put("large_pastures", homeboard.largePastures());
+
+        values.put("dogs", itemCount.get(Item.Dogs));
+        values.put("sheep", itemCount.get(Item.Sheep));
+        values.put("small_pastures", itemCount.get(Item.SmallPastures));
+        values.put("large_pastures", itemCount.get(Item.LargePastures));
 
         long id = db.insert("player_score", "null", values);
     }
@@ -126,11 +120,11 @@ public class PlayerScore {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
-            cattle.setDogs(cursor.getInt(cursor.getColumnIndex("dogs")));
-            cattle.setSheep(cursor.getInt(cursor.getColumnIndex("sheep")));
+            itemCount.put(Item.Dogs, cursor.getInt(cursor.getColumnIndex("dogs")));
+            itemCount.put(Item.Sheep, cursor.getInt(cursor.getColumnIndex("sheep")));
 
-            homeboard.setSmallPastures(cursor.getInt(cursor.getColumnIndex("small_pastures")));
-            homeboard.setLargePastures(cursor.getInt(cursor.getColumnIndex("large_pastures")));
+            itemCount.put(Item.SmallPastures, cursor.getInt(cursor.getColumnIndex("small_pastures")));
+            itemCount.put(Item.LargePastures, cursor.getInt(cursor.getColumnIndex("large_pastures")));
         }
     }
 
