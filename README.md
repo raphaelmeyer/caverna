@@ -1,5 +1,8 @@
 # ![ruby](https://github.com/raphaelmeyer/caverna/raw/master/ruby.png)caverna
 
+[![Build Status](https://secure.travis-ci.org/raphaelmeyer/caverna.png?branch=master)](http://travis-ci.org/raphaelmeyer/caverna)
+
+
 ## UI structure
 
 ### Proposal
