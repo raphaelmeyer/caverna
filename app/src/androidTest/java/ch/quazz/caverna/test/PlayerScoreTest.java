@@ -1,7 +1,10 @@
 package ch.quazz.caverna.test;
 
 import android.test.AndroidTestCase;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import ch.quazz.caverna.PlayerScore;
+
 
 public class PlayerScoreTest extends AndroidTestCase {
 
@@ -17,7 +20,7 @@ public class PlayerScoreTest extends AndroidTestCase {
     }
 
     public void test_the_initial_score_counts_two_dwarfs() {
-        assertEquals(2, testee.getCount(PlayerScore.Item.Dwarfs));
+        assertThat(testee.getCount(PlayerScore.Item.Dwarfs), equalTo(2));
     }
 
     public void test_the_initial_count_of_anything_else_than_dwarfs_is_zero() {
