@@ -1,4 +1,4 @@
-package ch.quazz.caverna;
+package ch.quazz.caverna.score;
 
 import android.content.ContentValues;
 import android.database.Cursor;

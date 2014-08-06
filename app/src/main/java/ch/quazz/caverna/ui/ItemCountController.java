@@ -1,7 +1,8 @@
-package ch.quazz.caverna;
+package ch.quazz.caverna.ui;
 
 import android.app.Activity;
 
+import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.widget.CountingInput;
 
 public class ItemCountController {

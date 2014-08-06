@@ -3,7 +3,7 @@ package ch.quazz.caverna.test;
 import android.test.AndroidTestCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import ch.quazz.caverna.PlayerScore;
+import ch.quazz.caverna.score.PlayerScore;
 
 
 public class PlayerScoreTest extends AndroidTestCase {

@@ -1,4 +1,4 @@
-package ch.quazz.caverna;
+package ch.quazz.caverna.data;
 
 
 import android.content.Context;

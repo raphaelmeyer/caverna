@@ -1,4 +1,4 @@
-package ch.quazz.caverna;
+package ch.quazz.caverna.ui;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ch.quazz.caverna.score.PlayerScore;
+import ch.quazz.caverna.R;
 import ch.quazz.caverna.widget.CountingInput;
 
 public class ScoreLandscape extends Fragment {

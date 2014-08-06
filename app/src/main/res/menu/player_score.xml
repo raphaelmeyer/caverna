@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ch.quazz.caverna.PlayerScoreActivity" >
+    tools:context="ch.quazz.caverna.ui.PlayerScoreActivity" >
 
     <item android:id="@+id/player_score"
         android:actionViewClass="android.widget.TextView"
