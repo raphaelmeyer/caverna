@@ -73,76 +73,80 @@ public class PlayerScoreTest extends AndroidTestCase {
 
     public void test_each_small_pasture_scores_two_points() {
         testee.setCount(PlayerScore.Item.SmallPastures, 1);
-        assertThat(testee.score(), equalTo(initialScore + 2));
+        assertScore(2);
 
         testee.setCount(PlayerScore.Item.SmallPastures, 3);
-        assertThat(testee.score(), equalTo(initialScore + 6));
+        assertScore(6);
     }
 
     public void test_each_large_pasture_scores_four_points() {
         testee.setCount(PlayerScore.Item.LargePastures, 1);
-        assertThat(testee.score(), equalTo(initialScore + 4));
+        assertScore(4);
 
         testee.setCount(PlayerScore.Item.LargePastures, 3);
-        assertThat(testee.score(), equalTo(initialScore + 12));
+        assertScore(12);
     }
 
     public void test_each_ore_mine_scores_three_points() {
         testee.setCount(PlayerScore.Item.OreMines, 1);
-        assertThat(testee.score(), equalTo(initialScore + 3));
+        assertScore(3);
 
         testee.setCount(PlayerScore.Item.OreMines, 3);
-        assertThat(testee.score(), equalTo(initialScore + 9));
+        assertScore(9);
     }
 
     public void test_each_ruby_mine_scores_four_points() {
         testee.setCount(PlayerScore.Item.RubyMines, 1);
-        assertThat(testee.score(), equalTo(initialScore + 4));
+        assertScore(4);
 
         testee.setCount(PlayerScore.Item.RubyMines, 2);
-        assertThat(testee.score(), equalTo(initialScore + 8));
+        assertScore(8);
     }
 
     public void test_each_pair_of_grains_scores_a_point() {
         testee.setCount(PlayerScore.Item.Grains, 2);
-        assertThat(testee.score(), equalTo(initialScore + 1));
+        assertScore(1);
 
         testee.setCount(PlayerScore.Item.Grains, 6);
-        assertThat(testee.score(), equalTo(initialScore + 3));
+        assertScore(3);
     }
 
     public void test_an_odd_number_of_grains_scores_one_more_point() {
         testee.setCount(PlayerScore.Item.Grains, 1);
-        assertThat(testee.score(), equalTo(initialScore + 1));
+        assertScore(1);
 
         testee.setCount(PlayerScore.Item.Grains, 7);
-        assertThat(testee.score(), equalTo(initialScore + 4));
+        assertScore(4);
     }
 
     public void test_each_vegetable_scores_a_point() {
         testee.setCount(PlayerScore.Item.Vegetables, 2);
-        assertThat(testee.score(), equalTo(initialScore + 2));
+        assertScore(2);
 
         testee.setCount(PlayerScore.Item.Vegetables, 11);
-        assertThat(testee.score(), equalTo(initialScore + 11));
+        assertScore(11);
     }
 
     public void test_each_ruby_scores_a_point() {
         testee.setCount(PlayerScore.Item.Rubies, 5);
-        assertThat(testee.score(), equalTo(initialScore + 5));
+        assertScore(5);
     }
 
     public void test_each_gold_scores_a_point() {
         testee.setCount(PlayerScore.Item.Gold, 13);
-        assertThat(testee.score(), equalTo(initialScore + 13));
+        assertScore(13);
     }
 
     public void test_each_begging_marker_costs_three_points() {
         testee.setCount(PlayerScore.Item.BeggingMarkers, 1);
-        assertThat(testee.score(), equalTo(initialScore - 3));
+        assertScore(-3);
 
         testee.setCount(PlayerScore.Item.BeggingMarkers, 3);
-        assertThat(testee.score(), equalTo(initialScore - 9));
+        assertScore(-9);
+    }
+
+    private void assertScore(int score) {
+        assertThat(testee.score() - initialScore, equalTo(score));
     }
 
 }
