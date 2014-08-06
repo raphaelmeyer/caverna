@@ -22,8 +22,6 @@ public class PlayerScoreActivity extends Activity {
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
 
-    private ScoreInventory.OnItemChangeListener listener;
-
     private class TabListener implements ActionBar.TabListener {
 
         private Fragment fragment;
@@ -84,13 +82,12 @@ public class PlayerScoreActivity extends Activity {
         scoreInventory.setPlayerScore(playerScore);
         scoreLandscape.setPlayerScore(playerScore);
 
-        listener = new ScoreInventory.OnItemChangeListener() {
+        playerScore.addOnScoreChangeListener(new PlayerScore.OnScoreChangeListener() {
             @Override
-            public void onItemChanged() {
+            public void onScoreChanged() {
                 updateScore();
             }
-        };
-        scoreInventory.addOnItemChangeListener(listener);
+        });
 
         setupTabs();
     }
@@ -99,8 +96,6 @@ public class PlayerScoreActivity extends Activity {
     protected void onPause() {
         super.onPause();
         playerScore.save(dbHelper.getWritableDatabase());
-
-        scoreInventory.removeOnItemChangeListener(listener);
     }
 
     @Override

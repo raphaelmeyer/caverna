@@ -64,6 +64,13 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertEquals(initialScoreWithoutFarmAnimals + 5, testee.score());
     }
 
+    public void test_setting_a_farm_animal_count_back_to_zero_readds_the_cost() {
+        testee.setCount(PlayerScore.Item.Sheep, 1);
+        testee.setCount(PlayerScore.Item.Sheep, 0);
+
+        assertEquals(initialScore, testee.score());
+    }
+
     public void test_each_small_pasture_scores_two_points() {
         testee.setCount(PlayerScore.Item.SmallPastures, 1);
         assertEquals(initialScore + 2, testee.score());

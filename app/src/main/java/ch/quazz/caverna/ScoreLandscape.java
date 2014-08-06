@@ -51,4 +51,5 @@ public class ScoreLandscape extends Fragment {
 
         smallPastures.setCount(playerScore.getCount(PlayerScore.Item.SmallPastures));
         largePastures.setCount(playerScore.getCount(PlayerScore.Item.LargePastures));
-    }}
+    }
+}

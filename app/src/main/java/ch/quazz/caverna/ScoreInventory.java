@@ -13,14 +13,7 @@ public class ScoreInventory extends Fragment {
 
     private PlayerScore playerScore;
 
-    private List<OnItemChangeListener> listeners;
-
-    public interface OnItemChangeListener {
-        public abstract void onItemChanged();
-    }
-
     public ScoreInventory() {
-        listeners = new ArrayList<OnItemChangeListener>();
     }
 
     public void setPlayerScore(PlayerScore playerScore) {
@@ -37,7 +30,6 @@ public class ScoreInventory extends Fragment {
             @Override
             public void onCountChanged(int count) {
                 playerScore.setCount(PlayerScore.Item.Dogs, count);
-                notifyListeners();
             }
         });
 
@@ -46,17 +38,10 @@ public class ScoreInventory extends Fragment {
             @Override
             public void onCountChanged(int count) {
                 playerScore.setCount(PlayerScore.Item.Sheep, count);
-                notifyListeners();
             }
         });
 
         return view;
-    }
-
-    private void notifyListeners() {
-        for (OnItemChangeListener listener : listeners) {
-            listener.onItemChanged();
-        }
     }
 
     @Override
@@ -68,13 +53,5 @@ public class ScoreInventory extends Fragment {
 
         dogs.setCount(playerScore.getCount(PlayerScore.Item.Dogs));
         sheep.setCount(playerScore.getCount(PlayerScore.Item.Sheep));
-    }
-
-    public void addOnItemChangeListener(OnItemChangeListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeOnItemChangeListener(OnItemChangeListener listener) {
-        listeners.remove(listener);
     }
 }

@@ -3,10 +3,16 @@ package ch.quazz.caverna;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerScore {
+
+    private Map<Item, Integer> itemCount;
+    private List<OnScoreChangeListener> listeners;
 
     public enum Item {
         Dogs,
@@ -34,15 +40,22 @@ public class PlayerScore {
         RubyMines
     };
 
-    private Map<Item, Integer> itemCount;
+    public interface OnScoreChangeListener {
+        abstract public void onScoreChanged();
+    }
 
     public PlayerScore() {
         itemCount = new HashMap<Item, Integer>();
         itemCount.put(Item.Dwarfs, 2);
+
+        listeners = new ArrayList<OnScoreChangeListener>();
     }
 
     public void setCount(Item item, int count) {
         itemCount.put(item, count);
+        for (OnScoreChangeListener listener : listeners) {
+            listener.onScoreChanged();
+        }
     }
 
     public int getCount(Item item) {
@@ -55,6 +68,14 @@ public class PlayerScore {
     public int score()
     {
         return familyScore() + goodsScore() + animalScore() + homeboardScore();
+    }
+
+    public void addOnScoreChangeListener(OnScoreChangeListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeOnScoreChangeListener(OnScoreChangeListener listener) {
+        listeners.remove(listener);
     }
 
     private int familyScore() {
@@ -77,7 +98,7 @@ public class PlayerScore {
     private  int farmAnimalScore() {
         int sum = 0;
         for(Item farmAnimal : new Item[]{ Item.Sheep, Item.Donkeys, Item.Boars, Item.Cattle }) {
-            if (itemCount.containsKey(farmAnimal)) {
+            if (getCount(farmAnimal) > 0) {
                 sum += getCount(farmAnimal);
             } else {
                 sum -= 2;
