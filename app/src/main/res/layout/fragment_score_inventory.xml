@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/dogs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 caverna:max="30"
                 caverna:label="@string/dogs" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/sheep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 caverna:label="@string/sheep" />
 
             <!--
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/donkeys"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 caverna:max="30"
                 caverna:label="@string/donkeys" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/boars"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 caverna:max="30"
                 caverna:label="@string/boars" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/cattle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
 
             <include layout="@layout/separator" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/dwarfs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

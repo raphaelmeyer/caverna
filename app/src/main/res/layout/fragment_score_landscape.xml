@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/small_pastures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 caverna:max="12"
                 caverna:label="@string/small_pastures" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/large_pastures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             <!--
             <include layout="@layout/separator" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/ore_mines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 caverna:max="5"
                 caverna:label="@string/ore_mines" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/ruby_mines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
 
             <include layout="@layout/separator" />
 
-            <ch.quazz.caverna.CountingInput
+            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/unused_tiles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

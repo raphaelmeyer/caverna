@@ -1,4 +1,4 @@
-package ch.quazz.caverna;
+package ch.quazz.caverna.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ch.quazz.caverna.R;
 
 public class CountingInput extends LinearLayout {
 
