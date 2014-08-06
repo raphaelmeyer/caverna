@@ -10,9 +10,9 @@ public class PlayerScoreTest extends AndroidTestCase {
 
     private PlayerScore testee;
 
-    private int initialScoreDwarfs = 2;
-    private int initialScoreFarmAnimals = -8;
-    private int initialScore = initialScoreDwarfs + initialScoreFarmAnimals;
+    private final int initialScoreDwarfs = 2;
+    private final int initialScoreFarmAnimals = -8;
+    private final int initialScore = initialScoreDwarfs + initialScoreFarmAnimals;
 
     @Override
     protected void setUp() throws Exception {

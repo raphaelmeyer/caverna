@@ -27,8 +27,8 @@ public class PlayerScoreActivity extends Activity {
 
     private class TabListener implements ActionBar.TabListener {
 
-        private Fragment fragment;
-        private String tag;
+        private final Fragment fragment;
+        private final String tag;
 
         TabListener(Fragment fragment, String tag) {
             this.fragment = fragment;

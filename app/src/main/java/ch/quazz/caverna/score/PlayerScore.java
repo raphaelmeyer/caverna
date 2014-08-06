@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class PlayerScore {
 
-    private Map<Item, Integer> itemCount;
-    private List<OnScoreChangeListener> listeners;
+    private final Map<Item, Integer> itemCount;
+    private final List<OnScoreChangeListener> listeners;
 
     public enum Item {
         Dogs,
@@ -38,7 +38,7 @@ public class PlayerScore {
         LargePastures,
         OreMines,
         RubyMines
-    };
+    }
 
     public interface OnScoreChangeListener {
         abstract public void onScoreChanged();
@@ -133,7 +133,7 @@ public class PlayerScore {
         values.put("small_pastures", itemCount.get(Item.SmallPastures));
         values.put("large_pastures", itemCount.get(Item.LargePastures));
 
-        long id = db.insert("player_score", "null", values);
+        db.insert("player_score", "null", values);
     }
 
     public void load(SQLiteDatabase db) {

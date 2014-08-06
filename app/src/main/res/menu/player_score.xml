@@ -2,12 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ch.quazz.caverna.ui.PlayerScoreActivity" >
 
-    <item android:id="@+id/player_score"
-        android:actionViewClass="android.widget.TextView"
-        android:showAsAction="always"
-        android:title="xxx"
-        />
-
     <item android:id="@+id/action_cancel"
         android:icon="@drawable/ic_action_delete"
         android:title="@string/cancel"

@@ -5,19 +5,19 @@ import android.app.Activity;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.widget.CountingInput;
 
-public class ItemCountController {
+class ItemCountController {
 
     public final static class ItemCount {
-        protected final int id;
-        protected final PlayerScore.Item item;
+        final int id;
+        final PlayerScore.Item item;
 
         public ItemCount(int id, PlayerScore.Item item) {
             this.id = id;
             this.item = item;
         }
-    };
+    }
 
-    private PlayerScore playerScore;
+    private final PlayerScore playerScore;
 
     public ItemCountController(PlayerScore playerScore, ItemCount[] itemCounts, Activity activity) {
         this.playerScore = playerScore;

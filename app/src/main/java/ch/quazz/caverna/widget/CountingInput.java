@@ -21,10 +21,10 @@ public class CountingInput extends LinearLayout {
     private int max = 0;
     private String label = "";
 
-    private TextView countText;
-    private SeekBar countSlider;
+    private final TextView countText;
+    private final SeekBar countSlider;
 
-    private List<OnCountChangeListener> listeners;
+    private final List<OnCountChangeListener> listeners;
 
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
