@@ -96,4 +96,46 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertEquals(initialScore + 8, testee.score());
     }
 
+    public void test_each_pair_of_grains_scores_a_point() {
+        testee.setCount(PlayerScore.Item.Grains, 2);
+        assertThat(testee.score(), equalTo(initialScore + 1));
+
+        testee.setCount(PlayerScore.Item.Grains, 6);
+        assertThat(testee.score(), equalTo(initialScore + 3));
+    }
+
+    public void test_an_odd_number_of_grains_scores_one_more_point() {
+        testee.setCount(PlayerScore.Item.Grains, 1);
+        assertThat(testee.score(), equalTo(initialScore + 1));
+
+        testee.setCount(PlayerScore.Item.Grains, 7);
+        assertThat(testee.score(), equalTo(initialScore + 4));
+    }
+
+    public void test_each_vegetable_scores_a_point() {
+        testee.setCount(PlayerScore.Item.Vegetables, 2);
+        assertThat(testee.score(), equalTo(initialScore + 2));
+
+        testee.setCount(PlayerScore.Item.Vegetables, 11);
+        assertThat(testee.score(), equalTo(initialScore + 11));
+    }
+
+    public void test_each_ruby_scores_a_point() {
+        testee.setCount(PlayerScore.Item.Rubies, 5);
+        assertThat(testee.score(), equalTo(initialScore + 5));
+    }
+
+    public void test_each_gold_scores_a_point() {
+        testee.setCount(PlayerScore.Item.Gold, 13);
+        assertThat(testee.score(), equalTo(initialScore + 13));
+    }
+
+    public void test_each_begging_marker_costs_three_points() {
+        testee.setCount(PlayerScore.Item.BeggingMarkers, 1);
+        assertThat(testee.score(), equalTo(initialScore - 3));
+
+        testee.setCount(PlayerScore.Item.BeggingMarkers, 3);
+        assertThat(testee.score(), equalTo(initialScore - 9));
+    }
+
 }

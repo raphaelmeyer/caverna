@@ -3,13 +3,8 @@ package ch.quazz.caverna;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
-import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class PlayerScore {
 
@@ -59,7 +54,7 @@ public class PlayerScore {
 
     public int score()
     {
-        return familyScore() + inventoryScore() + animalScore() + homeboardScore();
+        return familyScore() + goodsScore() + animalScore() + homeboardScore();
     }
 
     private int familyScore() {
@@ -74,8 +69,9 @@ public class PlayerScore {
         return pastureScore() + mineScore();
     }
 
-    private int inventoryScore() {
-        return 0;
+    private int goodsScore() {
+        return grainScore() + getCount(Item.Vegetables) +
+                getCount(Item.Rubies) + getCount(Item.Gold) + beggingCost();
     }
 
     private  int farmAnimalScore() {
@@ -96,6 +92,14 @@ public class PlayerScore {
 
     private int mineScore() {
         return 3 * getCount(Item.OreMines) + 4 * getCount(Item.RubyMines);
+    }
+
+    private int beggingCost() {
+        return (- getCount(Item.BeggingMarkers) * 3);
+    }
+
+    private int grainScore() {
+        return (getCount(Item.Grains) + 1) / 2;
     }
 
     public void save(SQLiteDatabase db) {
