@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.widget.CountingInput;
@@ -31,7 +32,7 @@ public class ScoreLandscape extends Fragment {
         smallPastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.setCount(PlayerScore.Item.SmallPastures, count);
+                playerScore.setCount(GameItem.SmallPastures, count);
             }
         });
 
@@ -39,7 +40,7 @@ public class ScoreLandscape extends Fragment {
         largePastures.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
             @Override
             public void onCountChanged(int count) {
-                playerScore.setCount(PlayerScore.Item.LargePastures, count);
+                playerScore.setCount(GameItem.LargePastures, count);
             }
         });
 
@@ -53,7 +54,7 @@ public class ScoreLandscape extends Fragment {
         CountingInput smallPastures = (CountingInput)getActivity().findViewById(R.id.small_pastures);
         CountingInput largePastures = (CountingInput)getActivity().findViewById(R.id.large_pastures);
 
-        smallPastures.setCount(playerScore.getCount(PlayerScore.Item.SmallPastures));
-        largePastures.setCount(playerScore.getCount(PlayerScore.Item.LargePastures));
+        smallPastures.setCount(playerScore.getCount(GameItem.SmallPastures));
+        largePastures.setCount(playerScore.getCount(GameItem.LargePastures));
     }
 }

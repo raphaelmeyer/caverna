@@ -7,54 +7,28 @@ import java.util.Map;
 
 public class PlayerScore {
 
-    private final Map<Item, Integer> itemCount;
+    private final Map<GameItem, Integer> itemCount;
     private final List<OnScoreChangeListener> listeners;
-
-    public enum Item {
-        Dogs,
-        Sheep,
-        Donkeys,
-        Boars,
-        Cattle,
-
-        Dwarfs,
-
-        Grains,
-        Vegetables,
-
-        Rubies,
-        Gold,
-        BeggingMarkers,
-
-        Stone,
-        Ore,
-        Wood,
-
-        SmallPastures,
-        LargePastures,
-        OreMines,
-        RubyMines
-    }
 
     public interface OnScoreChangeListener {
         abstract public void onScoreChanged();
     }
 
     public PlayerScore() {
-        itemCount = new HashMap<Item, Integer>();
-        itemCount.put(Item.Dwarfs, 2);
+        itemCount = new HashMap<GameItem, Integer>();
+        itemCount.put(GameItem.Dwarfs, 2);
 
         listeners = new ArrayList<OnScoreChangeListener>();
     }
 
-    public void setCount(Item item, int count) {
+    public void setCount(GameItem item, int count) {
         itemCount.put(item, count);
         for (OnScoreChangeListener listener : listeners) {
             listener.onScoreChanged();
         }
     }
 
-    public int getCount(Item item) {
+    public int getCount(GameItem item) {
         if (itemCount.containsKey(item)) {
             return itemCount.get(item);
         }
@@ -75,11 +49,11 @@ public class PlayerScore {
     }
 
     private int familyScore() {
-        return getCount(Item.Dwarfs);
+        return getCount(GameItem.Dwarfs);
     }
 
     private int animalScore() {
-        return getCount(Item.Dogs) + farmAnimalScore();
+        return getCount(GameItem.Dogs) + farmAnimalScore();
     }
 
     private int homeboardScore() {
@@ -87,13 +61,13 @@ public class PlayerScore {
     }
 
     private int goodsScore() {
-        return grainScore() + getCount(Item.Vegetables) +
-                getCount(Item.Rubies) + getCount(Item.Gold) + beggingCost();
+        return grainScore() + getCount(GameItem.Vegetables) +
+                getCount(GameItem.Rubies) + getCount(GameItem.Gold) + beggingCost();
     }
 
     private  int farmAnimalScore() {
         int sum = 0;
-        for(Item farmAnimal : new Item[]{ Item.Sheep, Item.Donkeys, Item.Boars, Item.Cattle }) {
+        for(GameItem farmAnimal : new GameItem[]{ GameItem.Sheep, GameItem.Donkeys, GameItem.Boars, GameItem.Cattle }) {
             if (getCount(farmAnimal) > 0) {
                 sum += getCount(farmAnimal);
             } else {
@@ -104,18 +78,18 @@ public class PlayerScore {
     }
 
     private int pastureScore() {
-        return 2 * getCount(Item.SmallPastures) + 4 * getCount(Item.LargePastures);
+        return 2 * getCount(GameItem.SmallPastures) + 4 * getCount(GameItem.LargePastures);
     }
 
     private int mineScore() {
-        return 3 * getCount(Item.OreMines) + 4 * getCount(Item.RubyMines);
+        return 3 * getCount(GameItem.OreMines) + 4 * getCount(GameItem.RubyMines);
     }
 
     private int beggingCost() {
-        return (- getCount(Item.BeggingMarkers) * 3);
+        return (- getCount(GameItem.BeggingMarkers) * 3);
     }
 
     private int grainScore() {
-        return (getCount(Item.Grains) + 1) / 2;
+        return (getCount(GameItem.Grains) + 1) / 2;
     }
 }

@@ -2,6 +2,7 @@ package ch.quazz.caverna.ui;
 
 import android.app.Activity;
 
+import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.widget.CountingInput;
 
@@ -9,9 +10,9 @@ class ItemCountController {
 
     public final static class ItemCount {
         final int id;
-        final PlayerScore.Item item;
+        final GameItem item;
 
-        public ItemCount(int id, PlayerScore.Item item) {
+        public ItemCount(int id, GameItem item) {
             this.id = id;
             this.item = item;
         }

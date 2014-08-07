@@ -6,14 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
 public class ScoreInventory extends Fragment {
 
     private final ItemCountController.ItemCount itemCounts[] = {
-        new ItemCountController.ItemCount(R.id.dogs, PlayerScore.Item.Dogs),
-        new ItemCountController.ItemCount(R.id.sheep, PlayerScore.Item.Sheep)
+        new ItemCountController.ItemCount(R.id.dogs, GameItem.Dogs),
+        new ItemCountController.ItemCount(R.id.sheep, GameItem.Sheep)
     };
 
     private PlayerScore playerScore;

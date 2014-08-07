@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 
 public class PlayerScoreTable {
@@ -19,10 +20,10 @@ public class PlayerScoreTable {
 
         ContentValues values = new ContentValues();
 
-        values.put("dogs", playerScore.getCount(PlayerScore.Item.Dogs));
-        values.put("sheep", playerScore.getCount(PlayerScore.Item.Sheep));
-        values.put("small_pastures", playerScore.getCount(PlayerScore.Item.SmallPastures));
-        values.put("large_pastures", playerScore.getCount(PlayerScore.Item.LargePastures));
+        values.put("dogs", playerScore.getCount(GameItem.Dogs));
+        values.put("sheep", playerScore.getCount(GameItem.Sheep));
+        values.put("small_pastures", playerScore.getCount(GameItem.SmallPastures));
+        values.put("large_pastures", playerScore.getCount(GameItem.LargePastures));
 
         db.insert("player_score", "null", values);
     }
@@ -40,11 +41,11 @@ public class PlayerScoreTable {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
-            playerScore.setCount(PlayerScore.Item.Dogs, cursor.getInt(cursor.getColumnIndex("dogs")));
-            playerScore.setCount(PlayerScore.Item.Sheep, cursor.getInt(cursor.getColumnIndex("sheep")));
+            playerScore.setCount(GameItem.Dogs, cursor.getInt(cursor.getColumnIndex("dogs")));
+            playerScore.setCount(GameItem.Sheep, cursor.getInt(cursor.getColumnIndex("sheep")));
 
-            playerScore.setCount(PlayerScore.Item.SmallPastures, cursor.getInt(cursor.getColumnIndex("small_pastures")));
-            playerScore.setCount(PlayerScore.Item.LargePastures, cursor.getInt(cursor.getColumnIndex("large_pastures")));
+            playerScore.setCount(GameItem.SmallPastures, cursor.getInt(cursor.getColumnIndex("small_pastures")));
+            playerScore.setCount(GameItem.LargePastures, cursor.getInt(cursor.getColumnIndex("large_pastures")));
         }
     }
 
