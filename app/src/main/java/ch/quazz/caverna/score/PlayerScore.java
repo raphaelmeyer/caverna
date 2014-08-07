@@ -1,9 +1,5 @@
 package ch.quazz.caverna.score;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -121,41 +117,5 @@ public class PlayerScore {
 
     private int grainScore() {
         return (getCount(Item.Grains) + 1) / 2;
-    }
-
-    public void save(SQLiteDatabase db) {
-        db.delete("player_score", null, null);
-
-        ContentValues values = new ContentValues();
-
-        values.put("dogs", itemCount.get(Item.Dogs));
-        values.put("sheep", itemCount.get(Item.Sheep));
-        values.put("small_pastures", itemCount.get(Item.SmallPastures));
-        values.put("large_pastures", itemCount.get(Item.LargePastures));
-
-        db.insert("player_score", "null", values);
-    }
-
-    public void load(SQLiteDatabase db) {
-        String[] columns = {
-          "dogs", "sheep",
-          "small_pastures", "large_pastures"
-        };
-
-        Cursor cursor = db.query("player_score", columns, null, null, null, null, null, "1");
-
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-
-            itemCount.put(Item.Dogs, cursor.getInt(cursor.getColumnIndex("dogs")));
-            itemCount.put(Item.Sheep, cursor.getInt(cursor.getColumnIndex("sheep")));
-
-            itemCount.put(Item.SmallPastures, cursor.getInt(cursor.getColumnIndex("small_pastures")));
-            itemCount.put(Item.LargePastures, cursor.getInt(cursor.getColumnIndex("large_pastures")));
-        }
-    }
-
-    public void erase(SQLiteDatabase db) {
-        db.delete("player_score", null, null);
     }
 }

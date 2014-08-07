@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.PlayerScoreTable;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
@@ -52,10 +53,10 @@ public class MainActivity extends Activity {
 
     public void addPlayer(View view) {
 
-        PlayerScore playerScore = new PlayerScore();
         CavernaDbHelper dbHelper = new CavernaDbHelper(this);
+        PlayerScoreTable playerScoreTable = new PlayerScoreTable(dbHelper);
 
-        playerScore.erase(dbHelper.getWritableDatabase());
+        playerScoreTable.erase();
 
         Intent intent = new Intent(this, PlayerScoreActivity.class);
         startActivity(intent);

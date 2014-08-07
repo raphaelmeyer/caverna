@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.PlayerScoreTable;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
@@ -24,6 +25,7 @@ public class PlayerScoreActivity extends Activity {
 
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
+    private PlayerScoreTable playerScoreTable;
 
     private class TabListener implements ActionBar.TabListener {
 
@@ -56,11 +58,11 @@ public class PlayerScoreActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
+        // equal to (savedInstanceState == null) ?
         if (playerScore == null) {
             playerScore = new PlayerScore();
-        }
-        if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
+            playerScoreTable = new PlayerScoreTable(dbHelper);
         }
 
         if (savedInstanceState != null) {
@@ -98,13 +100,13 @@ public class PlayerScoreActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        playerScore.save(dbHelper.getWritableDatabase());
+        playerScoreTable.save(playerScore);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        playerScore.load(dbHelper.getReadableDatabase());
+        playerScoreTable.load(playerScore);
         updateScore();
     }
 
