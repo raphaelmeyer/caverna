@@ -8,6 +8,32 @@ import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 
 public class PlayerScoreTable {
+
+    private final static class Field {
+        public final GameItem item;
+        public final String name;
+        public final String type;
+
+        public Field(GameItem item, String name, String type) {
+            this.item = item;
+            this.name = name;
+            this.type = type;
+        }
+    }
+
+    private static final String Name = "player_score";
+    private static final Field Fields[] = {
+            new Field(GameItem.Dogs, "dogs", "INTEGER"),
+            new Field(GameItem.Sheep, "sheep", "INTEGER"),
+            new Field(GameItem.Donkeys, "donkeys", "INTEGER"),
+
+            new Field(GameItem.SmallPastures, "small_pastures", "INTEGER"),
+            new Field(GameItem.LargePastures, "large_pastures", "INTEGER"),
+
+            new Field(GameItem.OreMines, "ore_mines", "INTEGER"),
+            new Field(GameItem.RubyMines, "ruby_mines", "INTEGER")
+    };
+
     private final CavernaDbHelper dbHelper;
 
     public PlayerScoreTable(CavernaDbHelper dbHelper) {
