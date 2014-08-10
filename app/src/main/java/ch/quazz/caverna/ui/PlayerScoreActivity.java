@@ -16,12 +16,12 @@ import ch.quazz.caverna.R;
 public class PlayerScoreActivity extends Activity {
 
     private WealthFragment wealthFragment;
-    private BonusFragment bonusFragment;
     private CaveFragment caveFragment;
+    private BonusFragment bonusFragment;
 
     private final String wealthFragmentTag = "wealth";
     private final String caveFragmentTag = "cave";
-    private final String bonusFragmentTag = "fragment";
+    private final String bonusFragmentTag = "bonus";
 
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
@@ -68,20 +68,20 @@ public class PlayerScoreActivity extends Activity {
         if (savedInstanceState != null) {
             wealthFragment =
                     (WealthFragment)getFragmentManager().findFragmentByTag(wealthFragmentTag);
-            bonusFragment =
-                    (BonusFragment)getFragmentManager().findFragmentByTag(caveFragmentTag);
             caveFragment =
-                    (CaveFragment)getFragmentManager().findFragmentByTag(bonusFragmentTag);
+                    (CaveFragment)getFragmentManager().findFragmentByTag(caveFragmentTag);
+            bonusFragment =
+                    (BonusFragment)getFragmentManager().findFragmentByTag(bonusFragmentTag);
         }
 
         if (wealthFragment == null) {
             wealthFragment = new WealthFragment();
         }
-        if (bonusFragment == null) {
-            bonusFragment = new BonusFragment();
-        }
         if (caveFragment == null) {
             caveFragment = new CaveFragment();
+        }
+        if (bonusFragment == null) {
+            bonusFragment = new BonusFragment();
         }
 
         wealthFragment.setPlayerScore(playerScore);
@@ -135,11 +135,11 @@ public class PlayerScoreActivity extends Activity {
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.cave_tab)
-                .setTabListener(new TabListener(bonusFragment, caveFragmentTag)));
+                .setTabListener(new TabListener(caveFragment, caveFragmentTag)));
 
         actionBar.addTab(actionBar.newTab()
                 .setText(R.string.bonus_tab)
-                .setTabListener(new TabListener(caveFragment, bonusFragmentTag)));
+                .setTabListener(new TabListener(bonusFragment, bonusFragmentTag)));
     }
 
 
