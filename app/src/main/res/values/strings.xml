@@ -3,9 +3,9 @@
 
     <string name="app_name">Caverna</string>
 
-    <string name="inventory_tab">Goods</string>
-    <string name="landscape_tab">Landscape</string>
-    <string name="furnishings_tab">Furnishings</string>
+    <string name="wealth_tab">Wealth</string>
+    <string name="cave_tab">Cave</string>
+    <string name="bonus_tab">Bonus</string>
 
     <string name="dwarfs">Dwarfs</string>
 
@@ -14,6 +14,12 @@
     <string name="donkeys">Donkeys</string>
     <string name="boars">Wild boars</string>
     <string name="cattle">Cattle</string>
+
+    <string name="grain">Grain</string>
+    <string name="vegetable">Vegetable</string>
+    <string name="rubies">Rubies</string>
+    <string name="gold">Gold</string>
+    <string name="begging_markers">Begging Markers</string>
 
     <string name="small_pastures">Small Pastures</string>
     <string name="large_pastures">Large Pastures</string>

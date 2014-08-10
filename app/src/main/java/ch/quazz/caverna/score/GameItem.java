@@ -23,5 +23,7 @@ public enum GameItem {
     SmallPastures,
     LargePastures,
     OreMines,
-    RubyMines
+    RubyMines,
+
+    UnusedTiles
 }

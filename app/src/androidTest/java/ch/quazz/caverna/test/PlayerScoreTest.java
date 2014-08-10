@@ -147,6 +147,14 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(-9);
     }
 
+    public void test_each_unused_space_costs_one_point() {
+        testee.setCount(GameItem.UnusedTiles, 1);
+        assertScore(-1);
+
+        testee.setCount(GameItem.UnusedTiles, 4);
+        assertScore(-4);
+    }
+
     private void assertScore(int score) {
         assertThat(testee.score() - initialScore, equalTo(score));
     }

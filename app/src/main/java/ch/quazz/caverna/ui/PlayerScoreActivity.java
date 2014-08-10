@@ -15,13 +15,13 @@ import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
-    private ScoreInventory scoreInventory;
-    private ScoreLandscape scoreLandscape;
-    private ScoreFurnishings scoreFurnishings;
+    private WealthFragment wealthFragment;
+    private BonusFragment bonusFragment;
+    private CaveFragment caveFragment;
 
-    private final String scoreInventoryTag = "inventory";
-    private final String scoreLandscapeTag = "landscape";
-    private final String scoreFurnishingsTag = "furnishings";
+    private final String wealthFragmentTag = "wealth";
+    private final String caveFragmentTag = "cave";
+    private final String bonusFragmentTag = "fragment";
 
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
@@ -66,26 +66,25 @@ public class PlayerScoreActivity extends Activity {
         }
 
         if (savedInstanceState != null) {
-            scoreInventory =
-                    (ScoreInventory)getFragmentManager().findFragmentByTag(scoreInventoryTag);
-            scoreLandscape =
-                    (ScoreLandscape)getFragmentManager().findFragmentByTag(scoreLandscapeTag);
-            scoreFurnishings =
-                    (ScoreFurnishings)getFragmentManager().findFragmentByTag(scoreFurnishingsTag);
+            wealthFragment =
+                    (WealthFragment)getFragmentManager().findFragmentByTag(wealthFragmentTag);
+            bonusFragment =
+                    (BonusFragment)getFragmentManager().findFragmentByTag(caveFragmentTag);
+            caveFragment =
+                    (CaveFragment)getFragmentManager().findFragmentByTag(bonusFragmentTag);
         }
 
-        if (scoreInventory == null) {
-            scoreInventory = new ScoreInventory();
+        if (wealthFragment == null) {
+            wealthFragment = new WealthFragment();
         }
-        if (scoreLandscape == null) {
-            scoreLandscape = new ScoreLandscape();
+        if (bonusFragment == null) {
+            bonusFragment = new BonusFragment();
         }
-        if (scoreFurnishings == null) {
-            scoreFurnishings = new ScoreFurnishings();
+        if (caveFragment == null) {
+            caveFragment = new CaveFragment();
         }
 
-        scoreInventory.setPlayerScore(playerScore);
-        scoreLandscape.setPlayerScore(playerScore);
+        wealthFragment.setPlayerScore(playerScore);
 
         playerScore.addOnScoreChangeListener(new PlayerScore.OnScoreChangeListener() {
             @Override
@@ -131,16 +130,16 @@ public class PlayerScoreActivity extends Activity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         actionBar.addTab(actionBar.newTab()
-                .setText(R.string.inventory_tab)
-                .setTabListener(new TabListener(scoreInventory, scoreInventoryTag)));
+                .setText(R.string.wealth_tab)
+                .setTabListener(new TabListener(wealthFragment, wealthFragmentTag)));
 
         actionBar.addTab(actionBar.newTab()
-                .setText(R.string.landscape_tab)
-                .setTabListener(new TabListener(scoreLandscape, scoreLandscapeTag)));
+                .setText(R.string.cave_tab)
+                .setTabListener(new TabListener(bonusFragment, caveFragmentTag)));
 
         actionBar.addTab(actionBar.newTab()
-                .setText(R.string.furnishings_tab)
-                .setTabListener(new TabListener(scoreFurnishings, scoreFurnishingsTag)));
+                .setText(R.string.bonus_tab)
+                .setTabListener(new TabListener(caveFragment, bonusFragmentTag)));
     }
 
 

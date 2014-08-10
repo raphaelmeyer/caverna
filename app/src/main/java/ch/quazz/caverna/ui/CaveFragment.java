@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 
 import ch.quazz.caverna.R;
 
-public class ScoreFurnishings extends Fragment {
+public class CaveFragment extends Fragment {
 
-    public ScoreFurnishings() {
+    public CaveFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_score_furnishings, container, false);
+        return inflater.inflate(R.layout.fragment_cave, container, false);
     }
 }

@@ -57,7 +57,7 @@ public class PlayerScore {
     }
 
     private int homeboardScore() {
-        return pastureScore() + mineScore();
+        return pastureScore() + mineScore() + unusedScore();
     }
 
     private int goodsScore() {
@@ -83,6 +83,10 @@ public class PlayerScore {
 
     private int mineScore() {
         return 3 * getCount(GameItem.OreMines) + 4 * getCount(GameItem.RubyMines);
+    }
+
+    private int unusedScore() {
+        return (- getCount(GameItem.UnusedTiles));
     }
 
     private int beggingCost() {

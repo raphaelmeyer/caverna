@@ -2,36 +2,43 @@
 
 [![Build Status](https://secure.travis-ci.org/raphaelmeyer/caverna.png?branch=master)](http://travis-ci.org/raphaelmeyer/caverna)
 
+* Wealth
 
-## UI structure
+  * Dwarfs
 
-### Proposal
-
-* Forest
   * Dogs
   * Sheep
-  * ...
+  * Donkeys
+  * Wild boars
+  * Cattle
+
+  * Grain
+  * Vegetable
+  * Rubies
+  * Gold
+  * Begging Markers
+
   * Small Pastures
   * Large Pastures
-  * Unused Space
-
-* Cave
-  * Dwelling
-  * Storage
-  * Chamber
-  * Parlor
-  * ...
-
-* Mountain
-  * Dwarfs
-  * [Dwarf 1 weapon]
-  * [...]
   * Ore Mines
   * Ruby Mines
   * Unused Space
 
-* Goods
-  * Ruby
-  * Gold
-  * [Stone]
+* Cave
+
+  * Dwellings
+  * ...
+  * Furnishings
+  * ...
+
+* Bonus
+
+  * Storage
+  * Chamber
+  * Parlor 
+
   * [Ore]
+  * [Stone]
+  * [Neighbouring Dwellings]
+  * [Weapons]
+
