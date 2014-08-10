@@ -79,4 +79,18 @@ public class PlayerScoreTable {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete("player_score", null, null);
     }
+
+    static String createTableSql() {
+        return "CREATE TABLE player_score ( id INTEGER PRIMARY KEY" +
+                ", dogs INTEGER" +
+                ", sheep INTEGER" +
+                ", small_pastures INTEGER" +
+                ", large_pastures INTEGER" +
+                ")";
+    }
+
+    public static String deleteTableSql() {
+        return "DROP TABLE IF EXISTS player_score";
+    }
+
 }
