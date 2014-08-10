@@ -11,4 +11,19 @@
 
     tools:context="ch.quazz.caverna.ui.CaveFragment">
 
+    <GridView
+        android:id="@+id/dwellings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="auto_fit"
+        android:columnWidth="92dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" />
+
+    <!--CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableRight="@drawable/dwelling" /-->
+
+
 </FrameLayout>
