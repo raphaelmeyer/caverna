@@ -14,9 +14,11 @@
     <GridView
         android:id="@+id/dwellings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:numColumns="auto_fit"
         android:columnWidth="92dp"
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"
         android:gravity="center"
         android:stretchMode="columnWidth" />
 
