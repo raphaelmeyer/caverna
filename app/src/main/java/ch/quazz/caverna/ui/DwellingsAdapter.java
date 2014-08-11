@@ -16,8 +16,8 @@ public class DwellingsAdapter extends BaseAdapter {
 
     private Integer[] icons = {
             R.drawable.dwelling, R.drawable.dwelling, R.drawable.dwelling,
-            R.drawable.dwelling, R.drawable.dwelling, R.drawable.dwelling,
-            R.drawable.dwelling
+            R.drawable.dwelling, R.drawable.simple_dwelling_1, R.drawable.simple_dwelling_2,
+            R.drawable.mixed_dwelling, R.drawable.couple_dwelling, R.drawable.additional_dwelling
     };
 
 
