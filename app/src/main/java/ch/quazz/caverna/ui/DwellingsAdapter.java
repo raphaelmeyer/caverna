@@ -15,9 +15,9 @@ public class DwellingsAdapter extends BaseAdapter {
     private Context context;
 
     private Integer[] icons = {
-            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ruby,
-            R.drawable.ruby, R.drawable.ic_launcher, R.drawable.ic_launcher,
-            R.drawable.ic_launcher
+            R.drawable.dwelling, R.drawable.dwelling, R.drawable.dwelling,
+            R.drawable.dwelling, R.drawable.dwelling, R.drawable.dwelling,
+            R.drawable.dwelling
     };
 
 
