@@ -1,15 +1,12 @@
 package ch.quazz.caverna.ui;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
-import android.media.Image;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 import ch.quazz.caverna.R;
 
@@ -18,8 +15,8 @@ public class DwellingsAdapter extends BaseAdapter {
     private Context context;
 
     private Integer[] icons = {
-            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
-            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
+            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ruby,
+            R.drawable.ruby, R.drawable.ic_launcher, R.drawable.ic_launcher,
             R.drawable.ic_launcher
     };
 
@@ -47,8 +44,13 @@ public class DwellingsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         CheckBox checkBox;
         if (convertView == null) {
+            int size = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
+
+            Drawable icon = parent.getResources().getDrawable(icons[position]);
+            icon.setBounds(0, 0, size, size);
+
             checkBox = new CheckBox(context);
-            checkBox.setCompoundDrawablesWithIntrinsicBounds(0, 0, icons[position], 0);
+            checkBox.setCompoundDrawables(icon, null, null, null);
         } else {
             checkBox = (CheckBox)convertView;
         }
