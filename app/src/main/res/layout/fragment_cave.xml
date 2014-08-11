@@ -12,7 +12,7 @@
     tools:context="ch.quazz.caverna.ui.CaveFragment">
 
     <GridView
-        android:id="@+id/dwellings"
+        android:id="@+id/furnishings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="auto_fit"
