@@ -35,6 +35,18 @@ public class PlayerScore {
         return 0;
     }
 
+    public void set(Furnishing furnishing) {
+
+    }
+
+    public void clear(Furnishing furnishing) {
+
+    }
+
+    public boolean has(Furnishing furnishing) {
+        return false;
+    }
+
     public int score()
     {
         return familyScore() + goodsScore() + animalScore() + homeboardScore();

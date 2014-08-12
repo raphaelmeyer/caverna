@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import ch.quazz.caverna.score.Furnishing;
 import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
 
@@ -155,8 +156,40 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(-4);
     }
 
+
+    public void test_a_dwelling_scores_3_points() {
+        testee.set(Furnishing.Dwelling);
+        assertScore(3);
+    }
+
+    public void test_a_simple_dwelling_scores_no_points() {
+        testee.set(Furnishing.SimpleDwelling_4_2);
+        assertScore(0);
+
+        testee.set(Furnishing.SimpleDwelling_3_3);
+        assertScore(0);
+    }
+
+    public void test_mixed_dwelling_scores_4_points() {
+        testee.set(Furnishing.MixedDwelling);
+        assertScore(4);
+    }
+
+    public void test_couple_dwelling_scores_5_points() {
+        testee.set(Furnishing.CoupleDwelling);
+        assertScore(5);
+    }
+
+    public void test_additional_dwelling_scores_5_points() {
+        testee.set(Furnishing.AdditionalDwelling);
+        assertScore(5);
+    }
+
+
     private void assertScore(int score) {
         assertThat(testee.score() - initialScore, equalTo(score));
     }
+
+
 
 }
