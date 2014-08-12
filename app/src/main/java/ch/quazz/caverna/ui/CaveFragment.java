@@ -26,8 +26,10 @@ public class CaveFragment extends Fragment {
     }
 
     private static final FurnishingSelection[] FurnishingsSelection = {
-        new FurnishingSelection(Furnishing.Dwelling, R.drawable.additional_dwelling),
-        new FurnishingSelection(Furnishing.Dwelling, R.drawable.additional_dwelling),
+        new FurnishingSelection(Furnishing.Dwelling, R.drawable.dwelling),
+        new FurnishingSelection(Furnishing.Dwelling, R.drawable.dwelling),
+        new FurnishingSelection(Furnishing.Dwelling, R.drawable.dwelling),
+        new FurnishingSelection(Furnishing.Dwelling, R.drawable.dwelling),
         new FurnishingSelection(Furnishing.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
         new FurnishingSelection(Furnishing.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
         new FurnishingSelection(Furnishing.MixedDwelling, R.drawable.mixed_dwelling),
@@ -55,16 +57,14 @@ public class CaveFragment extends Fragment {
         GridView gridview = (GridView)view.findViewById(R.id.furnishings);
         gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection));
 
-        // move to furnishing selection controller
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CheckBox checkbox = (CheckBox)view;
-                if (checkbox != null) {
-                    // playerScore.setFurnishing(FurnishingSelection[position].furnishing, checkbox.X());
-                }
-            }
-        });
+        // move to selection controller
+        /*
+                    if (checkbox.isChecked()) {
+                        playerScore.set(FurnishingsSelection[position].furnishing);
+                    } else {
+                        playerScore.clear(FurnishingsSelection[position].furnishing);
+                    }
+         */
 
         return view;
     }

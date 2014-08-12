@@ -2,7 +2,7 @@ package ch.quazz.caverna.test;
 
 import android.test.AndroidTestCase;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 import ch.quazz.caverna.score.Furnishing;
 import ch.quazz.caverna.score.GameItem;
@@ -183,6 +183,16 @@ public class PlayerScoreTest extends AndroidTestCase {
     public void test_additional_dwelling_scores_5_points() {
         testee.set(Furnishing.AdditionalDwelling);
         assertScore(5);
+    }
+
+    public void test_carpenter_scores_no_points() {
+        testee.set(Furnishing.Carpenter);
+        assertScore(0);
+    }
+
+    public void test_stone_carver_scores_1_point() {
+        testee.set(Furnishing.StoneCarver);
+        assertScore(1);
     }
 
 

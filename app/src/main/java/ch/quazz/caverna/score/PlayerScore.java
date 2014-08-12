@@ -2,12 +2,30 @@ package ch.quazz.caverna.score;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class PlayerScore {
 
+    private static final Map<Furnishing, Integer> FurnishingScore = new HashMap<Furnishing, Integer>() {
+        {
+            put(Furnishing.Dwelling, 3);
+            put(Furnishing.SimpleDwelling_4_2, 0);
+            put(Furnishing.SimpleDwelling_3_3, 0);
+            put(Furnishing.MixedDwelling, 4);
+            put(Furnishing.CoupleDwelling, 5);
+            put(Furnishing.AdditionalDwelling, 5);
+
+            put(Furnishing.Carpenter, 0);
+            put(Furnishing.StoneCarver, 1);
+        }
+    };
+
     private final Map<GameItem, Integer> itemCount;
+    private final Set<Furnishing> furnishings;
+
     private final List<OnScoreChangeListener> listeners;
 
     public interface OnScoreChangeListener {
@@ -18,14 +36,14 @@ public class PlayerScore {
         itemCount = new HashMap<GameItem, Integer>();
         itemCount.put(GameItem.Dwarfs, 2);
 
+        furnishings = new HashSet<Furnishing>();
+
         listeners = new ArrayList<OnScoreChangeListener>();
     }
 
     public void setCount(GameItem item, int count) {
         itemCount.put(item, count);
-        for (OnScoreChangeListener listener : listeners) {
-            listener.onScoreChanged();
-        }
+        notifyScoreChanged();
     }
 
     public int getCount(GameItem item) {
@@ -36,20 +54,22 @@ public class PlayerScore {
     }
 
     public void set(Furnishing furnishing) {
-
+        furnishings.add(furnishing);
+        notifyScoreChanged();
     }
 
     public void clear(Furnishing furnishing) {
-
+        furnishings.remove(furnishing);
+        notifyScoreChanged();
     }
 
     public boolean has(Furnishing furnishing) {
-        return false;
+        return furnishings.contains(furnishing);
     }
 
     public int score()
     {
-        return familyScore() + goodsScore() + animalScore() + homeboardScore();
+        return familyScore() + goodsScore() + animalScore() + homeboardScore() + dwellingScore();
     }
 
     public void addOnScoreChangeListener(OnScoreChangeListener listener) {
@@ -58,6 +78,12 @@ public class PlayerScore {
 
     public void removeOnScoreChangeListener(OnScoreChangeListener listener) {
         listeners.remove(listener);
+    }
+
+    private void notifyScoreChanged() {
+        for (OnScoreChangeListener listener : listeners) {
+            listener.onScoreChanged();
+        }
     }
 
     private int familyScore() {
@@ -75,6 +101,14 @@ public class PlayerScore {
     private int goodsScore() {
         return grainScore() + getCount(GameItem.Vegetables) +
                 getCount(GameItem.Rubies) + getCount(GameItem.Gold) + beggingCost();
+    }
+
+    private int dwellingScore() {
+        int score = 0;
+        for(Furnishing furnishing : furnishings) {
+            score += FurnishingScore.get(furnishing);
+        }
+        return score;
     }
 
     private  int farmAnimalScore() {

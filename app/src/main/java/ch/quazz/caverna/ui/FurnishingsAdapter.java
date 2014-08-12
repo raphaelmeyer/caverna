@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.Toast;
 
 import ch.quazz.caverna.R;
 
@@ -38,7 +40,7 @@ public class FurnishingsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         CheckBox checkBox;
         if (convertView == null) {
             int size = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
@@ -48,6 +50,15 @@ public class FurnishingsAdapter extends BaseAdapter {
 
             checkBox = new CheckBox(context);
             checkBox.setCompoundDrawables(icon, null, null, null);
+
+            checkBox.setTag(furnishings[position].furnishing);
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // controller.onSelectionChanged(buttonView.getTag(), isChecked);
+                }
+            });
+
         } else {
             checkBox = (CheckBox)convertView;
         }
