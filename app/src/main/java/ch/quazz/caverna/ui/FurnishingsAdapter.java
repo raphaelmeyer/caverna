@@ -8,20 +8,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
-
-import ch.quazz.caverna.R;
 
 public class FurnishingsAdapter extends BaseAdapter {
 
-    private Context context;
-
+    private final Context context;
     private final CaveFragment.FurnishingSelection[] furnishings;
+    private final CompoundButton.OnCheckedChangeListener listener;
 
-
-    public FurnishingsAdapter(Context context, final CaveFragment.FurnishingSelection[] furnishings) {
+    public FurnishingsAdapter(Context context, final CaveFragment.FurnishingSelection[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
         this.context = context;
         this.furnishings = furnishings;
+        this.listener = listener;
     }
 
     @Override
@@ -52,12 +49,7 @@ public class FurnishingsAdapter extends BaseAdapter {
             checkBox.setCompoundDrawables(icon, null, null, null);
 
             checkBox.setTag(furnishings[position].furnishing);
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    // controller.onSelectionChanged(buttonView.getTag(), isChecked);
-                }
-            });
+            checkBox.setOnCheckedChangeListener(listener);
 
         } else {
             checkBox = (CheckBox)convertView;

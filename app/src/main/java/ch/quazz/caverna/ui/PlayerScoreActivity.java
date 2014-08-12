@@ -85,6 +85,7 @@ public class PlayerScoreActivity extends Activity {
         }
 
         wealthFragment.setPlayerScore(playerScore);
+        caveFragment.setPlayerScore(playerScore);
 
         playerScore.addOnScoreChangeListener(new PlayerScore.OnScoreChangeListener() {
             @Override

@@ -5,8 +5,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.GridView;
 
 import ch.quazz.caverna.R;
@@ -55,17 +54,22 @@ public class CaveFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cave, container, false);
 
         GridView gridview = (GridView)view.findViewById(R.id.furnishings);
-        gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection));
 
-        // move to selection controller
-        /*
-                    if (checkbox.isChecked()) {
-                        playerScore.set(FurnishingsSelection[position].furnishing);
-                    } else {
-                        playerScore.clear(FurnishingsSelection[position].furnishing);
-                    }
-         */
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Furnishing furnishing = (Furnishing)buttonView.getTag();
+                if (isChecked) {
+                    playerScore.set(furnishing);
+                } else {
+                    playerScore.clear(furnishing);
+                }
+            }
+        };
+
+        gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection, listener));
 
         return view;
     }
+
 }

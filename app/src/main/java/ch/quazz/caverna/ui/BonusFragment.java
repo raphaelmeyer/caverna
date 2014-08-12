@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ch.quazz.caverna.score.GameItem;
-import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
 public class BonusFragment extends Fragment {
