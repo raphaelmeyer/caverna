@@ -8,11 +8,11 @@ import ch.quazz.caverna.widget.CountingInput;
 
 class ItemCountController {
 
-    public final static class ItemCount {
+    final static class ItemCount {
         final int id;
         final GameItem item;
 
-        public ItemCount(int id, GameItem item) {
+        ItemCount(int id, GameItem item) {
             this.id = id;
             this.item = item;
         }

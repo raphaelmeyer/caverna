@@ -14,17 +14,17 @@ public class FurnishingsAdapter extends BaseAdapter {
 
     private Context context;
 
-    private final Integer[] icons;
+    private final CaveFragment.FurnishingSelection[] furnishings;
 
 
-    public FurnishingsAdapter(Context context, final Integer[] icons) {
+    public FurnishingsAdapter(Context context, final CaveFragment.FurnishingSelection[] furnishings) {
         this.context = context;
-        this.icons = icons;
+        this.furnishings = furnishings;
     }
 
     @Override
     public int getCount() {
-        return icons.length;
+        return furnishings.length;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class FurnishingsAdapter extends BaseAdapter {
         if (convertView == null) {
             int size = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
 
-            Drawable icon = parent.getResources().getDrawable(icons[position]);
+            Drawable icon = parent.getResources().getDrawable(furnishings[position].icon);
             icon.setBounds(0, 0, size, size);
 
             checkBox = new CheckBox(context);
