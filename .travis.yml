@@ -4,7 +4,7 @@ jdk: oraclejdk7
 android:
   components:
     - build-tools-20.0.0
-    - android-20
+    - android-19
 
 script:
   - ./gradlew build check
