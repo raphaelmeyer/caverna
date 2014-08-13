@@ -58,7 +58,7 @@ public class CaveFragment extends Fragment {
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Furnishing furnishing = (Furnishing)buttonView.getTag();
+                Furnishing furnishing = (Furnishing)(buttonView.getTag());
                 if (isChecked) {
                     playerScore.set(furnishing);
                 } else {
@@ -67,7 +67,7 @@ public class CaveFragment extends Fragment {
             }
         };
 
-        gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection, listener));
+        gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection, listener, playerScore));
 
         return view;
     }

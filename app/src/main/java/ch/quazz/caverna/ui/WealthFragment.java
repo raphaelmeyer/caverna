@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import ch.quazz.caverna.score.GameItem;
 import ch.quazz.caverna.score.PlayerScore;
@@ -63,15 +64,21 @@ public class WealthFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        for (final ItemCount itemCount : itemCounts) {
-            CountingInput countingInput = (CountingInput) getActivity().findViewById(itemCount.id);
-            countingInput.setCount(playerScore.getCount(itemCount.item));
-            countingInput.addOnCountChangeListener(new CountingInput.OnCountChangeListener() {
-                @Override
-                public void onCountChanged(int count) {
-                    playerScore.setCount(itemCount.item, count);
+
+        CountingInput.OnCountChangeListener listener = new CountingInput.OnCountChangeListener() {
+            @Override
+            public void onCountChanged(Object tag, int count, boolean fromUser) {
+                if (fromUser) {
+                    playerScore.setCount((GameItem)tag, count);
                 }
-            });
+            }
+        };
+
+        for (final ItemCount itemCount : itemCounts) {
+            CountingInput countingInput = (CountingInput)getActivity().findViewById(itemCount.id);
+            countingInput.setTag(itemCount.item);
+            countingInput.setCount(playerScore.getCount(itemCount.item));
+            countingInput.addOnCountChangeListener(listener);
         }
     }
 }
