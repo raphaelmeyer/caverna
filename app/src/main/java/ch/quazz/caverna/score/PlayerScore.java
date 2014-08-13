@@ -20,6 +20,17 @@ public class PlayerScore {
 
             put(Furnishing.Carpenter, 0);
             put(Furnishing.StoneCarver, 1);
+            put(Furnishing.Blacksmith, 3);
+            put(Furnishing.Miner, 3);
+            put(Furnishing.Builder, 2);
+            put(Furnishing.Trader, 2);
+
+            put(Furnishing.SlaughteringCave, 2);
+            put(Furnishing.CookingCave, 2);
+            put(Furnishing.WorkingCave, 2);
+            put(Furnishing.MiningCave, 2);
+            put(Furnishing.BreedingCave, 2);
+            put(Furnishing.PeacefulCave, 2);
         }
     };
 

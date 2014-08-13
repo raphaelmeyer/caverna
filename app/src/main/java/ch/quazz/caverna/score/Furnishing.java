@@ -9,5 +9,16 @@ public enum Furnishing {
     AdditionalDwelling,
 
     Carpenter,
-    StoneCarver
+    StoneCarver,
+    Blacksmith,
+    Miner,
+    Builder,
+    Trader,
+
+    SlaughteringCave,
+    CookingCave,
+    WorkingCave,
+    MiningCave,
+    BreedingCave,
+    PeacefulCave
 }
