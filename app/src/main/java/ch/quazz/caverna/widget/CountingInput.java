@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class CountingInput extends LinearLayout {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int padding = Math.round(TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics()));
+                TypedValue.COMPLEX_UNIT_DIP, 4, context.getResources().getDisplayMetrics()));
 
         setOrientation(LinearLayout.HORIZONTAL);
         setPadding(0, padding, 0, padding);
@@ -45,6 +46,9 @@ public class CountingInput extends LinearLayout {
         label = attributes.getString(R.styleable.CountingInput_label);
         min = attributes.getInteger(R.styleable.CountingInput_min, 0);
         max = attributes.getInteger(R.styleable.CountingInput_max, 100);
+
+        ImageView icon = (ImageView)findViewById(R.id.count_icon);
+        icon.setImageDrawable(attributes.getDrawable(R.styleable.CountingInput_icon));
 
         attributes.recycle();
 

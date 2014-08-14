@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
 import ch.quazz.caverna.data.PlayerScoreTable;
-import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
 public class MainActivity extends Activity {
