@@ -10,7 +10,8 @@
 * Split static tables into list of enums and data (points, icon etc.); move data into single table 
 * Family tab
 * Bonus tab
-* Add all items
+* Complete tabs, add all items
+* Icons
 * Complete scoring for all items
 * Game activity
   * Overview scoring sheet
