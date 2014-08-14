@@ -4,6 +4,7 @@
     <string name="app_name">Caverna</string>
 
     <string name="wealth_tab">Wealth</string>
+    <string name="family_tab">Family</string>
     <string name="cave_tab">Cave</string>
     <string name="bonus_tab">Bonus</string>
 
@@ -27,6 +28,8 @@
     <string name="ruby_mines">Ruby Mines</string>
 
     <string name="unused_tiles">Unused Space</string>
+
+    <string name="dwelling">Dwelling</string>
 
     <string name="score">Score</string>
     <string name="cancel">Cancel</string>

@@ -1,7 +1,6 @@
 package ch.quazz.caverna.score;
 
 public enum Furnishing {
-    Dwelling,
     SimpleDwelling_4_2,
     SimpleDwelling_3_3,
     MixedDwelling,
@@ -20,5 +19,19 @@ public enum Furnishing {
     WorkingCave,
     MiningCave,
     BreedingCave,
-    PeacefulCave
+    PeacefulCave,
+
+    CuddleRoom,
+    BreakfastRoom,
+    StubbleRoom,
+    WorkRoom,
+    GuestRoom,
+    OfficeRoom,
+
+    WoodSupplier,
+    StoneSupplier,
+    RubySupplier,
+    DogSchool,
+    Quarry,
+    Seam
 }

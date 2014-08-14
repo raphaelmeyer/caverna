@@ -25,12 +25,6 @@ public class CaveFragment extends Fragment {
     }
 
     private static final FurnishingSelection[] FurnishingsSelection = {
-            new FurnishingSelection(Furnishing.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
-            new FurnishingSelection(Furnishing.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
-            new FurnishingSelection(Furnishing.MixedDwelling, R.drawable.mixed_dwelling),
-            new FurnishingSelection(Furnishing.CoupleDwelling, R.drawable.couple_dwelling),
-            new FurnishingSelection(Furnishing.AdditionalDwelling, R.drawable.additional_dwelling),
-
             new FurnishingSelection(Furnishing.Carpenter, R.drawable.carpenter),
             new FurnishingSelection(Furnishing.StoneCarver, R.drawable.stone_carver),
             new FurnishingSelection(Furnishing.Blacksmith, R.drawable.blacksmith),

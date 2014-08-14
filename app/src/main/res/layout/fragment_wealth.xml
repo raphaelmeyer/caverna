@@ -21,17 +21,6 @@
             android:orientation="vertical">
 
             <ch.quazz.caverna.widget.CountingInput
-                android:id="@+id/dwarfs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                caverna:min="2"
-                caverna:max="6"
-                caverna:label="@string/dwarfs"
-                caverna:icon="@drawable/ore" />
-
-            <include layout="@layout/separator" />
-
-            <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/dogs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

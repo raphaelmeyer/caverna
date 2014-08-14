@@ -21,6 +21,8 @@ public class PlayerScoreTable {
     private static final Map<GameItem, String> ItemNames =
             new HashMap<GameItem, String>(){
                 {
+                    put(GameItem.Dwarfs, "dwarfs");
+
                     put(GameItem.Dogs, "dogs");
                     put(GameItem.Sheep, "sheep");
                     put(GameItem.Donkeys, "donkeys");

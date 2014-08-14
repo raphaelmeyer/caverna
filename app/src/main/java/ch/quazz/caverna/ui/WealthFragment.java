@@ -24,8 +24,6 @@ public class WealthFragment extends Fragment {
     }
 
     private final ItemCount itemCounts[] = {
-        new ItemCount(R.id.dwarfs, GameItem.Dwarfs),
-
         new ItemCount(R.id.dogs, GameItem.Dogs),
         new ItemCount(R.id.sheep, GameItem.Sheep),
         new ItemCount(R.id.donkeys, GameItem.Donkeys),

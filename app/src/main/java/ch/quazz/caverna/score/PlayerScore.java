@@ -11,7 +11,6 @@ public class PlayerScore {
 
     private static final Map<Furnishing, Integer> FurnishingScore = new HashMap<Furnishing, Integer>() {
         {
-            put(Furnishing.Dwelling, 3);
             put(Furnishing.SimpleDwelling_4_2, 0);
             put(Furnishing.SimpleDwelling_3_3, 0);
             put(Furnishing.MixedDwelling, 4);
