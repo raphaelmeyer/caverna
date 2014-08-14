@@ -6,10 +6,12 @@
 
 * Remove playerscore from furnishings adapter
 * Rename furnishings selection, item count
-* Change dwellings to counting input
+* Extract common code from fragments
+* Split static tables into list of enums and data (points, icon etc.); move data into single table 
+* Family tab
 * Bonus tab
-* Score furnishings
-* Score bonuses
+* Add all items
+* Complete scoring for all items
 * Game activity
   * Overview scoring sheet
   * Add player

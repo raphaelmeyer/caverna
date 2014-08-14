@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             caverna:min="0"
             caverna:max="3"
-            caverna:label="@string/dwelling"
+            caverna:label="@string/dwellings"
             caverna:icon="@drawable/dwelling" />
 
         <GridView

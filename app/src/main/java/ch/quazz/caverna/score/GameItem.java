@@ -8,7 +8,7 @@ public enum GameItem {
     Cattle,
 
     Dwarfs,
-    Dwelling,
+    Dwellings,
 
     Grains,
     Vegetables,
