@@ -67,9 +67,9 @@ public class WealthFragment extends Fragment {
 
         CountingInput.OnCountChangeListener listener = new CountingInput.OnCountChangeListener() {
             @Override
-            public void onCountChanged(Object tag, int count, boolean fromUser) {
+            public void onCountChanged(CountingInput input, int count, boolean fromUser) {
                 if (fromUser) {
-                    playerScore.setCount((GameItem)tag, count);
+                    playerScore.setCount((GameItem)input.getTag(), count);
                 }
             }
         };

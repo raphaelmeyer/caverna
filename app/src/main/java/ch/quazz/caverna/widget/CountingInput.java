@@ -70,7 +70,7 @@ public class CountingInput extends LinearLayout {
     }
 
     public interface OnCountChangeListener {
-        public abstract void onCountChanged(Object tag, int count, boolean fromUser);
+        public abstract void onCountChanged(CountingInput input, int count, boolean fromUser);
     }
 
     public void addOnCountChangeListener(OnCountChangeListener listener) {
@@ -89,7 +89,7 @@ public class CountingInput extends LinearLayout {
                 count = min + progress;
                 updateText();
                 for (OnCountChangeListener listener : listeners) {
-                    listener.onCountChanged(getTag(), count, fromUser);
+                    listener.onCountChanged(CountingInput.this, count, fromUser);
                 }
             }
 
