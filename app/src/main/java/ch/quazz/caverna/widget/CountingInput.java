@@ -36,7 +36,7 @@ public class CountingInput extends LinearLayout {
         int padding = Math.round(TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 2, context.getResources().getDisplayMetrics()));
 
-        setOrientation(LinearLayout.VERTICAL);
+        setOrientation(LinearLayout.HORIZONTAL);
         setPadding(0, padding, 0, padding);
         setLayoutParams(layoutParams);
 
