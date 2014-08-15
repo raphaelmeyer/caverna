@@ -8,16 +8,16 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.PlayerScore;
 
-public class SelectionController {
+public class TileController {
 
-    private FurnishingsAdapter.Selection options[];
+    private TileAdapter.Selection options[];
 
-    SelectionController(FurnishingsAdapter.Selection options[]) {
+    TileController(TileAdapter.Selection options[]) {
         this.options = options;
     }
 
-    void setup(final PlayerScore playerScore, Activity activity) {
-        GridView gridview = (GridView)activity.findViewById(R.id.special_dwellings);
+    void setup(final PlayerScore playerScore, Activity activity, int gridId) {
+        GridView gridview = (GridView)activity.findViewById(gridId);
 
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -31,13 +31,13 @@ public class SelectionController {
             }
         };
 
-        FurnishingsAdapter.Check check = new FurnishingsAdapter.Check() {
+        TileAdapter.Check check = new TileAdapter.Check() {
             @Override
             public boolean isSelected(Tile tile) {
                 return playerScore.has(tile);
             }
         };
 
-        gridview.setAdapter(new FurnishingsAdapter(activity, check, options, listener));
+        gridview.setAdapter(new TileAdapter(activity, check, options, listener));
     }
 }

@@ -6,7 +6,7 @@ import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.widget.CountingInput;
 
-public class ItemCountController {
+public class TokenController {
 
     final static class Item {
         final int id;
@@ -20,7 +20,7 @@ public class ItemCountController {
 
     private final Item items[];
 
-    ItemCountController(final Item items[]) {
+    TokenController(final Item items[]) {
         this.items = items;
     }
 

@@ -11,25 +11,25 @@ import ch.quazz.caverna.score.Token;
 
 public class FamilyFragment extends PlayerScoreFragment {
 
-    private static final FurnishingsAdapter.Selection[] Dwellings = {
-            new FurnishingsAdapter.Selection(Tile.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
-            new FurnishingsAdapter.Selection(Tile.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
-            new FurnishingsAdapter.Selection(Tile.MixedDwelling, R.drawable.mixed_dwelling),
-            new FurnishingsAdapter.Selection(Tile.CoupleDwelling, R.drawable.couple_dwelling),
-            new FurnishingsAdapter.Selection(Tile.AdditionalDwelling, R.drawable.additional_dwelling),
+    private static final TileAdapter.Selection[] Dwellings = {
+            new TileAdapter.Selection(Tile.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
+            new TileAdapter.Selection(Tile.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
+            new TileAdapter.Selection(Tile.MixedDwelling, R.drawable.mixed_dwelling),
+            new TileAdapter.Selection(Tile.CoupleDwelling, R.drawable.couple_dwelling),
+            new TileAdapter.Selection(Tile.AdditionalDwelling, R.drawable.additional_dwelling),
     };
 
-    private static final ItemCountController.Item FamilyItems[] = {
-            new ItemCountController.Item(R.id.dwarfs, Token.Dwarfs),
-            new ItemCountController.Item(R.id.dwellings, Token.Dwellings)
+    private static final TokenController.Item FamilyItems[] = {
+            new TokenController.Item(R.id.dwarfs, Token.Dwarfs),
+            new TokenController.Item(R.id.dwellings, Token.Dwellings)
     };
 
-    private ItemCountController familyItemController;
-    private SelectionController dwellingsController;
+    private TokenController familyItemController;
+    private TileController dwellingsController;
 
     public FamilyFragment() {
-        familyItemController = new ItemCountController(FamilyItems);
-        dwellingsController = new SelectionController(Dwellings);
+        familyItemController = new TokenController(FamilyItems);
+        dwellingsController = new TileController(Dwellings);
     }
 
     @Override
@@ -42,6 +42,6 @@ public class FamilyFragment extends PlayerScoreFragment {
     public void onResume() {
         super.onResume();
         familyItemController.setup(playerScore, getActivity());
-        dwellingsController.setup(playerScore, getActivity());
+        dwellingsController.setup(playerScore, getActivity(), R.id.special_dwellings);
     }
 }

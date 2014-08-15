@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 
 import ch.quazz.caverna.score.Tile;
 
-public class FurnishingsAdapter extends BaseAdapter {
+public class TileAdapter extends BaseAdapter {
 
     final static class Selection {
         final Tile tile;
@@ -32,7 +32,7 @@ public class FurnishingsAdapter extends BaseAdapter {
     private final Selection[] furnishings;
     private final CompoundButton.OnCheckedChangeListener listener;
 
-    public FurnishingsAdapter(Context context, Check check, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
+    public TileAdapter(Context context, Check check, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
         this.context = context;
         this.check = check;
         this.furnishings = furnishings;
