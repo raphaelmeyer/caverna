@@ -9,17 +9,28 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import ch.quazz.caverna.score.Furnishing;
 import ch.quazz.caverna.score.PlayerScore;
 
 public class FurnishingsAdapter extends BaseAdapter {
 
+    final static class Selection {
+        final Furnishing furnishing;
+        final int icon;
+
+        Selection(Furnishing furnishing, int icon) {
+            this.furnishing = furnishing;
+            this.icon = icon;
+        }
+    }
+
     private final Context context;
-    private final CaveFragment.FurnishingSelection[] furnishings;
+    private final Selection[] furnishings;
     private final CompoundButton.OnCheckedChangeListener listener;
 
     private final PlayerScore playerScore;
 
-    public FurnishingsAdapter(Context context, final CaveFragment.FurnishingSelection[] furnishings, CompoundButton.OnCheckedChangeListener listener, PlayerScore playerScore) {
+    public FurnishingsAdapter(Context context, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener, PlayerScore playerScore) {
         this.context = context;
         this.furnishings = furnishings;
         this.listener = listener;

@@ -7,7 +7,6 @@
 * Remove playerscore from furnishings adapter
 * Rename furnishings selection, item count
 * Extract common code from fragments
-* Split static tables into list of enums and data (points, icon etc.); move data into single table 
 * Family tab
 * Bonus tab
 * Complete tabs, add all items

@@ -1,6 +1,5 @@
 package ch.quazz.caverna.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,25 +9,18 @@ import android.widget.GridView;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Furnishing;
-import ch.quazz.caverna.score.PlayerScore;
 
-public class FamilyFragment extends Fragment {
+public class FamilyFragment extends PlayerScoreFragment {
 
-    private static final CaveFragment.FurnishingSelection[] Dwellings = {
-            new CaveFragment.FurnishingSelection(Furnishing.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
-            new CaveFragment.FurnishingSelection(Furnishing.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
-            new CaveFragment.FurnishingSelection(Furnishing.MixedDwelling, R.drawable.mixed_dwelling),
-            new CaveFragment.FurnishingSelection(Furnishing.CoupleDwelling, R.drawable.couple_dwelling),
-            new CaveFragment.FurnishingSelection(Furnishing.AdditionalDwelling, R.drawable.additional_dwelling),
+    private static final FurnishingsAdapter.Selection[] Dwellings = {
+            new FurnishingsAdapter.Selection(Furnishing.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
+            new FurnishingsAdapter.Selection(Furnishing.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
+            new FurnishingsAdapter.Selection(Furnishing.MixedDwelling, R.drawable.mixed_dwelling),
+            new FurnishingsAdapter.Selection(Furnishing.CoupleDwelling, R.drawable.couple_dwelling),
+            new FurnishingsAdapter.Selection(Furnishing.AdditionalDwelling, R.drawable.additional_dwelling),
     };
 
-    private PlayerScore playerScore;
-
     public FamilyFragment() {
-    }
-
-    public void setPlayerScore(PlayerScore playerScore) {
-        this.playerScore = playerScore;
     }
 
     @Override

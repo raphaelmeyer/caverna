@@ -1,17 +1,15 @@
 package ch.quazz.caverna.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ch.quazz.caverna.score.GameItem;
-import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.widget.CountingInput;
 
-public class WealthFragment extends Fragment {
+public class WealthFragment extends PlayerScoreFragment {
 
     final static class ItemCount {
         final int id;
@@ -43,13 +41,7 @@ public class WealthFragment extends Fragment {
         new ItemCount(R.id.unused_tiles, GameItem.UnusedTiles)
     };
 
-    private PlayerScore playerScore;
-
     public WealthFragment() {
-    }
-
-    public void setPlayerScore(PlayerScore playerScore) {
-        this.playerScore = playerScore;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package ch.quazz.caverna.ui;
 
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,43 +9,26 @@ import android.widget.GridView;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Furnishing;
-import ch.quazz.caverna.score.PlayerScore;
 
-public class CaveFragment extends Fragment {
+public class CaveFragment extends PlayerScoreFragment {
 
-    final static class FurnishingSelection {
-        final Furnishing furnishing;
-        final int icon;
+    private static final FurnishingsAdapter.Selection[] FurnishingsSelection = {
+            new FurnishingsAdapter.Selection(Furnishing.Carpenter, R.drawable.carpenter),
+            new FurnishingsAdapter.Selection(Furnishing.StoneCarver, R.drawable.stone_carver),
+            new FurnishingsAdapter.Selection(Furnishing.Blacksmith, R.drawable.blacksmith),
+            new FurnishingsAdapter.Selection(Furnishing.Miner, R.drawable.miner),
+            new FurnishingsAdapter.Selection(Furnishing.Builder, R.drawable.builder),
+            new FurnishingsAdapter.Selection(Furnishing.Trader, R.drawable.trader),
 
-        FurnishingSelection(Furnishing furnishing, int icon) {
-            this.furnishing = furnishing;
-            this.icon = icon;
-        }
-    }
-
-    private static final FurnishingSelection[] FurnishingsSelection = {
-            new FurnishingSelection(Furnishing.Carpenter, R.drawable.carpenter),
-            new FurnishingSelection(Furnishing.StoneCarver, R.drawable.stone_carver),
-            new FurnishingSelection(Furnishing.Blacksmith, R.drawable.blacksmith),
-            new FurnishingSelection(Furnishing.Miner, R.drawable.miner),
-            new FurnishingSelection(Furnishing.Builder, R.drawable.builder),
-            new FurnishingSelection(Furnishing.Trader, R.drawable.trader),
-
-            new FurnishingSelection(Furnishing.SlaughteringCave, R.drawable.slaughtering_cave),
-            new FurnishingSelection(Furnishing.CookingCave, R.drawable.cooking_cave),
-            new FurnishingSelection(Furnishing.WorkingCave, R.drawable.working_cave),
-            new FurnishingSelection(Furnishing.MiningCave, R.drawable.mining_cave),
-            new FurnishingSelection(Furnishing.BreedingCave, R.drawable.breeding_cave),
-            new FurnishingSelection(Furnishing.PeacefulCave, R.drawable.peaceful_cave)
+            new FurnishingsAdapter.Selection(Furnishing.SlaughteringCave, R.drawable.slaughtering_cave),
+            new FurnishingsAdapter.Selection(Furnishing.CookingCave, R.drawable.cooking_cave),
+            new FurnishingsAdapter.Selection(Furnishing.WorkingCave, R.drawable.working_cave),
+            new FurnishingsAdapter.Selection(Furnishing.MiningCave, R.drawable.mining_cave),
+            new FurnishingsAdapter.Selection(Furnishing.BreedingCave, R.drawable.breeding_cave),
+            new FurnishingsAdapter.Selection(Furnishing.PeacefulCave, R.drawable.peaceful_cave)
     };
 
-    private PlayerScore playerScore;
-
     public CaveFragment() {
-    }
-
-    public void setPlayerScore(PlayerScore playerScore) {
-        this.playerScore = playerScore;
     }
 
     @Override

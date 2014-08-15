@@ -2,8 +2,6 @@ package ch.quazz.caverna.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,85 +13,33 @@ import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
-    private WealthFragment wealthFragment;
-    private FamilyFragment familyFragment;
-    private CaveFragment caveFragment;
-    private BonusFragment bonusFragment;
+    private static final String Wealth = "wealth";
+    private static final String Family = "family";
+    private static final String Cave = "cave";
+    private static final String Bonus = "bonus";
 
-    private final String wealthFragmentTag = "wealth";
-    private final String familyFragmentTag = "family";
-    private final String caveFragmentTag = "cave";
-    private final String bonusFragmentTag = "bonus";
+    private WealthFragment wealth;
+    private FamilyFragment family;
+    private CaveFragment cave;
+    private BonusFragment bonus;
 
     private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
     private PlayerScoreTable playerScoreTable;
-
-    private class TabListener implements ActionBar.TabListener {
-
-        private final Fragment fragment;
-        private final String tag;
-
-        TabListener(Fragment fragment, String tag) {
-            this.fragment = fragment;
-            this.tag = tag;
-        }
-
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-            fragmentTransaction.replace(R.id.player_score_fragment, fragment, tag);
-        }
-
-        @Override
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-            fragmentTransaction.remove(fragment);
-        }
-
-        @Override
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
-        // equal to (savedInstanceState == null) ?
         if (playerScore == null) {
             playerScore = new PlayerScore();
             dbHelper = new CavernaDbHelper(this);
             playerScoreTable = new PlayerScoreTable(dbHelper);
         }
 
-        if (savedInstanceState != null) {
-            wealthFragment =
-                    (WealthFragment)getFragmentManager().findFragmentByTag(wealthFragmentTag);
-            familyFragment =
-                    (FamilyFragment)getFragmentManager().findFragmentByTag(familyFragmentTag);
-            caveFragment =
-                    (CaveFragment)getFragmentManager().findFragmentByTag(caveFragmentTag);
-            bonusFragment =
-                    (BonusFragment)getFragmentManager().findFragmentByTag(bonusFragmentTag);
-        }
-
-        if (wealthFragment == null) {
-            wealthFragment = new WealthFragment();
-        }
-        if (familyFragment == null) {
-            familyFragment = new FamilyFragment();
-        }
-        if (caveFragment == null) {
-            caveFragment = new CaveFragment();
-        }
-        if (bonusFragment == null) {
-            bonusFragment = new BonusFragment();
-        }
-
-        wealthFragment.setPlayerScore(playerScore);
-        familyFragment.setPlayerScore(playerScore);
-        caveFragment.setPlayerScore(playerScore);
+        setupTabFragments();
+        setupActionBarTabs();
 
         playerScore.addOnScoreChangeListener(new PlayerScore.OnScoreChangeListener() {
             @Override
@@ -102,7 +48,6 @@ public class PlayerScoreActivity extends Activity {
             }
         });
 
-        setupTabs();
     }
 
     @Override
@@ -121,44 +66,75 @@ public class PlayerScoreActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("navigation_index", getActionBar().getSelectedNavigationIndex());
+        if (getActionBar() != null) {
+            outState.putInt("navigation_index", getActionBar().getSelectedNavigationIndex());
+        }
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        getActionBar().setSelectedNavigationItem(savedInstanceState.getInt("navigation_index"));
+        if (getActionBar() != null) {
+            getActionBar().setSelectedNavigationItem(savedInstanceState.getInt("navigation_index"));
+        }
     }
 
     private void updateScore() {
-        setTitle("Score: " + Integer.toString(playerScore.score()));
+        setTitle(getString(R.string.score) + ": " + Integer.toString(playerScore.score()));
     }
 
-    private void setupTabs() {
+    private void setupActionBarTabs() {
         ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        if (actionBar != null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.wealth_tab)
-                .setTabListener(new TabListener(wealthFragment, wealthFragmentTag)));
+            actionBar.addTab(actionBar.newTab()
+                    .setText(R.string.wealth_tab)
+                    .setTabListener(new TabListener(R.id.player_score_fragment, wealth, Wealth)));
 
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.family_tab)
-                .setTabListener(new TabListener(familyFragment, familyFragmentTag)));
+            actionBar.addTab(actionBar.newTab()
+                    .setText(R.string.family_tab)
+                    .setTabListener(new TabListener(R.id.player_score_fragment, family, Family)));
 
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.cave_tab)
-                .setTabListener(new TabListener(caveFragment, caveFragmentTag)));
+            actionBar.addTab(actionBar.newTab()
+                    .setText(R.string.cave_tab)
+                    .setTabListener(new TabListener(R.id.player_score_fragment, cave, Cave)));
 
-        actionBar.addTab(actionBar.newTab()
-                .setText(R.string.bonus_tab)
-                .setTabListener(new TabListener(bonusFragment, bonusFragmentTag)));
+            actionBar.addTab(actionBar.newTab()
+                    .setText(R.string.bonus_tab)
+                    .setTabListener(new TabListener(R.id.player_score_fragment, bonus, Bonus)));
+        }
     }
 
+    private void setupTabFragments() {
+        if (getFragmentManager() != null) {
+            wealth = (WealthFragment)getFragmentManager().findFragmentByTag(Wealth);
+            family = (FamilyFragment)getFragmentManager().findFragmentByTag(Family);
+            cave = (CaveFragment)getFragmentManager().findFragmentByTag(Cave);
+            bonus = (BonusFragment)getFragmentManager().findFragmentByTag(Bonus);
+        }
+
+        if (wealth == null) {
+            wealth = new WealthFragment();
+        }
+        if (family == null) {
+            family = new FamilyFragment();
+        }
+        if (cave == null) {
+            cave = new CaveFragment();
+        }
+        if (bonus == null) {
+            bonus = new BonusFragment();
+        }
+
+        wealth.setPlayerScore(playerScore);
+        family.setPlayerScore(playerScore);
+        cave.setPlayerScore(playerScore);
+        bonus.setPlayerScore(playerScore);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.player_score, menu);
         return true;
     }
