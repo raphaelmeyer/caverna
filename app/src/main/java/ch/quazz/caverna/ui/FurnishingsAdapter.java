@@ -9,33 +9,34 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
-import ch.quazz.caverna.score.Furnishing;
-import ch.quazz.caverna.score.PlayerScore;
+import ch.quazz.caverna.score.Tile;
 
 public class FurnishingsAdapter extends BaseAdapter {
 
     final static class Selection {
-        final Furnishing furnishing;
+        final Tile tile;
         final int icon;
 
-        Selection(Furnishing furnishing, int icon) {
-            this.furnishing = furnishing;
+        Selection(Tile tile, int icon) {
+            this.tile = tile;
             this.icon = icon;
         }
     }
 
+    interface Check {
+        boolean isSelected(Tile tile);
+    }
+
     private final Context context;
+    private final Check check;
     private final Selection[] furnishings;
     private final CompoundButton.OnCheckedChangeListener listener;
 
-    private final PlayerScore playerScore;
-
-    public FurnishingsAdapter(Context context, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener, PlayerScore playerScore) {
+    public FurnishingsAdapter(Context context, Check check, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
         this.context = context;
+        this.check = check;
         this.furnishings = furnishings;
         this.listener = listener;
-
-        this.playerScore = playerScore;
     }
 
     @Override
@@ -65,10 +66,9 @@ public class FurnishingsAdapter extends BaseAdapter {
             checkBox = new CheckBox(context);
             checkBox.setCompoundDrawables(icon, null, null, null);
 
-            checkBox.setTag(furnishings[position].furnishing);
-            checkBox.setChecked(playerScore.has(furnishings[position].furnishing));
+            checkBox.setTag(furnishings[position].tile);
+            checkBox.setChecked(check.isSelected(furnishings[position].tile));
             checkBox.setOnCheckedChangeListener(listener);
-
         } else {
             checkBox = (CheckBox)convertView;
         }

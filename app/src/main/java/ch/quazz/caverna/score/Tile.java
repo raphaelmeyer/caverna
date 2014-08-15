@@ -1,6 +1,6 @@
 package ch.quazz.caverna.score;
 
-public enum Furnishing {
+public enum Tile {
     SimpleDwelling_4_2,
     SimpleDwelling_3_3,
     MixedDwelling,
@@ -33,5 +33,26 @@ public enum Furnishing {
     RubySupplier,
     DogSchool,
     Quarry,
-    Seam
+    Seam,
+
+    WeavingParlor,
+    MilkingParlor,
+    StateParlor,
+    HuntingParlor,
+    BeerParlor,
+    BlacksmithingParlor,
+
+    StoneStorage,
+    OreStorage,
+    SparePartStorage,
+    MainStorage,
+    WeaponStorage,
+    SuppliesStorage,
+
+    BroomChamber,
+    TreasureChamber,
+    FoodChamber,
+    PrayerChamber,
+    WritingChamber,
+    FodderChamber
 }

@@ -1,6 +1,6 @@
 package ch.quazz.caverna.score;
 
-public enum GameItem {
+public enum Token {
     Dogs,
     Sheep,
     Donkeys,

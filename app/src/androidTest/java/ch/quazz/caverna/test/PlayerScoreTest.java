@@ -4,8 +4,8 @@ import android.test.AndroidTestCase;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import ch.quazz.caverna.score.Furnishing;
-import ch.quazz.caverna.score.GameItem;
+import ch.quazz.caverna.score.Tile;
+import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.score.PlayerScore;
 
 
@@ -23,12 +23,12 @@ public class PlayerScoreTest extends AndroidTestCase {
     }
 
     public void test_the_initial_score_counts_two_dwarfs() {
-        assertThat(testee.getCount(GameItem.Dwarfs), equalTo(2));
+        assertThat(testee.getCount(Token.Dwarfs), equalTo(2));
     }
 
     public void test_the_initial_count_of_anything_else_than_dwarfs_is_zero() {
-        for (GameItem item : GameItem.values()) {
-            if (item != GameItem.Dwarfs) {
+        for (Token item : Token.values()) {
+            if (item != Token.Dwarfs) {
                 assertThat(testee.getCount(item), equalTo(0));
             }
         }
@@ -41,10 +41,10 @@ public class PlayerScoreTest extends AndroidTestCase {
     public void test_each_dwarf_scores_a_point() {
         final int initialScoreWithoutDwarfs = initialScore - initialScoreDwarfs;
 
-        testee.setCount(GameItem.Dwarfs, 3);
+        testee.setCount(Token.Dwarfs, 3);
         assertThat(testee.score(), equalTo(initialScoreWithoutDwarfs + 3));
 
-        testee.setCount(GameItem.Dwarfs, 5);
+        testee.setCount(Token.Dwarfs, 5);
         assertThat(testee.score(), equalTo(initialScoreWithoutDwarfs + 5));
     }
 
@@ -58,140 +58,140 @@ public class PlayerScoreTest extends AndroidTestCase {
     public void test_each_animal_scores_a_point() {
         final int initialScoreWithoutFarmAnimals = initialScore - initialScoreFarmAnimals;
 
-        testee.setCount(GameItem.Dogs, 1);
-        testee.setCount(GameItem.Sheep, 1);
-        testee.setCount(GameItem.Donkeys, 1);
-        testee.setCount(GameItem.Boars, 1);
-        testee.setCount(GameItem.Cattle, 1);
+        testee.setCount(Token.Dogs, 1);
+        testee.setCount(Token.Sheep, 1);
+        testee.setCount(Token.Donkeys, 1);
+        testee.setCount(Token.Boars, 1);
+        testee.setCount(Token.Cattle, 1);
 
         assertThat(testee.score(), equalTo(initialScoreWithoutFarmAnimals + 5));
     }
 
     public void test_setting_a_farm_animal_count_back_to_zero_readds_the_cost() {
-        testee.setCount(GameItem.Sheep, 1);
-        testee.setCount(GameItem.Sheep, 0);
+        testee.setCount(Token.Sheep, 1);
+        testee.setCount(Token.Sheep, 0);
 
         assertThat(testee.score(), equalTo(initialScore));
     }
 
     public void test_each_small_pasture_scores_two_points() {
-        testee.setCount(GameItem.SmallPastures, 1);
+        testee.setCount(Token.SmallPastures, 1);
         assertScore(2);
 
-        testee.setCount(GameItem.SmallPastures, 3);
+        testee.setCount(Token.SmallPastures, 3);
         assertScore(6);
     }
 
     public void test_each_large_pasture_scores_four_points() {
-        testee.setCount(GameItem.LargePastures, 1);
+        testee.setCount(Token.LargePastures, 1);
         assertScore(4);
 
-        testee.setCount(GameItem.LargePastures, 3);
+        testee.setCount(Token.LargePastures, 3);
         assertScore(12);
     }
 
     public void test_each_ore_mine_scores_three_points() {
-        testee.setCount(GameItem.OreMines, 1);
+        testee.setCount(Token.OreMines, 1);
         assertScore(3);
 
-        testee.setCount(GameItem.OreMines, 3);
+        testee.setCount(Token.OreMines, 3);
         assertScore(9);
     }
 
     public void test_each_ruby_mine_scores_four_points() {
-        testee.setCount(GameItem.RubyMines, 1);
+        testee.setCount(Token.RubyMines, 1);
         assertScore(4);
 
-        testee.setCount(GameItem.RubyMines, 2);
+        testee.setCount(Token.RubyMines, 2);
         assertScore(8);
     }
 
     public void test_each_pair_of_grains_scores_a_point() {
-        testee.setCount(GameItem.Grains, 2);
+        testee.setCount(Token.Grains, 2);
         assertScore(1);
 
-        testee.setCount(GameItem.Grains, 6);
+        testee.setCount(Token.Grains, 6);
         assertScore(3);
     }
 
     public void test_an_odd_number_of_grains_scores_one_more_point() {
-        testee.setCount(GameItem.Grains, 1);
+        testee.setCount(Token.Grains, 1);
         assertScore(1);
 
-        testee.setCount(GameItem.Grains, 7);
+        testee.setCount(Token.Grains, 7);
         assertScore(4);
     }
 
     public void test_each_vegetable_scores_a_point() {
-        testee.setCount(GameItem.Vegetables, 2);
+        testee.setCount(Token.Vegetables, 2);
         assertScore(2);
 
-        testee.setCount(GameItem.Vegetables, 11);
+        testee.setCount(Token.Vegetables, 11);
         assertScore(11);
     }
 
     public void test_each_ruby_scores_a_point() {
-        testee.setCount(GameItem.Rubies, 5);
+        testee.setCount(Token.Rubies, 5);
         assertScore(5);
     }
 
     public void test_each_gold_scores_a_point() {
-        testee.setCount(GameItem.Gold, 13);
+        testee.setCount(Token.Gold, 13);
         assertScore(13);
     }
 
     public void test_each_begging_marker_costs_three_points() {
-        testee.setCount(GameItem.BeggingMarkers, 1);
+        testee.setCount(Token.BeggingMarkers, 1);
         assertScore(-3);
 
-        testee.setCount(GameItem.BeggingMarkers, 3);
+        testee.setCount(Token.BeggingMarkers, 3);
         assertScore(-9);
     }
 
     public void test_each_unused_space_costs_one_point() {
-        testee.setCount(GameItem.UnusedTiles, 1);
+        testee.setCount(Token.UnusedTiles, 1);
         assertScore(-1);
 
-        testee.setCount(GameItem.UnusedTiles, 4);
+        testee.setCount(Token.UnusedTiles, 4);
         assertScore(-4);
     }
 
 
     public void test_a_dwelling_scores_3_points() {
-        testee.set(Furnishing.Dwelling);
+        testee.set(Tile.Dwelling);
         assertScore(3);
     }
 
     public void test_a_simple_dwelling_scores_no_points() {
-        testee.set(Furnishing.SimpleDwelling_4_2);
+        testee.set(Tile.SimpleDwelling_4_2);
         assertScore(0);
 
-        testee.set(Furnishing.SimpleDwelling_3_3);
+        testee.set(Tile.SimpleDwelling_3_3);
         assertScore(0);
     }
 
     public void test_mixed_dwelling_scores_4_points() {
-        testee.set(Furnishing.MixedDwelling);
+        testee.set(Tile.MixedDwelling);
         assertScore(4);
     }
 
     public void test_couple_dwelling_scores_5_points() {
-        testee.set(Furnishing.CoupleDwelling);
+        testee.set(Tile.CoupleDwelling);
         assertScore(5);
     }
 
     public void test_additional_dwelling_scores_5_points() {
-        testee.set(Furnishing.AdditionalDwelling);
+        testee.set(Tile.AdditionalDwelling);
         assertScore(5);
     }
 
     public void test_carpenter_scores_no_points() {
-        testee.set(Furnishing.Carpenter);
+        testee.set(Tile.Carpenter);
         assertScore(0);
     }
 
     public void test_stone_carver_scores_1_point() {
-        testee.set(Furnishing.StoneCarver);
+        testee.set(Tile.StoneCarver);
         assertScore(1);
     }
 

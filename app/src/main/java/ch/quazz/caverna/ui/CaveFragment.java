@@ -8,24 +8,24 @@ import android.widget.CompoundButton;
 import android.widget.GridView;
 
 import ch.quazz.caverna.R;
-import ch.quazz.caverna.score.Furnishing;
+import ch.quazz.caverna.score.Tile;
 
 public class CaveFragment extends PlayerScoreFragment {
 
     private static final FurnishingsAdapter.Selection[] FurnishingsSelection = {
-            new FurnishingsAdapter.Selection(Furnishing.Carpenter, R.drawable.carpenter),
-            new FurnishingsAdapter.Selection(Furnishing.StoneCarver, R.drawable.stone_carver),
-            new FurnishingsAdapter.Selection(Furnishing.Blacksmith, R.drawable.blacksmith),
-            new FurnishingsAdapter.Selection(Furnishing.Miner, R.drawable.miner),
-            new FurnishingsAdapter.Selection(Furnishing.Builder, R.drawable.builder),
-            new FurnishingsAdapter.Selection(Furnishing.Trader, R.drawable.trader),
+            new FurnishingsAdapter.Selection(Tile.Carpenter, R.drawable.carpenter),
+            new FurnishingsAdapter.Selection(Tile.StoneCarver, R.drawable.stone_carver),
+            new FurnishingsAdapter.Selection(Tile.Blacksmith, R.drawable.blacksmith),
+            new FurnishingsAdapter.Selection(Tile.Miner, R.drawable.miner),
+            new FurnishingsAdapter.Selection(Tile.Builder, R.drawable.builder),
+            new FurnishingsAdapter.Selection(Tile.Trader, R.drawable.trader),
 
-            new FurnishingsAdapter.Selection(Furnishing.SlaughteringCave, R.drawable.slaughtering_cave),
-            new FurnishingsAdapter.Selection(Furnishing.CookingCave, R.drawable.cooking_cave),
-            new FurnishingsAdapter.Selection(Furnishing.WorkingCave, R.drawable.working_cave),
-            new FurnishingsAdapter.Selection(Furnishing.MiningCave, R.drawable.mining_cave),
-            new FurnishingsAdapter.Selection(Furnishing.BreedingCave, R.drawable.breeding_cave),
-            new FurnishingsAdapter.Selection(Furnishing.PeacefulCave, R.drawable.peaceful_cave)
+            new FurnishingsAdapter.Selection(Tile.SlaughteringCave, R.drawable.slaughtering_cave),
+            new FurnishingsAdapter.Selection(Tile.CookingCave, R.drawable.cooking_cave),
+            new FurnishingsAdapter.Selection(Tile.WorkingCave, R.drawable.working_cave),
+            new FurnishingsAdapter.Selection(Tile.MiningCave, R.drawable.mining_cave),
+            new FurnishingsAdapter.Selection(Tile.BreedingCave, R.drawable.breeding_cave),
+            new FurnishingsAdapter.Selection(Tile.PeacefulCave, R.drawable.peaceful_cave)
     };
 
     public CaveFragment() {
@@ -41,16 +41,23 @@ public class CaveFragment extends PlayerScoreFragment {
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Furnishing furnishing = (Furnishing)(buttonView.getTag());
+                Tile tile = (Tile)(buttonView.getTag());
                 if (isChecked) {
-                    playerScore.set(furnishing);
+                    playerScore.set(tile);
                 } else {
-                    playerScore.clear(furnishing);
+                    playerScore.clear(tile);
                 }
             }
         };
 
-        gridview.setAdapter(new FurnishingsAdapter(getActivity(), FurnishingsSelection, listener, playerScore));
+        FurnishingsAdapter.Check check = new FurnishingsAdapter.Check() {
+            @Override
+            public boolean isSelected(Tile tile) {
+                return playerScore.has(tile);
+            }
+        };
+
+        gridview.setAdapter(new FurnishingsAdapter(getActivity(), check, FurnishingsSelection, listener));
 
         return view;
     }

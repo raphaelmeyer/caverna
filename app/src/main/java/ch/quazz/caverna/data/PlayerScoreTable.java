@@ -10,30 +10,30 @@ import org.json.JSONException;
 import java.util.HashMap;
 import java.util.Map;
 
-import ch.quazz.caverna.score.Furnishing;
-import ch.quazz.caverna.score.GameItem;
+import ch.quazz.caverna.score.Tile;
+import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.score.PlayerScore;
 
 public class PlayerScoreTable {
 
     private static final String TableName = "player_score";
     private static final String FurnishingsColumn = "furnishings";
-    private static final Map<GameItem, String> ItemNames =
-            new HashMap<GameItem, String>(){
+    private static final Map<Token, String> ItemNames =
+            new HashMap<Token, String>(){
                 {
-                    put(GameItem.Dwarfs, "dwarfs");
+                    put(Token.Dwarfs, "dwarfs");
 
-                    put(GameItem.Dogs, "dogs");
-                    put(GameItem.Sheep, "sheep");
-                    put(GameItem.Donkeys, "donkeys");
-                    put(GameItem.Boars, "boars");
-                    put(GameItem.Cattle, "cattle");
+                    put(Token.Dogs, "dogs");
+                    put(Token.Sheep, "sheep");
+                    put(Token.Donkeys, "donkeys");
+                    put(Token.Boars, "boars");
+                    put(Token.Cattle, "cattle");
 
-                    put(GameItem.Grains, "grains");
-                    put(GameItem.Vegetables, "vegetables");
+                    put(Token.Grains, "grains");
+                    put(Token.Vegetables, "vegetables");
 
-                    put(GameItem.SmallPastures, "small_pastures");
-                    put(GameItem.LargePastures, "large_pastures");
+                    put(Token.SmallPastures, "small_pastures");
+                    put(Token.LargePastures, "large_pastures");
                 }
     };
 
@@ -49,14 +49,14 @@ public class PlayerScoreTable {
 
         ContentValues values = new ContentValues();
 
-        for (Map.Entry<GameItem, String> column : ItemNames.entrySet()) {
+        for (Map.Entry<Token, String> column : ItemNames.entrySet()) {
             values.put(column.getValue(), playerScore.getCount(column.getKey()));
         }
 
         JSONArray furnishings = new JSONArray();
-        for (Furnishing furnishing : Furnishing.values()) {
-            if(playerScore.has(furnishing)) {
-                furnishings.put(furnishing);
+        for (Tile tile : Tile.values()) {
+            if(playerScore.has(tile)) {
+                furnishings.put(tile);
             }
         }
         values.put(FurnishingsColumn, furnishings.toString());
@@ -72,7 +72,7 @@ public class PlayerScoreTable {
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
-            for (Map.Entry<GameItem, String> column : ItemNames.entrySet()) {
+            for (Map.Entry<Token, String> column : ItemNames.entrySet()) {
                 playerScore.setCount(column.getKey(), cursor.getInt(cursor.getColumnIndex(column.getValue())));
             }
 
@@ -80,8 +80,8 @@ public class PlayerScoreTable {
                 JSONArray read = new JSONArray(cursor.getString(cursor.getColumnIndex(FurnishingsColumn)));
 
                 for (int i = 0; i < read.length(); i++) {
-                    Furnishing furnishing = Furnishing.valueOf(read.getString(i));
-                    playerScore.set(furnishing);
+                    Tile tile = Tile.valueOf(read.getString(i));
+                    playerScore.set(tile);
                 }
             } catch(JSONException exception) {
                 erase();

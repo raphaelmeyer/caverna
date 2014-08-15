@@ -5,43 +5,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ch.quazz.caverna.score.GameItem;
+import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.R;
-import ch.quazz.caverna.widget.CountingInput;
 
 public class WealthFragment extends PlayerScoreFragment {
 
-    final static class ItemCount {
-        final int id;
-        final GameItem item;
+    private final ItemCountController.Item wealthItems[] = {
+        new ItemCountController.Item(R.id.dogs, Token.Dogs),
+        new ItemCountController.Item(R.id.sheep, Token.Sheep),
+        new ItemCountController.Item(R.id.donkeys, Token.Donkeys),
+        new ItemCountController.Item(R.id.boars, Token.Boars),
+        new ItemCountController.Item(R.id.cattle, Token.Cattle),
 
-        ItemCount(int id, GameItem item) {
-            this.id = id;
-            this.item = item;
-        }
-    }
+        new ItemCountController.Item(R.id.grain, Token.Grains),
+        new ItemCountController.Item(R.id.vegetable, Token.Vegetables),
+        new ItemCountController.Item(R.id.rubies, Token.Rubies),
+        new ItemCountController.Item(R.id.gold, Token.Gold),
+        new ItemCountController.Item(R.id.begging_markers, Token.BeggingMarkers),
 
-    private final ItemCount itemCounts[] = {
-        new ItemCount(R.id.dogs, GameItem.Dogs),
-        new ItemCount(R.id.sheep, GameItem.Sheep),
-        new ItemCount(R.id.donkeys, GameItem.Donkeys),
-        new ItemCount(R.id.boars, GameItem.Boars),
-        new ItemCount(R.id.cattle, GameItem.Cattle),
-
-        new ItemCount(R.id.grain, GameItem.Grains),
-        new ItemCount(R.id.vegetable, GameItem.Vegetables),
-        new ItemCount(R.id.rubies, GameItem.Rubies),
-        new ItemCount(R.id.gold, GameItem.Gold),
-        new ItemCount(R.id.begging_markers, GameItem.BeggingMarkers),
-
-        new ItemCount(R.id.small_pastures, GameItem.SmallPastures),
-        new ItemCount(R.id.large_pastures, GameItem.LargePastures),
-        new ItemCount(R.id.ore_mines, GameItem.OreMines),
-        new ItemCount(R.id.ruby_mines, GameItem.RubyMines),
-        new ItemCount(R.id.unused_tiles, GameItem.UnusedTiles)
+        new ItemCountController.Item(R.id.small_pastures, Token.SmallPastures),
+        new ItemCountController.Item(R.id.large_pastures, Token.LargePastures),
+        new ItemCountController.Item(R.id.ore_mines, Token.OreMines),
+        new ItemCountController.Item(R.id.ruby_mines, Token.RubyMines),
+        new ItemCountController.Item(R.id.unused_tiles, Token.UnusedTiles)
     };
+    private final ItemCountController wealthController;
 
     public WealthFragment() {
+        wealthController = new ItemCountController(wealthItems);
     }
 
     @Override
@@ -54,20 +45,6 @@ public class WealthFragment extends PlayerScoreFragment {
     public void onResume() {
         super.onResume();
 
-        CountingInput.OnCountChangeListener listener = new CountingInput.OnCountChangeListener() {
-            @Override
-            public void onCountChanged(CountingInput input, int count, boolean fromUser) {
-                if (fromUser) {
-                    playerScore.setCount((GameItem)input.getTag(), count);
-                }
-            }
-        };
-
-        for (final ItemCount itemCount : itemCounts) {
-            CountingInput countingInput = (CountingInput)getActivity().findViewById(itemCount.id);
-            countingInput.setTag(itemCount.item);
-            countingInput.setCount(playerScore.getCount(itemCount.item));
-            countingInput.addOnCountChangeListener(listener);
-        }
+        wealthController.setup(playerScore, getActivity());
     }
 }

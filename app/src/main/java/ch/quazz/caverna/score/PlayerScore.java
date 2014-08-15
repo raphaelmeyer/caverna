@@ -9,32 +9,32 @@ import java.util.Set;
 
 public class PlayerScore {
 
-    private static final Map<Furnishing, Integer> FurnishingScore = new HashMap<Furnishing, Integer>() {
+    private static final Map<Tile, Integer> FurnishingScore = new HashMap<Tile, Integer>() {
         {
-            put(Furnishing.SimpleDwelling_4_2, 0);
-            put(Furnishing.SimpleDwelling_3_3, 0);
-            put(Furnishing.MixedDwelling, 4);
-            put(Furnishing.CoupleDwelling, 5);
-            put(Furnishing.AdditionalDwelling, 5);
+            put(Tile.SimpleDwelling_4_2, 0);
+            put(Tile.SimpleDwelling_3_3, 0);
+            put(Tile.MixedDwelling, 4);
+            put(Tile.CoupleDwelling, 5);
+            put(Tile.AdditionalDwelling, 5);
 
-            put(Furnishing.Carpenter, 0);
-            put(Furnishing.StoneCarver, 1);
-            put(Furnishing.Blacksmith, 3);
-            put(Furnishing.Miner, 3);
-            put(Furnishing.Builder, 2);
-            put(Furnishing.Trader, 2);
+            put(Tile.Carpenter, 0);
+            put(Tile.StoneCarver, 1);
+            put(Tile.Blacksmith, 3);
+            put(Tile.Miner, 3);
+            put(Tile.Builder, 2);
+            put(Tile.Trader, 2);
 
-            put(Furnishing.SlaughteringCave, 2);
-            put(Furnishing.CookingCave, 2);
-            put(Furnishing.WorkingCave, 2);
-            put(Furnishing.MiningCave, 2);
-            put(Furnishing.BreedingCave, 2);
-            put(Furnishing.PeacefulCave, 2);
+            put(Tile.SlaughteringCave, 2);
+            put(Tile.CookingCave, 2);
+            put(Tile.WorkingCave, 2);
+            put(Tile.MiningCave, 2);
+            put(Tile.BreedingCave, 2);
+            put(Tile.PeacefulCave, 2);
         }
     };
 
-    private final Map<GameItem, Integer> itemCount;
-    private final Set<Furnishing> furnishings;
+    private final Map<Token, Integer> itemCount;
+    private final Set<Tile> tiles;
 
     private final List<OnScoreChangeListener> listeners;
 
@@ -43,38 +43,38 @@ public class PlayerScore {
     }
 
     public PlayerScore() {
-        itemCount = new HashMap<GameItem, Integer>();
-        itemCount.put(GameItem.Dwarfs, 2);
+        itemCount = new HashMap<Token, Integer>();
+        itemCount.put(Token.Dwarfs, 2);
 
-        furnishings = new HashSet<Furnishing>();
+        tiles = new HashSet<Tile>();
 
         listeners = new ArrayList<OnScoreChangeListener>();
     }
 
-    public void setCount(GameItem item, int count) {
+    public void setCount(Token item, int count) {
         itemCount.put(item, count);
         notifyScoreChanged();
     }
 
-    public int getCount(GameItem item) {
+    public int getCount(Token item) {
         if (itemCount.containsKey(item)) {
             return itemCount.get(item);
         }
         return 0;
     }
 
-    public void set(Furnishing furnishing) {
-        furnishings.add(furnishing);
+    public void set(Tile tile) {
+        tiles.add(tile);
         notifyScoreChanged();
     }
 
-    public void clear(Furnishing furnishing) {
-        furnishings.remove(furnishing);
+    public void clear(Tile tile) {
+        tiles.remove(tile);
         notifyScoreChanged();
     }
 
-    public boolean has(Furnishing furnishing) {
-        return furnishings.contains(furnishing);
+    public boolean has(Tile tile) {
+        return tiles.contains(tile);
     }
 
     public int score()
@@ -97,11 +97,11 @@ public class PlayerScore {
     }
 
     private int familyScore() {
-        return getCount(GameItem.Dwarfs);
+        return getCount(Token.Dwarfs);
     }
 
     private int animalScore() {
-        return getCount(GameItem.Dogs) + farmAnimalScore();
+        return getCount(Token.Dogs) + farmAnimalScore();
     }
 
     private int homeboardScore() {
@@ -109,21 +109,21 @@ public class PlayerScore {
     }
 
     private int goodsScore() {
-        return grainScore() + getCount(GameItem.Vegetables) +
-                getCount(GameItem.Rubies) + getCount(GameItem.Gold) + beggingCost();
+        return grainScore() + getCount(Token.Vegetables) +
+                getCount(Token.Rubies) + getCount(Token.Gold) + beggingCost();
     }
 
     private int dwellingScore() {
         int score = 0;
-        for(Furnishing furnishing : furnishings) {
-            score += FurnishingScore.get(furnishing);
+        for(Tile tile : tiles) {
+            score += FurnishingScore.get(tile);
         }
         return score;
     }
 
     private  int farmAnimalScore() {
         int sum = 0;
-        for(GameItem farmAnimal : new GameItem[]{ GameItem.Sheep, GameItem.Donkeys, GameItem.Boars, GameItem.Cattle }) {
+        for(Token farmAnimal : new Token[]{ Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle }) {
             if (getCount(farmAnimal) > 0) {
                 sum += getCount(farmAnimal);
             } else {
@@ -134,22 +134,22 @@ public class PlayerScore {
     }
 
     private int pastureScore() {
-        return 2 * getCount(GameItem.SmallPastures) + 4 * getCount(GameItem.LargePastures);
+        return 2 * getCount(Token.SmallPastures) + 4 * getCount(Token.LargePastures);
     }
 
     private int mineScore() {
-        return 3 * getCount(GameItem.OreMines) + 4 * getCount(GameItem.RubyMines);
+        return 3 * getCount(Token.OreMines) + 4 * getCount(Token.RubyMines);
     }
 
     private int unusedScore() {
-        return (- getCount(GameItem.UnusedTiles));
+        return (- getCount(Token.UnusedTiles));
     }
 
     private int beggingCost() {
-        return (- getCount(GameItem.BeggingMarkers) * 3);
+        return (- getCount(Token.BeggingMarkers) * 3);
     }
 
     private int grainScore() {
-        return (getCount(GameItem.Grains) + 1) / 2;
+        return (getCount(Token.Grains) + 1) / 2;
     }
 }
