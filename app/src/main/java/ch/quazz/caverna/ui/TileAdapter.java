@@ -51,27 +51,28 @@ public class TileAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
         CheckBox checkBox;
         if (convertView == null) {
-            int size = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
-
-            Drawable icon = parent.getResources().getDrawable(furnishings[position].icon);
-            icon.setBounds(0, 0, size, size);
-
             checkBox = new CheckBox(context);
-            checkBox.setCompoundDrawables(icon, null, null, null);
-
-            checkBox.setTag(furnishings[position].tile);
-            checkBox.setChecked(check.isSelected(furnishings[position].tile));
-            checkBox.setOnCheckedChangeListener(listener);
         } else {
             checkBox = (CheckBox)convertView;
         }
+
+        int iconSize = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
+
+        Drawable icon = parent.getResources().getDrawable(furnishings[position].icon);
+        icon.setBounds(0, 0, iconSize, iconSize);
+
+        checkBox.setCompoundDrawables(icon, null, null, null);
+
+        checkBox.setTag(furnishings[position].tile);
+        checkBox.setChecked(check.isSelected(furnishings[position].tile));
+        checkBox.setOnCheckedChangeListener(listener);
 
         return checkBox;
     }
