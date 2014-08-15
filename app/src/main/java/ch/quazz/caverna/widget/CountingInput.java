@@ -25,7 +25,7 @@ public class CountingInput extends LinearLayout {
     private final TextView countText;
     private final SeekBar countSlider;
 
-    private final List<OnCountChangeListener> listeners;
+    private OnCountChangeListener listener;
 
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,8 +58,6 @@ public class CountingInput extends LinearLayout {
         countSlider = (SeekBar)findViewById(R.id.count_slider);
 
         setupSeekbar();
-
-        listeners = new ArrayList<OnCountChangeListener>();
     }
 
     public void setCount(int count) {
@@ -77,8 +75,8 @@ public class CountingInput extends LinearLayout {
         public abstract void onCountChanged(CountingInput input, int count, boolean fromUser);
     }
 
-    public void addOnCountChangeListener(OnCountChangeListener listener) {
-        listeners.add(listener);
+    public void setOnCountChangeListener(OnCountChangeListener listener) {
+        this.listener = listener;
     }
 
     private void setupSeekbar() {
@@ -92,7 +90,7 @@ public class CountingInput extends LinearLayout {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 count = min + progress;
                 updateText();
-                for (OnCountChangeListener listener : listeners) {
+                if (listener != null) {
                     listener.onCountChanged(CountingInput.this, count, fromUser);
                 }
             }

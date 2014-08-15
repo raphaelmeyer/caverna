@@ -39,7 +39,7 @@ public class TokenController {
             CountingInput countingInput = (CountingInput)activity.findViewById(item.id);
             countingInput.setTag(item.item);
             countingInput.setCount(playerScore.getCount(item.item));
-            countingInput.addOnCountChangeListener(listener);
+            countingInput.setOnCountChangeListener(listener);
         }
     }
 }
