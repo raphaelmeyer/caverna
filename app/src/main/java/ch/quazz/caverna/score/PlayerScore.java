@@ -116,7 +116,9 @@ public class PlayerScore {
     private int dwellingScore() {
         int score = 0;
         for(Tile tile : tiles) {
-            score += FurnishingScore.get(tile);
+            if (FurnishingScore.containsKey(tile)) {
+                score += FurnishingScore.get(tile);
+            }
         }
         return score;
     }

@@ -11,4 +11,22 @@
 
     tools:context="ch.quazz.caverna.ui.BonusFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <GridView
+            android:id="@+id/bonus_tiles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:columnWidth="96dp"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
+            android:gravity="center"
+            android:stretchMode="columnWidth" />
+
+    </LinearLayout>
+
 </FrameLayout>
