@@ -4,11 +4,8 @@
 
 ### TODO
 
-* Remove playerscore from furnishings adapter
-* Rename furnishings selection, item count
-* Extract common code from fragments
-* Family tab
-* Bonus tab
+* Clean up naming in data package
+* Clean up naming in score packge
 * Complete tabs, add all items
 * Icons
 * Complete scoring for all items
