@@ -34,6 +34,8 @@
             caverna:label="@string/dwellings"
             caverna:icon="@drawable/dwelling" />
 
+        <include layout="@layout/separator" />
+
         <GridView
             android:id="@+id/special_dwellings"
             android:layout_width="match_parent"

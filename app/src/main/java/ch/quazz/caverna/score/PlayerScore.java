@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class PlayerScore {
 
-    private static final Map<Tile, Integer> FurnishingScore = new HashMap<Tile, Integer>() {
+    private static final Map<Tile, Integer> TilePoints = new HashMap<Tile, Integer>() {
         {
             put(Tile.SimpleDwelling_4_2, 0);
             put(Tile.SimpleDwelling_3_3, 0);
@@ -30,6 +30,24 @@ public class PlayerScore {
             put(Tile.MiningCave, 2);
             put(Tile.BreedingCave, 2);
             put(Tile.PeacefulCave, 2);
+
+            put(Tile.CuddleRoom, 2);
+            put(Tile.BreakfastRoom, 0);
+            put(Tile.StubbleRoom, 1);
+            put(Tile.WorkRoom, 2);
+            put(Tile.GuestRoom, 0);
+            put(Tile.OfficeRoom, 0);
+
+            put(Tile.WoodSupplier, 2);
+            put(Tile.StoneSupplier, 1);
+            put(Tile.RubySupplier, 2);
+            put(Tile.DogSchool, 0);
+            put(Tile.Quarry, 2);
+            put(Tile.Seam, 1);
+
+            put(Tile.HuntingParlor, 1);
+            put(Tile.BeerParlor, 3);
+            put(Tile.BlacksmithingParlor, 2);
         }
     };
 
@@ -97,7 +115,7 @@ public class PlayerScore {
     }
 
     private int familyScore() {
-        return getCount(Token.Dwarfs);
+        return getCount(Token.Dwarfs) + 3 * getCount(Token.Dwellings);
     }
 
     private int animalScore() {
@@ -116,8 +134,8 @@ public class PlayerScore {
     private int dwellingScore() {
         int score = 0;
         for(Tile tile : tiles) {
-            if (FurnishingScore.containsKey(tile)) {
-                score += FurnishingScore.get(tile);
+            if (TilePoints.containsKey(tile)) {
+                score += TilePoints.get(tile);
             }
         }
         return score;
@@ -144,7 +162,7 @@ public class PlayerScore {
     }
 
     private int unusedScore() {
-        return (- getCount(Token.UnusedTiles));
+        return (- getCount(Token.UnusedSpace));
     }
 
     private int beggingCost() {

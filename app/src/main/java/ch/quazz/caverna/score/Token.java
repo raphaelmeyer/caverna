@@ -26,5 +26,5 @@ public enum Token {
     OreMines,
     RubyMines,
 
-    UnusedTiles
+    UnusedSpace
 }

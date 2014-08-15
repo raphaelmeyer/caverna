@@ -19,6 +19,7 @@ public class WealthFragment extends PlayerScoreFragment {
 
         new TokenController.Item(R.id.grain, Token.Grains),
         new TokenController.Item(R.id.vegetable, Token.Vegetables),
+
         new TokenController.Item(R.id.rubies, Token.Rubies),
         new TokenController.Item(R.id.gold, Token.Gold),
         new TokenController.Item(R.id.begging_markers, Token.BeggingMarkers),
@@ -27,7 +28,7 @@ public class WealthFragment extends PlayerScoreFragment {
         new TokenController.Item(R.id.large_pastures, Token.LargePastures),
         new TokenController.Item(R.id.ore_mines, Token.OreMines),
         new TokenController.Item(R.id.ruby_mines, Token.RubyMines),
-        new TokenController.Item(R.id.unused_tiles, Token.UnusedTiles)
+        new TokenController.Item(R.id.unused_tiles, Token.UnusedSpace)
     };
     private final TokenController wealthController;
 

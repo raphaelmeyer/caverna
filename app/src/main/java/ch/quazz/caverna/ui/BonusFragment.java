@@ -16,7 +16,21 @@ public class BonusFragment extends PlayerScoreFragment {
             new TileAdapter.Item(Tile.StateParlor, R.drawable.state_parlor),
             new TileAdapter.Item(Tile.HuntingParlor, R.drawable.hunting_parlor),
             new TileAdapter.Item(Tile.BeerParlor, R.drawable.beer_parlor),
-            new TileAdapter.Item(Tile.BlacksmithingParlor, R.drawable.blacksmithing_parlor)
+            new TileAdapter.Item(Tile.BlacksmithingParlor, R.drawable.blacksmithing_parlor),
+
+            new TileAdapter.Item(Tile.StoneStorage, R.drawable.stone_storage),
+            new TileAdapter.Item(Tile.OreStorage, R.drawable.ore_storage),
+            new TileAdapter.Item(Tile.SparePartStorage, R.drawable.spare_part_storage),
+            new TileAdapter.Item(Tile.MainStorage, R.drawable.main_storage),
+            new TileAdapter.Item(Tile.WeaponStorage, R.drawable.weapon_storage),
+            new TileAdapter.Item(Tile.SuppliesStorage, R.drawable.supplies_storage),
+
+            new TileAdapter.Item(Tile.BroomChamber, R.drawable.broom_chamber),
+            new TileAdapter.Item(Tile.TreasureChamber, R.drawable.treasure_chamber),
+            new TileAdapter.Item(Tile.FoodChamber, R.drawable.food_chamber),
+            new TileAdapter.Item(Tile.PrayerChamber, R.drawable.prayer_chamber),
+            new TileAdapter.Item(Tile.WritingChamber, R.drawable.writing_chamber),
+            new TileAdapter.Item(Tile.FodderChamber, R.drawable.fodder_chamber)
     };
 
     private TileController bonusController;

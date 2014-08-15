@@ -23,7 +23,21 @@ public class CaveFragment extends PlayerScoreFragment {
             new TileAdapter.Item(Tile.WorkingCave, R.drawable.working_cave),
             new TileAdapter.Item(Tile.MiningCave, R.drawable.mining_cave),
             new TileAdapter.Item(Tile.BreedingCave, R.drawable.breeding_cave),
-            new TileAdapter.Item(Tile.PeacefulCave, R.drawable.peaceful_cave)
+            new TileAdapter.Item(Tile.PeacefulCave, R.drawable.peaceful_cave),
+
+            new TileAdapter.Item(Tile.CuddleRoom, R.drawable.cuddle_room),
+            new TileAdapter.Item(Tile.BreakfastRoom, R.drawable.breakfast_room),
+            new TileAdapter.Item(Tile.StubbleRoom, R.drawable.stubble_room),
+            new TileAdapter.Item(Tile.WorkRoom, R.drawable.work_room),
+            new TileAdapter.Item(Tile.GuestRoom, R.drawable.guest_room),
+            new TileAdapter.Item(Tile.OfficeRoom, R.drawable.office_room),
+
+            new TileAdapter.Item(Tile.WoodSupplier, R.drawable.wood_supplier),
+            new TileAdapter.Item(Tile.StoneSupplier, R.drawable.stone_supplier),
+            new TileAdapter.Item(Tile.RubySupplier, R.drawable.ruby_supplier),
+            new TileAdapter.Item(Tile.DogSchool, R.drawable.dog_school),
+            new TileAdapter.Item(Tile.Quarry, R.drawable.quarry),
+            new TileAdapter.Item(Tile.Seam, R.drawable.seam)
     };
 
     private TileController cavesController;

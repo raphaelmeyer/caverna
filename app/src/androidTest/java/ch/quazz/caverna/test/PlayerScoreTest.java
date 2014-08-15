@@ -149,51 +149,48 @@ public class PlayerScoreTest extends AndroidTestCase {
     }
 
     public void test_each_unused_space_costs_one_point() {
-        testee.setCount(Token.UnusedTiles, 1);
+        testee.setCount(Token.UnusedSpace, 1);
         assertScore(-1);
 
-        testee.setCount(Token.UnusedTiles, 4);
+        testee.setCount(Token.UnusedSpace, 4);
         assertScore(-4);
     }
 
-
-    public void test_a_dwelling_scores_3_points() {
-        testee.set(Tile.Dwelling);
+    public void test_each_dwelling_scores_3_points() {
+        testee.setCount(Token.Dwellings, 1);
         assertScore(3);
+
+        testee.setCount(Token.Dwellings, 3);
+        assertScore(9);
     }
 
-    public void test_a_simple_dwelling_scores_no_points() {
-        testee.set(Tile.SimpleDwelling_4_2);
-        assertScore(0);
-
-        testee.set(Tile.SimpleDwelling_3_3);
-        assertScore(0);
-    }
-
-    public void test_mixed_dwelling_scores_4_points() {
-        testee.set(Tile.MixedDwelling);
-        assertScore(4);
-    }
-
-    public void test_couple_dwelling_scores_5_points() {
+    public void test_furnishing_tiles_score_given_number_of_points() {
         testee.set(Tile.CoupleDwelling);
         assertScore(5);
-    }
+        testee.clear(Tile.CoupleDwelling);
 
-    public void test_additional_dwelling_scores_5_points() {
-        testee.set(Tile.AdditionalDwelling);
-        assertScore(5);
-    }
+        testee.set(Tile.Miner);
+        assertScore(3);
+        testee.clear(Tile.Miner);
 
-    public void test_carpenter_scores_no_points() {
-        testee.set(Tile.Carpenter);
+        testee.set(Tile.CookingCave);
+        assertScore(2);
+        testee.clear(Tile.CookingCave);
+
+        testee.set(Tile.OfficeRoom);
         assertScore(0);
+        testee.clear(Tile.OfficeRoom);
+
+        testee.set(Tile.WoodSupplier);
+        assertScore(2);
+        testee.clear(Tile.WoodSupplier);
+
+        testee.set(Tile.HuntingParlor);
+        assertScore(1);
+        testee.clear(Tile.HuntingParlor);
     }
 
-    public void test_stone_carver_scores_1_point() {
-        testee.set(Tile.StoneCarver);
-        assertScore(1);
-    }
+
 
 
     private void assertScore(int score) {
