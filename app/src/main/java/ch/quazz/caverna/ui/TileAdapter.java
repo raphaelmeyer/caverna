@@ -13,11 +13,11 @@ import ch.quazz.caverna.score.Tile;
 
 public class TileAdapter extends BaseAdapter {
 
-    final static class Selection {
+    final static class Item {
         final Tile tile;
         final int icon;
 
-        Selection(Tile tile, int icon) {
+        Item(Tile tile, int icon) {
             this.tile = tile;
             this.icon = icon;
         }
@@ -29,10 +29,10 @@ public class TileAdapter extends BaseAdapter {
 
     private final Context context;
     private final Check check;
-    private final Selection[] furnishings;
+    private final Item[] furnishings;
     private final CompoundButton.OnCheckedChangeListener listener;
 
-    public TileAdapter(Context context, Check check, final Selection[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
+    public TileAdapter(Context context, Check check, final Item[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
         this.context = context;
         this.check = check;
         this.furnishings = furnishings;

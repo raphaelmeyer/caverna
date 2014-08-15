@@ -4,15 +4,14 @@ import android.app.Activity;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 
-import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.PlayerScore;
 
 public class TileController {
 
-    private TileAdapter.Selection options[];
+    private TileAdapter.Item options[];
 
-    TileController(TileAdapter.Selection options[]) {
+    TileController(TileAdapter.Item options[]) {
         this.options = options;
     }
 

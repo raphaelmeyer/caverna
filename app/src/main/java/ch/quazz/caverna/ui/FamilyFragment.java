@@ -11,12 +11,12 @@ import ch.quazz.caverna.score.Token;
 
 public class FamilyFragment extends PlayerScoreFragment {
 
-    private static final TileAdapter.Selection[] Dwellings = {
-            new TileAdapter.Selection(Tile.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
-            new TileAdapter.Selection(Tile.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
-            new TileAdapter.Selection(Tile.MixedDwelling, R.drawable.mixed_dwelling),
-            new TileAdapter.Selection(Tile.CoupleDwelling, R.drawable.couple_dwelling),
-            new TileAdapter.Selection(Tile.AdditionalDwelling, R.drawable.additional_dwelling),
+    private static final TileAdapter.Item[] Dwellings = {
+            new TileAdapter.Item(Tile.SimpleDwelling_4_2, R.drawable.simple_dwelling_1),
+            new TileAdapter.Item(Tile.SimpleDwelling_3_3, R.drawable.simple_dwelling_2),
+            new TileAdapter.Item(Tile.MixedDwelling, R.drawable.mixed_dwelling),
+            new TileAdapter.Item(Tile.CoupleDwelling, R.drawable.couple_dwelling),
+            new TileAdapter.Item(Tile.AdditionalDwelling, R.drawable.additional_dwelling),
     };
 
     private static final TokenController.Item FamilyItems[] = {
