@@ -1,6 +1,7 @@
 package ch.quazz.caverna.score;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Set;
 
 public class PlayerScore {
 
-    private static final Map<Tile, Integer> TilePoints = new HashMap<Tile, Integer>() {
+    private static final Map<Tile, Integer> FurnishingPoints = new HashMap<Tile, Integer>() {
         {
             put(Tile.SimpleDwelling_4_2, 0);
             put(Tile.SimpleDwelling_3_3, 0);
@@ -97,7 +98,7 @@ public class PlayerScore {
 
     public int score()
     {
-        return familyScore() + goodsScore() + animalScore() + homeboardScore() + dwellingScore();
+        return scoreTokens() + scoreTiles() - cost();
     }
 
     public void addOnScoreChangeListener(OnScoreChangeListener listener) {
@@ -114,62 +115,67 @@ public class PlayerScore {
         }
     }
 
-    private int familyScore() {
-        return getCount(Token.Dwarfs) + 3 * getCount(Token.Dwellings);
+    private int scoreTokens() {
+        int score = getCount(Token.Dwarfs);
+        score += 3 * getCount(Token.Dwellings);
+
+        score += animalScore();
+
+        score += (getCount(Token.Grains) + 1) / 2;
+        score += getCount(Token.Vegetables);
+
+        score += getCount(Token.Rubies);
+        score += getCount(Token.Gold);
+
+        return score;
+    }
+
+    private int scoreTiles() {
+        int score = 0;
+
+        score += 2 * getCount(Token.SmallPastures);
+        score += 4 * getCount(Token.LargePastures);
+
+        score += 3 * getCount(Token.OreMines);
+        score += 4 * getCount(Token.RubyMines);
+
+        for (Map.Entry<Tile, Integer> tile: FurnishingPoints.entrySet()) {
+            if (has(tile.getKey())) {
+                score += tile.getValue();
+            }
+        }
+
+        score += bonusTiles();
+
+        return score;
+    }
+
+    private int cost() {
+        int cost = missingFarmAnimalCost();
+        cost += getCount(Token.UnusedSpace);
+        cost += 3 * getCount(Token.BeggingMarkers);
+        return cost;
     }
 
     private int animalScore() {
-        return getCount(Token.Dogs) + farmAnimalScore();
-    }
-
-    private int homeboardScore() {
-        return pastureScore() + mineScore() + unusedScore();
-    }
-
-    private int goodsScore() {
-        return grainScore() + getCount(Token.Vegetables) +
-                getCount(Token.Rubies) + getCount(Token.Gold) + beggingCost();
-    }
-
-    private int dwellingScore() {
         int score = 0;
-        for(Tile tile : tiles) {
-            if (TilePoints.containsKey(tile)) {
-                score += TilePoints.get(tile);
-            }
+        for (Token animal : EnumSet.of(Token.Dogs, Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+            score += getCount(animal);
         }
         return score;
     }
 
-    private  int farmAnimalScore() {
-        int sum = 0;
-        for(Token farmAnimal : new Token[]{ Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle }) {
-            if (getCount(farmAnimal) > 0) {
-                sum += getCount(farmAnimal);
-            } else {
-                sum -= 2;
+    private int bonusTiles() {
+        return 0;
+    }
+
+    private int missingFarmAnimalCost() {
+        int cost = 0;
+        for (Token farmAnimal : EnumSet.of(Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+            if (getCount(farmAnimal) == 0) {
+                cost += 2;
             }
         }
-        return sum;
-    }
-
-    private int pastureScore() {
-        return 2 * getCount(Token.SmallPastures) + 4 * getCount(Token.LargePastures);
-    }
-
-    private int mineScore() {
-        return 3 * getCount(Token.OreMines) + 4 * getCount(Token.RubyMines);
-    }
-
-    private int unusedScore() {
-        return (- getCount(Token.UnusedSpace));
-    }
-
-    private int beggingCost() {
-        return (- getCount(Token.BeggingMarkers) * 3);
-    }
-
-    private int grainScore() {
-        return (getCount(Token.Grains) + 1) / 2;
+        return cost;
     }
 }

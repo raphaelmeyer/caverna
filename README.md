@@ -4,9 +4,7 @@
 
 ### TODO
 
-* Clean up naming in data package
-* Clean up naming in score packge
-* Complete tabs, add all items
+* Complete tabs, add bonus items
 * Icons
 * Complete scoring for all items
 * Game activity
