@@ -190,8 +190,37 @@ public class PlayerScoreTest extends AndroidTestCase {
         testee.clear(Tile.HuntingParlor);
     }
 
+    private void test_the_writing_chamber_prevents_up_to_7_negative_points() {
+        testee.set(Tile.WritingChamber);
 
+        testee.setCount(Token.Dwarfs, 2);           // +2
+        testee.setCount(Token.UnusedSpace, 1);      // -1
+        testee.setCount(Token.Sheep, 0);            // -2
+        testee.setCount(Token.Donkeys, 0);          // -2
+        testee.setCount(Token.Boars, 0);            // -2
+        testee.setCount(Token.Cattle, 0);           // -2
+        testee.setCount(Token.BeggingMarkers, 1);   // -3
 
+        assertThat(testee.score(), equalTo(2 + -12 + 7));
+
+        testee.setCount(Token.Cattle, 1);           // + 1 - (-2)
+        assertThat(testee.score(), equalTo(3 + -10 + 7));
+
+        testee.setCount(Token.Donkeys, 1);          // + 1 - (-2)
+        assertThat(testee.score(), equalTo(4 + -8 + 7));
+
+        testee.setCount(Token.UnusedSpace, 0);      // + 0 - (-1)
+        assertThat(testee.score(), equalTo(4 + -7 + 7));
+
+        testee.setCount(Token.BeggingMarkers, 0);   // + 0 - (-3)
+        assertThat(testee.score(), equalTo(4 + -4 + 4));
+
+        testee.setCount(Token.Sheep, 3);            // + 3 - (-2)
+        assertThat(testee.score(), equalTo(7 + -2 + 2));
+
+        testee.setCount(Token.Boars, 2);            // + 2 - (-2)
+        assertThat(testee.score(), equalTo(9 + -0 + 0));
+    }
 
     private void assertScore(int score) {
         assertThat(testee.score() - initialScore, equalTo(score));
