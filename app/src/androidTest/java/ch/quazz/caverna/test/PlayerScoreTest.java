@@ -190,7 +190,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         testee.clear(Tile.HuntingParlor);
     }
 
-    private void test_the_writing_chamber_prevents_up_to_7_negative_points() {
+    public void test_the_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 
         testee.setCount(Token.Dwarfs, 2);           // +2

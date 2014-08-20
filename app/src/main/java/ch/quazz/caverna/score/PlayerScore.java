@@ -166,7 +166,11 @@ public class PlayerScore {
     }
 
     private int bonusTiles() {
-        return 0;
+        int score = 0;
+        if (has(Tile.WritingChamber)) {
+            score += java.lang.Math.min(7, cost());
+        }
+        return score;
     }
 
     private int missingFarmAnimalCost() {
@@ -178,4 +182,5 @@ public class PlayerScore {
         }
         return cost;
     }
+
 }
