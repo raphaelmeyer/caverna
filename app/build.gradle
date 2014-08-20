@@ -19,26 +19,6 @@ android {
     }
 }
 
-sourceSets {
-    unitTest {
-        java.srcDir file('src/unitTest/java')
-        resources.srcDir file('src/unitTest/resources')
-    }
-}
-
-configurations {
-    unitTestCompile.extendsFrom runtime
-    unitTestRuntime.extendsFrom unitTestCompile
-}
-
-task unitTest(type:Test, dependsOn: assemble) {
-    description = "run unit tests"
-    testClassesDir = project.sourceSets.unitTest.output.classesDir
-    classpath = project.sourceSets.unitTest.runtimeClasspath
-}
-
-check.dependsOn unitTest
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -50,6 +30,4 @@ dependencies {
     androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.0') {
         exclude group: 'org.hamcrest'
     }
-
-    unitTestCompile files("$project.buildDir/classes/release")
 }
