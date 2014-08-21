@@ -1,32 +1,26 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import ch.quazz.caverna.data.CavernaDbHelper;
-import ch.quazz.caverna.data.PlayerScoreTable;
 import ch.quazz.caverna.R;
 
-public class MainActivity extends Activity {
+
+public class GameActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.game, menu);
         return true;
     }
 
@@ -40,19 +34,5 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void newGame(View view) {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
-
-    public void addPlayer(View view) {
-        CavernaDbHelper dbHelper = new CavernaDbHelper(this);
-        PlayerScoreTable playerScoreTable = new PlayerScoreTable(dbHelper);
-        playerScoreTable.erase();
-
-        Intent intent = new Intent(this, PlayerScoreActivity.class);
-        startActivity(intent);
     }
 }
