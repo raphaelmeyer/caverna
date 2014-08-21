@@ -9,17 +9,42 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.data.PlayerScoreTable;
 import ch.quazz.caverna.R;
+import ch.quazz.caverna.games.Game;
+import ch.quazz.caverna.games.Games;
 
 public class MainActivity extends Activity {
+
+    private List<Game> games;
+    private CavernaDbHelper dbHelper;
+    private GamesTable gamesTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (games == null) {
+            games = new ArrayList<Game>();
+            dbHelper = new CavernaDbHelper(this);
+            gamesTable = new GamesTable(dbHelper);
+        }
+
+        gamesTable.load(games);
+
+        games.add(new Game(1, "asdf"));
+        games.add(new Game(3, "ffff"));
+
+        ListView listView = (ListView)findViewById(R.id.games);
+        listView.setAdapter(new GamesAdapter(this, games));
     }
 
 
@@ -43,6 +68,10 @@ public class MainActivity extends Activity {
     }
 
     public void newGame(View view) {
+
+        // add game to db
+        // pass id to game activity
+
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }

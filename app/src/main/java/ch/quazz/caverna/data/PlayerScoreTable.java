@@ -16,6 +16,23 @@ import ch.quazz.caverna.score.PlayerScore;
 
 public class PlayerScoreTable {
 
+    static final String createTableSql() {
+        String sql = "CREATE TABLE " + TableName + " ( id INTEGER PRIMARY KEY";
+
+        for (String column : TokenColumns.values()) {
+            sql += ", " + column + " INTEGER";
+        }
+
+        sql += ", " + TilesColumn + " TEXT";
+        sql += ")";
+
+        return sql;
+    }
+
+    static final String deleteTableSql() {
+        return "DROP TABLE IF EXISTS " + TableName;
+    }
+
     private static final String TableName = "player_score";
     private static final String TilesColumn = "tiles";
     private static final Map<Token, String> TokenColumns =
@@ -107,22 +124,4 @@ public class PlayerScoreTable {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.delete(TableName, null, null);
     }
-
-    static String createTableSql() {
-        String sql = "CREATE TABLE " + TableName + " ( id INTEGER PRIMARY KEY";
-
-        for (String column : TokenColumns.values()) {
-            sql += ", " + column + " INTEGER";
-        }
-
-        sql += ", " + TilesColumn + " TEXT";
-        sql += ")";
-
-        return sql;
-    }
-
-    static String deleteTableSql() {
-        return "DROP TABLE IF EXISTS " + TableName;
-    }
-
 }
