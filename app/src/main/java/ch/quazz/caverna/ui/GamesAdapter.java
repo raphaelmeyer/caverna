@@ -1,6 +1,7 @@
 package ch.quazz.caverna.ui;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -45,7 +46,8 @@ public class GamesAdapter extends BaseAdapter {
             textView = (TextView)convertView;
         }
 
-        textView.setText(games.get(position).title);
+        String title = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
+        textView.setText(title);
 
         return textView;
     }

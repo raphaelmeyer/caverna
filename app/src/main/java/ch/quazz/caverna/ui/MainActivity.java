@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
@@ -32,11 +33,6 @@ public class MainActivity extends Activity {
             dbHelper = new CavernaDbHelper(this);
             gamesTable = new GamesTable(dbHelper);
         }
-
-        gamesTable.load(games);
-
-        ListView listView = (ListView)findViewById(R.id.games);
-        listView.setAdapter(new GamesAdapter(this, games));
     }
 
 
@@ -60,11 +56,21 @@ public class MainActivity extends Activity {
     }
 
     public void newGame(View view) {
-        // add game to db
+        long id = gamesTable.add(Calendar.getInstance().getTimeInMillis());
+
         // pass id to game activity
 
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        gamesTable.load(games);
+
+        ListView listView = (ListView)findViewById(R.id.games);
+        listView.setAdapter(new GamesAdapter(this, games));
+    }
 }
