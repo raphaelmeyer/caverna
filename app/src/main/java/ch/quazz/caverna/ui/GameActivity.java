@@ -1,19 +1,29 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import ch.quazz.caverna.R;
+import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.PlayerScoreTable;
 
 
 public class GameActivity extends Activity {
+
+    private CavernaDbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        if (dbHelper == null) {
+            dbHelper = new CavernaDbHelper(this);
+        }
     }
 
 
@@ -34,5 +44,13 @@ public class GameActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addPlayer(View view) {
+        PlayerScoreTable playerScoreTable = new PlayerScoreTable(dbHelper);
+        playerScoreTable.erase();
+
+        Intent intent = new Intent(this, PlayerScoreActivity.class);
+        startActivity(intent);
     }
 }

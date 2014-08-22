@@ -20,13 +20,6 @@
             android:id="@+id/new_game"
             android:onClick="newGame" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Player"
-            android:id="@+id/add_player"
-            android:onClick="addPlayer" />
-
         <ListView
             android:id="@+id/games"
             android:layout_width="match_parent"
