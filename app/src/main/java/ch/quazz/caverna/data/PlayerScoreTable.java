@@ -16,25 +16,17 @@ import ch.quazz.caverna.score.PlayerScore;
 
 public class PlayerScoreTable {
 
-    static final String createTableSql() {
-        String sql = "CREATE TABLE " + TableName + " ( id INTEGER PRIMARY KEY";
-
-        for (String column : TokenColumns.values()) {
-            sql += ", " + column + " INTEGER";
-        }
-
-        sql += ", " + TilesColumn + " TEXT";
-        sql += ")";
-
-        return sql;
-    }
-
-    static final String deleteTableSql() {
-        return "DROP TABLE IF EXISTS " + TableName;
-    }
-
     private static final String TableName = "player_score";
-    private static final String TilesColumn = "tiles";
+
+    private static final class ColumnName {
+        private static final String Id = "id";
+
+        private static final String PlayerId = "player_id";
+        private static final String GameId = "game_id";
+
+        private static final String Tiles = "tiles";
+    }
+
     private static final Map<Token, String> TokenColumns =
             new HashMap<Token, String>(){
                 {
@@ -68,6 +60,28 @@ public class PlayerScoreTable {
                 }
     };
 
+    static final String createTableSql() {
+        String sql = "CREATE TABLE " + TableName;
+
+        sql += " ( " + ColumnName.Id + " INTEGER PRIMARY KEY";
+
+        sql += " , " + ColumnName.PlayerId + " INTEGER";
+        sql += " , " + ColumnName.GameId + " INTEGER";
+
+        for (String column : TokenColumns.values()) {
+            sql += " , " + column + " INTEGER";
+        }
+
+        sql += " , " + ColumnName.Tiles + " TEXT";
+        sql += ")";
+
+        return sql;
+    }
+
+    static final String deleteTableSql() {
+        return "DROP TABLE IF EXISTS " + TableName;
+    }
+
     private final CavernaDbHelper dbHelper;
 
     public PlayerScoreTable(CavernaDbHelper dbHelper) {
@@ -90,9 +104,9 @@ public class PlayerScoreTable {
                 furnishings.put(tile);
             }
         }
-        values.put(TilesColumn, furnishings.toString());
+        values.put(ColumnName.Tiles, furnishings.toString());
 
-        db.insert(TableName, "null", values);
+        db.insert(TableName, null, values);
     }
 
     public void load(PlayerScore playerScore) {
@@ -108,7 +122,7 @@ public class PlayerScoreTable {
             }
 
             try {
-                JSONArray read = new JSONArray(cursor.getString(cursor.getColumnIndex(TilesColumn)));
+                JSONArray read = new JSONArray(cursor.getString(cursor.getColumnIndex(ColumnName.Tiles)));
 
                 for (int i = 0; i < read.length(); i++) {
                     Tile tile = Tile.valueOf(read.getString(i));
