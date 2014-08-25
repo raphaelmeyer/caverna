@@ -110,7 +110,10 @@ public class PlayerScore {
     }
 
     ScoreSheet scoreSheet() {
-        return new ScoreSheet(this);
+        Map<ScoreSheet.Category, Integer> points = new HashMap<ScoreSheet.Category, Integer>();
+        points.put(ScoreSheet.Category.Animals, scoreAnimals());
+        // ...
+        return new ScoreSheet(points);
     }
 
     private void notifyScoreChanged() {
@@ -119,20 +122,19 @@ public class PlayerScore {
         }
     }
 
-
-    int assetsScore() {
-        int assets = getCount(Token.Gold);
-        assets -= 3 * getCount(Token.BeggingMarkers);
-        return assets;
+    int scoreAnimals() {
+        int score = 0;
+        for (Token animal : EnumSet.of(Token.Dogs, Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+            score += getCount(animal);
+        }
+        return score;
     }
-
-
 
     private int scoreTokens() {
         int score = getCount(Token.Dwarfs);
         score += 3 * getCount(Token.Dwellings);
 
-        score += animalScore();
+        score += scoreAnimals();
 
         score += (getCount(Token.Grains) + 1) / 2;
         score += getCount(Token.Vegetables);
@@ -168,14 +170,6 @@ public class PlayerScore {
         cost += getCount(Token.UnusedSpace);
         cost += 3 * getCount(Token.BeggingMarkers);
         return cost;
-    }
-
-    private int animalScore() {
-        int score = 0;
-        for (Token animal : EnumSet.of(Token.Dogs, Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
-            score += getCount(animal);
-        }
-        return score;
     }
 
     private int bonusTiles() {
