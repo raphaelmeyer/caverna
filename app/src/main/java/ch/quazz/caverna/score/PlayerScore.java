@@ -109,11 +109,24 @@ public class PlayerScore {
         listeners.remove(listener);
     }
 
+    ScoreSheet scoreSheet() {
+        return new ScoreSheet(this);
+    }
+
     private void notifyScoreChanged() {
         for (OnScoreChangeListener listener : listeners) {
             listener.onScoreChanged();
         }
     }
+
+
+    int assetsScore() {
+        int assets = getCount(Token.Gold);
+        assets -= 3 * getCount(Token.BeggingMarkers);
+        return assets;
+    }
+
+
 
     private int scoreTokens() {
         int score = getCount(Token.Dwarfs);

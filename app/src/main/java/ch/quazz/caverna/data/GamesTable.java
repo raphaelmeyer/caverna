@@ -11,7 +11,9 @@ import ch.quazz.caverna.games.Game;
 
 public class GamesTable {
 
-    static final class ColumnName {
+    private static final String TableName = "games";
+
+    private static final class ColumnName {
         static final String Id = "id";
         static final String TimeStamp = "timestamp";
     }
@@ -26,8 +28,6 @@ public class GamesTable {
     static final String deleteTableSql() {
         return "DROP TABLE IF EXISTS " + TableName;
     }
-
-    private static final String TableName = "games";
 
     private final CavernaDbHelper dbHelper;
 
@@ -51,11 +51,10 @@ public class GamesTable {
     }
 
     public long add(long timestamp) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(ColumnName.TimeStamp, timestamp);
 
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         return db.insert(TableName, null, values);
     }
 
