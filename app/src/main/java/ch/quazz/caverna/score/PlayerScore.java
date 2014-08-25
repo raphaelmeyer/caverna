@@ -98,7 +98,16 @@ public class PlayerScore {
 
     public int score()
     {
-        return scoreTokens() + scoreTiles() - cost();
+        int score = scoreAnimals() + scoreMissingFarmAnimal();
+        score += scoreGrain() + scoreVegetable();
+        score += scoreRubies();
+        score += scoreDwarfs();
+        score += scoreUnusedSpace();
+        score += scoreTiles();
+        score += scoreParlors() + scoreStorages() + scoreChambers();
+        score += scoreAssets();
+
+        return score;
     }
 
     public void addOnScoreChangeListener(OnScoreChangeListener listener) {
@@ -112,7 +121,17 @@ public class PlayerScore {
     ScoreSheet scoreSheet() {
         Map<ScoreSheet.Category, Integer> points = new HashMap<ScoreSheet.Category, Integer>();
         points.put(ScoreSheet.Category.Animals, scoreAnimals());
-        // ...
+        points.put(ScoreSheet.Category.MissingFarmAnimal, scoreMissingFarmAnimal());
+        points.put(ScoreSheet.Category.Grain, scoreGrain());
+        points.put(ScoreSheet.Category.Vegetable, scoreVegetable());
+        points.put(ScoreSheet.Category.Ruby, scoreRubies());
+        points.put(ScoreSheet.Category.Dwarf, scoreDwarfs());
+        points.put(ScoreSheet.Category.UnusedSpace, scoreUnusedSpace());
+        points.put(ScoreSheet.Category.Tiles, scoreTiles());
+        points.put(ScoreSheet.Category.Parlors, scoreParlors());
+        points.put(ScoreSheet.Category.Storages, scoreStorages());
+        points.put(ScoreSheet.Category.Chambers, scoreChambers());
+        points.put(ScoreSheet.Category.Assets, scoreAssets());
         return new ScoreSheet(points);
     }
 
@@ -122,7 +141,7 @@ public class PlayerScore {
         }
     }
 
-    int scoreAnimals() {
+    private int scoreAnimals() {
         int score = 0;
         for (Token animal : EnumSet.of(Token.Dogs, Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
             score += getCount(animal);
@@ -130,19 +149,28 @@ public class PlayerScore {
         return score;
     }
 
-    private int scoreTokens() {
-        int score = getCount(Token.Dwarfs);
-        score += 3 * getCount(Token.Dwellings);
+    private int scoreMissingFarmAnimal() {
+        return -missingFarmAnimalCost();
+    }
 
-        score += scoreAnimals();
+    private int scoreGrain() {
+        return (getCount(Token.Grains) + 1) / 2;
+    }
 
-        score += (getCount(Token.Grains) + 1) / 2;
-        score += getCount(Token.Vegetables);
+    private int scoreVegetable() {
+        return getCount(Token.Vegetables);
+    }
 
-        score += getCount(Token.Rubies);
-        score += getCount(Token.Gold);
+    private int scoreRubies() {
+        return getCount(Token.Rubies);
+    }
 
-        return score;
+    private int scoreDwarfs() {
+        return getCount(Token.Dwarfs);
+    }
+
+    private int scoreUnusedSpace() {
+        return -unusedSpaceCost();
     }
 
     private int scoreTiles() {
@@ -160,24 +188,38 @@ public class PlayerScore {
             }
         }
 
-        score += bonusTiles();
+        score += 3 * getCount(Token.Dwellings);
 
         return score;
+    }
+
+    private int scoreParlors() {
+        return 0;
+    }
+
+    private int scoreStorages() {
+        return 0;
+    }
+
+    private int scoreChambers() {
+        int score = 0;
+
+        if (has(Tile.WritingChamber)) {
+            score += java.lang.Math.min(7, cost());
+        }
+
+        return score;
+    }
+
+    private int scoreAssets() {
+        return getCount(Token.Gold) - beggingCost();
     }
 
     private int cost() {
         int cost = missingFarmAnimalCost();
-        cost += getCount(Token.UnusedSpace);
-        cost += 3 * getCount(Token.BeggingMarkers);
+        cost += unusedSpaceCost();
+        cost += beggingCost();
         return cost;
-    }
-
-    private int bonusTiles() {
-        int score = 0;
-        if (has(Tile.WritingChamber)) {
-            score += java.lang.Math.min(7, cost());
-        }
-        return score;
     }
 
     private int missingFarmAnimalCost() {
@@ -188,6 +230,14 @@ public class PlayerScore {
             }
         }
         return cost;
+    }
+
+    private int unusedSpaceCost() {
+        return getCount(Token.UnusedSpace);
+    }
+
+    private int beggingCost() {
+        return 3 * getCount(Token.BeggingMarkers);
     }
 
 }
