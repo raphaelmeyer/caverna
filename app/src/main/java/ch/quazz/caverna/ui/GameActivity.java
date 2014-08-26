@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
 import ch.quazz.caverna.data.PlayerScoreTable;
-
 
 public class GameActivity extends Activity {
 
@@ -24,6 +24,11 @@ public class GameActivity extends Activity {
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
         }
+
+        Intent intent = getIntent();
+        long id = intent.getLongExtra(MainActivity.ExtraGameId, 0);
+
+        Toast.makeText(this, "Game id = " + id, Toast.LENGTH_SHORT).show();
     }
 
 

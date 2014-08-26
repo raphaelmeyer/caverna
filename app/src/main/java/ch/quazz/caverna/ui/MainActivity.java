@@ -22,6 +22,8 @@ import ch.quazz.caverna.games.Game;
 
 public class MainActivity extends Activity {
 
+    public final static String ExtraGameId = "ch.quazz.caverna.GameId";
+
     private List<Game> games;
     private CavernaDbHelper dbHelper;
     private GamesTable gamesTable;
@@ -43,6 +45,7 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra(ExtraGameId, id);
                 startActivity(intent);
             }
         });
@@ -70,9 +73,8 @@ public class MainActivity extends Activity {
     public void newGame(View view) {
         long id = gamesTable.add(Calendar.getInstance().getTimeInMillis());
 
-        // pass id to game activity
-
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(ExtraGameId, id);
         startActivity(intent);
     }
 

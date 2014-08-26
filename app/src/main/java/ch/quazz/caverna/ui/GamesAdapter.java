@@ -30,12 +30,12 @@ public class GamesAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return games.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return games.get(position).id;
     }
 
     @Override
