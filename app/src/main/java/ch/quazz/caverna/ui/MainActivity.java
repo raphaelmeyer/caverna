@@ -37,8 +37,15 @@ public class MainActivity extends Activity {
             gamesTable = new GamesTable(dbHelper);
         }
 
-        View gamesList = findViewById(R.id.games_list);
-        registerForContextMenu(gamesList);
+        ListView games = (ListView)findViewById(R.id.games_list);
+        registerForContextMenu(games);
+        games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
