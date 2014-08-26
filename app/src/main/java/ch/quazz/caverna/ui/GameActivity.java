@@ -46,11 +46,18 @@ public class GameActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addPlayer(View view) {
+    public void addPlayerScore(View view) {
         PlayerScoreTable playerScoreTable = new PlayerScoreTable(dbHelper);
         playerScoreTable.erase();
 
+        // id = create new player score
+        // pass id to player score activity
+
         Intent intent = new Intent(this, PlayerScoreActivity.class);
         startActivity(intent);
+    }
+
+    public void addPlayer(View view) {
+
     }
 }

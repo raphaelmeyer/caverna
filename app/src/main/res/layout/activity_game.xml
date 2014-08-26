@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Add Player"
-            android:id="@+id/add_player"
-            android:onClick="addPlayer" />
+            android:id="@+id/add_player_score"
+            android:onClick="addPlayerScore" />
 
         <ListView
             android:id="@+id/game_scores"

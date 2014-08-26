@@ -1,8 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ch.quazz.caverna.ui.GameActivity" >
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never" />
+
+    <item android:id="@+id/add_player"
+        android:icon="@drawable/ic_action_user_add"
+        android:title="@string/ok"
+        android:showAsAction="always"
+        android:onClick="addPlayer" />
+
 </menu>

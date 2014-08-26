@@ -151,9 +151,9 @@ public class PlayerScoreActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_ok) {
+        if (id == R.id.commit_player_score) {
             return true;
-        } else if (id == R.id.action_cancel) {
+        } else if (id == R.id.discard_player_score) {
             return true;
         }
         return super.onOptionsItemSelected(item);

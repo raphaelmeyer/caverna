@@ -2,11 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ch.quazz.caverna.ui.PlayerScoreActivity" >
 
-    <item android:id="@+id/action_cancel"
+    <item android:id="@+id/discard_player_score"
         android:icon="@drawable/ic_action_delete"
         android:title="@string/cancel"
         android:showAsAction="always" />
-    <item android:id="@+id/action_ok"
+    <item android:id="@+id/commit_player_score"
         android:icon="@drawable/ic_action_done"
         android:title="@string/ok"
         android:showAsAction="always" />
