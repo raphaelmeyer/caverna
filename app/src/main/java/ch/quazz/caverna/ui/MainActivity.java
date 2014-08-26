@@ -3,9 +3,12 @@ package ch.quazz.caverna.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -33,8 +36,10 @@ public class MainActivity extends Activity {
             dbHelper = new CavernaDbHelper(this);
             gamesTable = new GamesTable(dbHelper);
         }
-    }
 
+        View gamesList = findViewById(R.id.games_list);
+        registerForContextMenu(gamesList);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,7 +75,21 @@ public class MainActivity extends Activity {
 
         gamesTable.load(games);
 
-        ListView listView = (ListView)findViewById(R.id.games);
+        ListView listView = (ListView)findViewById(R.id.games_list);
         listView.setAdapter(new GamesAdapter(this, games));
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_game, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        return true;
     }
 }

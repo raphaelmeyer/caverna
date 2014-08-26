@@ -30,5 +30,7 @@
     <string name="title_activity_player_score">Score</string>
     <string name="title_activity_game">Scoring Pad</string>
     <string name="button_new_game">New Scoring Pad</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

@@ -21,7 +21,7 @@
             android:onClick="newGame" />
 
         <ListView
-            android:id="@+id/games"
+            android:id="@+id/games_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
