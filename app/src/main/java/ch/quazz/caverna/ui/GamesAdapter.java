@@ -2,6 +2,7 @@ package ch.quazz.caverna.ui;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ch.quazz.caverna.R;
 import ch.quazz.caverna.games.Game;
 
 public class GamesAdapter extends BaseAdapter {
@@ -38,17 +40,21 @@ public class GamesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView textView;
-
+        View view;
         if (convertView == null) {
-            textView = new TextView(context);
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_item, parent, false);
         } else {
-            textView = (TextView)convertView;
+            view = convertView;
         }
 
-        String title = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
-        textView.setText(title);
+        String timestamp = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
+        TextView title = (TextView)view.findViewById(R.id.item_title);
+        title.setText(timestamp);
 
-        return textView;
+        TextView text = (TextView)view.findViewById(R.id.item_text);
+        text.setText("some text ...");
+
+        return view;
     }
 }

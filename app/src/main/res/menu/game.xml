@@ -5,7 +5,6 @@
     <item android:id="@+id/add_player"
         android:icon="@drawable/ic_action_user_add"
         android:title="@string/ok"
-        android:showAsAction="always"
-        android:onClick="addPlayer" />
+        android:showAsAction="always" />
 
 </menu>
