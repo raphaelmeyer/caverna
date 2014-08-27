@@ -58,4 +58,8 @@ public class GamesTable {
         return db.insert(TableName, null, values);
     }
 
+    public void delete(long gameId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(TableName, ColumnName.Id + "=" + gameId, null);
+    }
 }

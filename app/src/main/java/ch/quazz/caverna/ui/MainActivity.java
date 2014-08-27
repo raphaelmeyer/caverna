@@ -27,6 +27,7 @@ public class MainActivity extends Activity {
     private List<Game> games;
     private CavernaDbHelper dbHelper;
     private GamesTable gamesTable;
+    private GamesAdapter gamesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +74,10 @@ public class MainActivity extends Activity {
         super.onResume();
 
         gamesTable.load(games);
+        gamesAdapter = new GamesAdapter(this, games);
 
         ListView listView = (ListView)findViewById(R.id.games_list);
-        listView.setAdapter(new GamesAdapter(this, games));
+        listView.setAdapter(gamesAdapter);
     }
 
     @Override
@@ -89,7 +91,16 @@ public class MainActivity extends Activity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        return true;
+        if (item.getItemId() == R.id.context_game_edit) {
+            startGameActivity(info.id);
+            return true;
+        } else if (item.getItemId() == R.id.context_game_delete) {
+            gamesTable.delete(info.id);
+            gamesTable.load(games);
+            gamesAdapter.notifyDataSetChanged();
+            return true;
+        }
+        return false;
     }
 
     public void newGame(View view) {
