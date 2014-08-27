@@ -44,9 +44,7 @@ public class MainActivity extends Activity {
         games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                intent.putExtra(ExtraGameId, id);
-                startActivity(intent);
+                startGameActivity(id);
             }
         });
     }
@@ -68,14 +66,6 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void newGame(View view) {
-        long id = gamesTable.add(Calendar.getInstance().getTimeInMillis());
-
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(ExtraGameId, id);
-        startActivity(intent);
     }
 
     @Override
@@ -100,5 +90,16 @@ public class MainActivity extends Activity {
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         return true;
+    }
+
+    public void newGame(View view) {
+        long id = gamesTable.add(Calendar.getInstance().getTimeInMillis());
+        startGameActivity(id);
+    }
+
+    private void startGameActivity(long gameId) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(ExtraGameId, gameId);
+        startActivity(intent);
     }
 }
