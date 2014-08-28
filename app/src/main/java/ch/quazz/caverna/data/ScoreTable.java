@@ -7,14 +7,17 @@ import android.database.sqlite.SQLiteDatabase;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import ch.quazz.caverna.score.ScoreSheet;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.score.PlayerScore;
 
-public class PlayerScoreTable {
+public final class ScoreTable {
 
     private static final String TableName = "player_score";
 
@@ -58,7 +61,7 @@ public class PlayerScoreTable {
                     put(Token.Stone, "stone");
                     put(Token.Ore, "ore");
                 }
-    };
+            };
 
     static final String createTableSql() {
         String sql = "CREATE TABLE " + TableName;
@@ -82,43 +85,31 @@ public class PlayerScoreTable {
         return "DROP TABLE IF EXISTS " + TableName;
     }
 
-    private final CavernaDbHelper dbHelper;
+    private ScoreTable() {}
 
-    public PlayerScoreTable(CavernaDbHelper dbHelper) {
-        this.dbHelper = dbHelper;
-    }
-
-    public void save(PlayerScore playerScore) {
+    public static long addScore(final CavernaDbHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TableName, null, null);
-
-        ContentValues values = new ContentValues();
-
-        for (Map.Entry<Token, String> column : TokenColumns.entrySet()) {
-            values.put(column.getValue(), playerScore.getCount(column.getKey()));
-        }
-
-        JSONArray furnishings = new JSONArray();
-        for (Tile tile : Tile.values()) {
-            if(playerScore.has(tile)) {
-                furnishings.put(tile);
-            }
-        }
-        values.put(ColumnName.Tiles, furnishings.toString());
-
-        db.insert(TableName, null, values);
+        PlayerScore score = new PlayerScore(0);
+        ContentValues values = columnValues(score);
+        return db.insert(TableName, null, values);
     }
 
-    public void load(PlayerScore playerScore) {
+    public static void setScore(final CavernaDbHelper dbHelper, final PlayerScore score, final long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = columnValues(score);
+        db.update(TableName, values, ColumnName.Id + "=" + id, null);
+    }
+
+    public static PlayerScore getScore(final CavernaDbHelper dbHelper, final long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+        PlayerScore score = new PlayerScore(id);
 
-        Cursor cursor = db.query(TableName, null, null, null, null, null, null, "1");
+        String selection = ColumnName.Id + "=" + id;
+        Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
 
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-
+        if (cursor.moveToNext()) {
             for (Map.Entry<Token, String> column : TokenColumns.entrySet()) {
-                playerScore.setCount(column.getKey(), cursor.getInt(cursor.getColumnIndex(column.getValue())));
+                score.setCount(column.getKey(), cursor.getInt(cursor.getColumnIndex(column.getValue())));
             }
 
             try {
@@ -126,16 +117,49 @@ public class PlayerScoreTable {
 
                 for (int i = 0; i < read.length(); i++) {
                     Tile tile = Tile.valueOf(read.getString(i));
-                    playerScore.set(tile);
+                    score.set(tile);
                 }
             } catch(JSONException exception) {
-                erase();
+                return new PlayerScore(0);
             }
         }
+        cursor.close();
+
+        return score;
     }
 
-    public void erase() {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TableName, null, null);
+    public static List<ScoreSheet> getScoringPad(final CavernaDbHelper dbHelper, final long gameId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<ScoreSheet> scoringPad = new ArrayList<ScoreSheet>();
+
+        String selection = ColumnName.GameId + "=" + gameId;
+        Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
+
+        while(cursor.moveToNext()) {
+            long id = cursor.getLong(cursor.getColumnIndex(ColumnName.Id));
+            PlayerScore score = new PlayerScore(id);
+            scoringPad.add(score.scoreSheet());
+        }
+        cursor.close();
+
+        return scoringPad;
+    }
+
+    private static ContentValues columnValues(PlayerScore score) {
+        ContentValues values = new ContentValues();
+
+        for (Map.Entry<Token, String> column : TokenColumns.entrySet()) {
+            values.put(column.getValue(), score.getCount(column.getKey()));
+        }
+
+        JSONArray furnishings = new JSONArray();
+        for (Tile tile : Tile.values()) {
+            if(score.has(tile)) {
+                furnishings.put(tile);
+            }
+        }
+        values.put(ColumnName.Tiles, furnishings.toString());
+
+        return values;
     }
 }

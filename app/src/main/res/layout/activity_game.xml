@@ -21,7 +21,7 @@
             android:onClick="addPlayerScore" />
 
         <ListView
-            android:id="@+id/game_scores"
+            android:id="@+id/scoring_pad"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

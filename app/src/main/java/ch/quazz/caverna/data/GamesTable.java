@@ -3,8 +3,8 @@ package ch.quazz.caverna.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.text.format.DateUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ch.quazz.caverna.games.Game;
@@ -29,17 +29,11 @@ public class GamesTable {
         return "DROP TABLE IF EXISTS " + TableName;
     }
 
-    private final CavernaDbHelper dbHelper;
+    private GamesTable() {}
 
-    public GamesTable(CavernaDbHelper dbHelper) {
-        this.dbHelper = dbHelper;
-    }
-
-    public void load(List<Game> games) {
+    public static List<Game> getGames(final CavernaDbHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-        games.clear();
-
+        List<Game> games = new ArrayList<Game>();
         Cursor cursor = db.query(TableName, null, null, null, null, null, null);
         while(cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(ColumnName.Id));
@@ -48,18 +42,19 @@ public class GamesTable {
             games.add(new Game(id, timestamp));
         }
         cursor.close();
+
+        return games;
     }
 
-    public long add(long timestamp) {
+    public static long addGame(final CavernaDbHelper dbHelper, final long timestamp) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(ColumnName.TimeStamp, timestamp);
-
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
         return db.insert(TableName, null, values);
     }
 
-    public void delete(long gameId) {
+    public static void deleteGame(final CavernaDbHelper dbHelper, final long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TableName, ColumnName.Id + "=" + gameId, null);
+        db.delete(TableName, ColumnName.Id + "=" + id, null);
     }
 }

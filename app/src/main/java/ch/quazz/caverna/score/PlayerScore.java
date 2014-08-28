@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class PlayerScore {
-
     private static final Map<Tile, Integer> FurnishingPoints = new HashMap<Tile, Integer>() {
         {
             put(Tile.SimpleDwelling_4_2, 0);
@@ -52,6 +51,8 @@ public class PlayerScore {
         }
     };
 
+    private final long id;
+
     private final Map<Token, Integer> itemCount;
     private final Set<Tile> tiles;
 
@@ -61,13 +62,15 @@ public class PlayerScore {
         abstract public void onScoreChanged();
     }
 
-    public PlayerScore() {
+    public PlayerScore(final long id) {
         itemCount = new HashMap<Token, Integer>();
         itemCount.put(Token.Dwarfs, 2);
 
         tiles = new HashSet<Tile>();
 
         listeners = new ArrayList<OnScoreChangeListener>();
+
+        this.id = id;
     }
 
     public void setCount(Token item, int count) {
@@ -118,7 +121,7 @@ public class PlayerScore {
         listeners.remove(listener);
     }
 
-    ScoreSheet scoreSheet() {
+    public ScoreSheet scoreSheet() {
         Map<ScoreSheet.Category, Integer> points = new HashMap<ScoreSheet.Category, Integer>();
         points.put(ScoreSheet.Category.Animals, scoreAnimals());
         points.put(ScoreSheet.Category.MissingFarmAnimal, scoreMissingFarmAnimal());
@@ -132,7 +135,7 @@ public class PlayerScore {
         points.put(ScoreSheet.Category.Storages, scoreStorages());
         points.put(ScoreSheet.Category.Chambers, scoreChambers());
         points.put(ScoreSheet.Category.Assets, scoreAssets());
-        return new ScoreSheet(points);
+        return new ScoreSheet(id, points);
     }
 
     private void notifyScoreChanged() {

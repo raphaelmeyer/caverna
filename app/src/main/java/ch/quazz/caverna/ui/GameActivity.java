@@ -6,31 +6,35 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
-import ch.quazz.caverna.data.PlayerScoreTable;
+import ch.quazz.caverna.data.ScoreTable;
+import ch.quazz.caverna.score.ScoreSheet;
 
 public class GameActivity extends Activity {
 
+    private List<ScoreSheet> scoringPad;
     private CavernaDbHelper dbHelper;
+    private ScoringPadAdapter scoringPadAdapter;
+    private long gameId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        if (dbHelper == null) {
+        Intent intent = getIntent();
+        gameId = intent.getLongExtra(MainActivity.ExtraGameId, 0);
+
+        if (scoringPad == null) {
             dbHelper = new CavernaDbHelper(this);
         }
-
-        Intent intent = getIntent();
-        long id = intent.getLongExtra(MainActivity.ExtraGameId, 0);
-
-        Toast.makeText(this, "Game id = " + id, Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,14 +55,24 @@ public class GameActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void addPlayerScore(View view) {
-        PlayerScoreTable playerScoreTable = new PlayerScoreTable(dbHelper);
-        playerScoreTable.erase();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        // id = create new player score
-        // pass id to player score activity
+        List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
+
+        scoringPadAdapter = new ScoringPadAdapter(this);
+        scoringPadAdapter.setScoringPad(scoringPad);
+
+        ListView listView = (ListView)findViewById(R.id.scoring_pad);
+        listView.setAdapter(scoringPadAdapter);
+    }
+
+    public void addPlayerScore(View view) {
+        long scoreId = ScoreTable.addScore(dbHelper);
 
         Intent intent = new Intent(this, PlayerScoreActivity.class);
+        intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
         startActivity(intent);
     }
 

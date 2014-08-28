@@ -17,7 +17,7 @@ public class CavernaDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(GamesTable.createTableSql());
-        db.execSQL(PlayerScoreTable.createTableSql());
+        db.execSQL(ScoreTable.createTableSql());
     }
 
     @Override
@@ -25,7 +25,7 @@ public class CavernaDbHelper extends SQLiteOpenHelper {
         db.execSQL(GamesTable.deleteTableSql());
         db.execSQL(GamesTable.createTableSql());
 
-        db.execSQL(PlayerScoreTable.deleteTableSql());
-        db.execSQL(PlayerScoreTable.createTableSql());
+        db.execSQL(ScoreTable.deleteTableSql());
+        db.execSQL(ScoreTable.createTableSql());
     }
 }

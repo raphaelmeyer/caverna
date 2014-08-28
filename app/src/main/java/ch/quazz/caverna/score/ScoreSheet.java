@@ -4,6 +4,8 @@ import java.util.Map;
 
 public class ScoreSheet {
 
+    public final long id;
+
     public enum Category {
         Animals,
         MissingFarmAnimal,
@@ -16,12 +18,14 @@ public class ScoreSheet {
         Parlors,
         Storages,
         Chambers,
-        Assets
+        Assets,
+        Total
     };
 
     private final Map<Category, Integer> points;
 
-    ScoreSheet(Map<Category, Integer> points) {
+    ScoreSheet(long id, Map<Category, Integer> points) {
+        this.id = id;
         this.points = points;
     }
 

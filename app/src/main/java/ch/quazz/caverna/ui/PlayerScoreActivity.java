@@ -2,16 +2,19 @@ package ch.quazz.caverna.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import ch.quazz.caverna.data.CavernaDbHelper;
-import ch.quazz.caverna.data.PlayerScoreTable;
+import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.score.PlayerScore;
 import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
+
+    public final static String ExtraScoreId = "ch.quazz.caverna.ScoreId";
 
     private static final String Wealth = "wealth";
     private static final String Family = "family";
@@ -23,24 +26,39 @@ public class PlayerScoreActivity extends Activity {
     private CaveFragment cave;
     private BonusFragment bonus;
 
-    private PlayerScore playerScore;
     private CavernaDbHelper dbHelper;
-    private PlayerScoreTable playerScoreTable;
+    private PlayerScore playerScore;
+
+    private long scoreId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_score);
 
-        if (playerScore == null) {
-            playerScore = new PlayerScore();
+        Intent intent = getIntent();
+        scoreId = intent.getLongExtra(PlayerScoreActivity.ExtraScoreId, 0);
+
+        if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
-            playerScoreTable = new PlayerScoreTable(dbHelper);
         }
 
         setupTabFragments();
         setupActionBarTabs();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        ScoreTable.setScore(dbHelper, playerScore, scoreId);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        playerScore = ScoreTable.getScore(dbHelper, scoreId);
         playerScore.addOnScoreChangeListener(new PlayerScore.OnScoreChangeListener() {
             @Override
             public void onScoreChanged() {
@@ -48,18 +66,11 @@ public class PlayerScoreActivity extends Activity {
             }
         });
 
-    }
+        wealth.setPlayerScore(playerScore);
+        family.setPlayerScore(playerScore);
+        cave.setPlayerScore(playerScore);
+        bonus.setPlayerScore(playerScore);
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        playerScoreTable.save(playerScore);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        playerScoreTable.load(playerScore);
         updateScore();
     }
 
@@ -80,7 +91,8 @@ public class PlayerScoreActivity extends Activity {
     }
 
     private void updateScore() {
-        setTitle(getString(R.string.score) + ": " + Integer.toString(playerScore.score()));
+        String score = String.valueOf(playerScore.score());
+        setTitle(getString(R.string.score) + ": " + score);
     }
 
     private void setupActionBarTabs() {
@@ -126,11 +138,6 @@ public class PlayerScoreActivity extends Activity {
         if (bonus == null) {
             bonus = new BonusFragment();
         }
-
-        wealth.setPlayerScore(playerScore);
-        family.setPlayerScore(playerScore);
-        cave.setPlayerScore(playerScore);
-        bonus.setPlayerScore(playerScore);
     }
 
     @Override

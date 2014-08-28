@@ -11,45 +11,45 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.quazz.caverna.R;
-import ch.quazz.caverna.games.Game;
+import ch.quazz.caverna.score.ScoreSheet;
 
-public class GamesAdapter extends BaseAdapter {
+public class ScoringPadAdapter extends BaseAdapter {
 
     private final Context context;
-    private List<Game> games;
+    private List<ScoreSheet> scoringPad;
 
-    public GamesAdapter(final Context context) {
+    public ScoringPadAdapter(final Context context) {
         this.context = context;
-        this.games = null;
+        this.scoringPad = null;
     }
 
-    void setGames(final List<Game> games) {
-        this.games = games;
+    void setScoringPad(List<ScoreSheet> scoringPad) {
+        this.scoringPad = scoringPad;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        if (games == null) {
+        if (scoringPad == null) {
             return 0;
         }
-        return games.size();
+        return scoringPad.size();
     }
 
     @Override
     public Object getItem(int position) {
-        if (games == null) {
+        if (scoringPad == null) {
             return null;
         }
-        return games.get(position);
+        return scoringPad.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        if (games == null) {
+        if (scoringPad == null) {
             return 0;
         }
-        return games.get(position).id;
+        return scoringPad.get(position).id;
     }
 
     @Override
@@ -62,13 +62,13 @@ public class GamesAdapter extends BaseAdapter {
             view = convertView;
         }
 
-        String timestamp = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
         TextView title = (TextView)view.findViewById(R.id.item_title);
-        title.setText(timestamp);
+        title.setText("player name, total");
 
         TextView text = (TextView)view.findViewById(R.id.item_text);
-        text.setText("some text ...");
+        text.setText("category scores");
 
         return view;
     }
+
 }

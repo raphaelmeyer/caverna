@@ -24,7 +24,6 @@ public class MainActivity extends Activity {
 
     public final static String ExtraGameId = "ch.quazz.caverna.GameId";
 
-    private List<Game> games;
     private CavernaDbHelper dbHelper;
     private GamesTable gamesTable;
     private GamesAdapter gamesAdapter;
@@ -34,10 +33,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (games == null) {
-            games = new ArrayList<Game>();
+        if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
-            gamesTable = new GamesTable(dbHelper);
         }
 
         ListView games = (ListView)findViewById(R.id.games_list);
@@ -73,8 +70,10 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        gamesTable.load(games);
-        gamesAdapter = new GamesAdapter(this, games);
+        List<Game> games = GamesTable.getGames(dbHelper);
+
+        gamesAdapter = new GamesAdapter(this);
+        gamesAdapter.setGames(games);
 
         ListView listView = (ListView)findViewById(R.id.games_list);
         listView.setAdapter(gamesAdapter);
@@ -95,16 +94,19 @@ public class MainActivity extends Activity {
             startGameActivity(info.id);
             return true;
         } else if (item.getItemId() == R.id.context_game_delete) {
-            gamesTable.delete(info.id);
-            gamesTable.load(games);
-            gamesAdapter.notifyDataSetChanged();
+            GamesTable.deleteGame(dbHelper, info.id);
+
+            List<Game> games = GamesTable.getGames(dbHelper);
+            gamesAdapter.setGames(games);
+
             return true;
         }
         return false;
     }
 
     public void newGame(View view) {
-        long id = gamesTable.add(Calendar.getInstance().getTimeInMillis());
+        long timestamp = Calendar.getInstance().getTimeInMillis();
+        long id = GamesTable.addGame(dbHelper, timestamp);
         startGameActivity(id);
     }
 
