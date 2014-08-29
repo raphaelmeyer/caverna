@@ -3,10 +3,14 @@ package ch.quazz.caverna.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +65,53 @@ public class GameActivity extends Activity {
 
         List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
 
+        /*
         scoringPadAdapter = new ScoringPadAdapter(this);
         scoringPadAdapter.setScoringPad(scoringPad);
 
         ListView listView = (ListView)findViewById(R.id.scoring_pad);
         listView.setAdapter(scoringPadAdapter);
+        */
+
+        TableLayout table = (TableLayout)findViewById(R.id.scoring_pad);
+
+        TableRow names = new TableRow(this);
+        TextView title = new TextView(this);
+        title.setText("Names");
+        names.addView(title);
+        for (int i = 0; i < scoringPad.size(); i++) {
+            TextView name = new TextView(this);
+            name.setText("name " + i);
+            name.setRotation(90.0f);
+            names.addView(name);
+        }
+
+        TableRow animals = new TableRow(this);
+        title = new TextView(this);
+        title.setText("Animals");
+        animals.addView(title);
+        for (ScoreSheet sheet : scoringPad) {
+            TextView points = new TextView(this);
+            points.setGravity(Gravity.RIGHT);
+            points.setText(String.valueOf(sheet.score(ScoreSheet.Category.Animals)));
+            animals.addView(points);
+        }
+
+        TableRow missingAnimals = new TableRow(this);
+        title = new TextView(this);
+        title.setText("Missing animals");
+        missingAnimals.addView(title);
+        for (ScoreSheet sheet : scoringPad) {
+            TextView points = new TextView(this);
+            points.setGravity(Gravity.RIGHT);
+            points.setText(String.valueOf(sheet.score(ScoreSheet.Category.MissingFarmAnimal)));
+            missingAnimals.addView(points);
+        }
+
+        table.addView(names, new TableLayout.LayoutParams());
+        table.addView(animals, new TableLayout.LayoutParams());
+        table.addView(missingAnimals, new TableLayout.LayoutParams());
+
     }
 
     public void addPlayerScore(View view) {
@@ -74,9 +120,5 @@ public class GameActivity extends Activity {
         Intent intent = new Intent(this, PlayerScoreActivity.class);
         intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
         startActivity(intent);
-    }
-
-    public void addPlayer(View view) {
-
     }
 }
