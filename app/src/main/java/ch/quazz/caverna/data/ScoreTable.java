@@ -92,13 +92,19 @@ public final class ScoreTable {
         PlayerScore score = new PlayerScore(0);
         ContentValues values = columnValues(score);
         values.put(ColumnName.GameId, gameId);
-        return db.insert(TableName, null, values);
+
+        long id = db.insert(TableName, null, values);
+        db.close();
+
+        return id;
     }
 
     public static void setScore(final CavernaDbHelper dbHelper, final PlayerScore score, final long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = columnValues(score);
+
         db.update(TableName, values, ColumnName.Id + "=" + id, null);
+        db.close();
     }
 
     public static PlayerScore getScore(final CavernaDbHelper dbHelper, final long id) {
@@ -112,6 +118,7 @@ public final class ScoreTable {
             score = parseScore(cursor);
         }
         cursor.close();
+        db.close();
 
         return score;
     }
@@ -128,6 +135,7 @@ public final class ScoreTable {
             scoringPad.add(score.scoreSheet());
         }
         cursor.close();
+        db.close();
 
         return scoringPad;
     }
