@@ -103,26 +103,13 @@ public final class ScoreTable {
 
     public static PlayerScore getScore(final CavernaDbHelper dbHelper, final long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        PlayerScore score = new PlayerScore(id);
+        PlayerScore score = null;
 
         String selection = ColumnName.Id + "=" + id;
         Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
 
         if (cursor.moveToNext()) {
-            for (Map.Entry<Token, String> column : TokenColumns.entrySet()) {
-                score.setCount(column.getKey(), cursor.getInt(cursor.getColumnIndex(column.getValue())));
-            }
-
-            try {
-                JSONArray read = new JSONArray(cursor.getString(cursor.getColumnIndex(ColumnName.Tiles)));
-
-                for (int i = 0; i < read.length(); i++) {
-                    Tile tile = Tile.valueOf(read.getString(i));
-                    score.set(tile);
-                }
-            } catch(JSONException exception) {
-                return new PlayerScore(0);
-            }
+            score = parseScore(cursor);
         }
         cursor.close();
 
@@ -137,8 +124,7 @@ public final class ScoreTable {
         Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
 
         while(cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndex(ColumnName.Id));
-            PlayerScore score = new PlayerScore(id);
+            PlayerScore score = parseScore(cursor);
             scoringPad.add(score.scoreSheet());
         }
         cursor.close();
@@ -162,5 +148,25 @@ public final class ScoreTable {
         values.put(ColumnName.Tiles, furnishings.toString());
 
         return values;
+    }
+
+    private static PlayerScore parseScore(Cursor cursor) {
+        PlayerScore score;
+        score = new PlayerScore(cursor.getLong(cursor.getColumnIndex(ColumnName.Id)));
+        for (Map.Entry<Token, String> column : TokenColumns.entrySet()) {
+            score.setCount(column.getKey(), cursor.getInt(cursor.getColumnIndex(column.getValue())));
+        }
+
+        try {
+            JSONArray read = new JSONArray(cursor.getString(cursor.getColumnIndex(ColumnName.Tiles)));
+
+            for (int i = 0; i < read.length(); i++) {
+                Tile tile = Tile.valueOf(read.getString(i));
+                score.set(tile);
+            }
+        } catch(JSONException exception) {
+            score = null;
+        }
+        return score;
     }
 }
