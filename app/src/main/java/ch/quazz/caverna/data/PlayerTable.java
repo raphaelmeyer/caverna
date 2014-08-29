@@ -1,6 +1,6 @@
 package ch.quazz.caverna.data;
 
-public class PlayerTable {
+public final class PlayerTable {
     private static final String TableName = "players";
 
     private static final class ColumnName {
@@ -19,10 +19,5 @@ public class PlayerTable {
         return "DROP TABLE IF EXISTS " + TableName;
     }
 
-    private final CavernaDbHelper dbHelper;
-
-    public PlayerTable(CavernaDbHelper dbHelper) {
-        this.dbHelper = dbHelper;
-    }
-
+    private PlayerTable() {}
 }

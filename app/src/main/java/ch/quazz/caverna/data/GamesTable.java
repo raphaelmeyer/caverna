@@ -9,7 +9,7 @@ import java.util.List;
 
 import ch.quazz.caverna.games.Game;
 
-public class GamesTable {
+public final class GamesTable {
 
     private static final String TableName = "games";
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class CavernaDbHelper extends SQLiteOpenHelper {
+public final class CavernaDbHelper extends SQLiteOpenHelper {
 
     private static final String DatabaseName = "caverna.db";
     private static final int DatabaseVersion = 1;
@@ -18,6 +18,7 @@ public class CavernaDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(GamesTable.createTableSql());
         db.execSQL(ScoreTable.createTableSql());
+        db.execSQL(PlayerTable.createTableSql());
     }
 
     @Override
@@ -27,5 +28,8 @@ public class CavernaDbHelper extends SQLiteOpenHelper {
 
         db.execSQL(ScoreTable.deleteTableSql());
         db.execSQL(ScoreTable.createTableSql());
+
+        db.execSQL(PlayerTable.deleteTableSql());
+        db.execSQL(PlayerTable.createTableSql());
     }
 }
