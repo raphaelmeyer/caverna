@@ -23,7 +23,7 @@ public class ScoringPadAdapter extends BaseAdapter {
         this.scoringPad = null;
     }
 
-    void setScoringPad(List<ScoreSheet> scoringPad) {
+    void setScoringPad(final List<ScoreSheet> scoringPad) {
         this.scoringPad = scoringPad;
         notifyDataSetChanged();
     }

@@ -87,10 +87,11 @@ public final class ScoreTable {
 
     private ScoreTable() {}
 
-    public static long addScore(final CavernaDbHelper dbHelper) {
+    public static long addScore(final CavernaDbHelper dbHelper, final long gameId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         PlayerScore score = new PlayerScore(0);
         ContentValues values = columnValues(score);
+        values.put(ColumnName.GameId, gameId);
         return db.insert(TableName, null, values);
     }
 

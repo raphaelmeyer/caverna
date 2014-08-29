@@ -69,7 +69,7 @@ public class GameActivity extends Activity {
     }
 
     public void addPlayerScore(View view) {
-        long scoreId = ScoreTable.addScore(dbHelper);
+        long scoreId = ScoreTable.addScore(dbHelper, gameId);
 
         Intent intent = new Intent(this, PlayerScoreActivity.class);
         intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);

@@ -148,7 +148,6 @@ public class PlayerScoreActivity extends Activity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        updateScore();
         return super.onPrepareOptionsMenu(menu);
     }
 
