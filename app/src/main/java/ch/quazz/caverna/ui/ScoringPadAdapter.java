@@ -54,19 +54,14 @@ public class ScoringPadAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
+        TextView view;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item, parent, false);
+            view = new TextView(context);
         } else {
-            view = convertView;
+            view = (TextView)convertView;
         }
 
-        TextView title = (TextView)view.findViewById(R.id.item_title);
-        title.setText("player name, total");
-
-        TextView text = (TextView)view.findViewById(R.id.item_text);
-        text.setText("category scores");
+        view.setText(String.valueOf(position + 1) + " Name");
 
         return view;
     }

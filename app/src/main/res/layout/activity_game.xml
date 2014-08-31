@@ -21,9 +21,16 @@
             android:onClick="addPlayerScore" />
 
         <TableLayout
-            android:id="@+id/scoring_pad"
+            android:id="@+id/game_scoring_pad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <include layout="@layout/separator" />
+
+        <ListView
+            android:id="@+id/game_player_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

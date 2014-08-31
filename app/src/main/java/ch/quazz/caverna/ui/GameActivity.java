@@ -3,6 +3,7 @@ package ch.quazz.caverna.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +14,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
@@ -22,10 +25,28 @@ import ch.quazz.caverna.score.ScoreSheet;
 
 public class GameActivity extends Activity {
 
-    private List<ScoreSheet> scoringPad;
     private CavernaDbHelper dbHelper;
     private ScoringPadAdapter scoringPadAdapter;
     private long gameId;
+
+    private static final class Entry {
+        final ScoreSheet.Category category;
+        final String name;
+
+        Entry(final ScoreSheet.Category category, final String name) {
+            this.category = category;
+            this.name = name;
+        }
+    }
+    private static final List<Entry> categories = new ArrayList<Entry>() {
+        {
+            add(new Entry(ScoreSheet.Category.Animals, "Animals"));
+            add(new Entry(ScoreSheet.Category.MissingFarmAnimal, "Missing farm animal"));
+            add(new Entry(ScoreSheet.Category.Grain, "Grain"));
+            add(new Entry(ScoreSheet.Category.Vegetable, "Vegetable"));
+            add(new Entry(ScoreSheet.Category.Total, "Total"));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +56,7 @@ public class GameActivity extends Activity {
         Intent intent = getIntent();
         gameId = intent.getLongExtra(MainActivity.ExtraGameId, 0);
 
-        if (scoringPad == null) {
+        if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
         }
     }
@@ -65,56 +86,54 @@ public class GameActivity extends Activity {
 
         List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
 
-        /*
-        scoringPadAdapter = new ScoringPadAdapter(this);
-        scoringPadAdapter.setScoringPad(scoringPad);
+        //
 
-        ListView listView = (ListView)findViewById(R.id.scoring_pad);
-        listView.setAdapter(scoringPadAdapter);
-        */
+        int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
-        TableLayout table = (TableLayout)findViewById(R.id.scoring_pad);
+        TableLayout table = (TableLayout)findViewById(R.id.game_scoring_pad);
+
+        table.removeAllViews();
 
         TableRow names = new TableRow(this);
         TextView title = new TextView(this);
-        title.setText("Names");
+        title.setText("Player");
         names.addView(title);
         for (int i = 0; i < scoringPad.size(); i++) {
             TextView name = new TextView(this);
-            name.setText("name " + i);
-            name.setRotation(90.0f);
+            name.setText(String.valueOf(i + 1));
+            name.setGravity(Gravity.CENTER);
+            name.setPadding(padding, 0, padding, 0);
             names.addView(name);
         }
+        table.addView(names);
 
-        TableRow animals = new TableRow(this);
-        title = new TextView(this);
-        title.setText("Animals");
-        animals.addView(title);
-        for (ScoreSheet sheet : scoringPad) {
-            TextView points = new TextView(this);
-            points.setGravity(Gravity.RIGHT);
-            points.setText(String.valueOf(sheet.score(ScoreSheet.Category.Animals)));
-            animals.addView(points);
+        for (Entry entry : categories) {
+            TableRow row = new TableRow(this);
+            title = new TextView(this);
+            title.setText(entry.name);
+            row.addView(title);
+            for (ScoreSheet sheet : scoringPad) {
+                TextView points = new TextView(this);
+                points.setGravity(Gravity.RIGHT);
+                points.setText(String.valueOf(sheet.score(entry.category)));
+                points.setPadding(padding, 0, padding, 0);
+                row.addView(points);
+            }
+            table.addView(row);
         }
 
-        TableRow missingAnimals = new TableRow(this);
-        title = new TextView(this);
-        title.setText("Missing animals");
-        missingAnimals.addView(title);
-        for (ScoreSheet sheet : scoringPad) {
-            TextView points = new TextView(this);
-            points.setGravity(Gravity.RIGHT);
-            points.setText(String.valueOf(sheet.score(ScoreSheet.Category.MissingFarmAnimal)));
-            missingAnimals.addView(points);
-        }
+        //
 
-        table.addView(names, new TableLayout.LayoutParams());
-        table.addView(animals, new TableLayout.LayoutParams());
-        table.addView(missingAnimals, new TableLayout.LayoutParams());
+        scoringPadAdapter = new ScoringPadAdapter(this);
+        scoringPadAdapter.setScoringPad(scoringPad);
+
+        ListView listView = (ListView)findViewById(R.id.game_player_list);
+        listView.setAdapter(scoringPadAdapter);
 
     }
 
     public void addPlayerScore(View view) {
+        // if (players < 7) { ... }
         long scoreId = ScoreTable.addScore(dbHelper, gameId);
 
         Intent intent = new Intent(this, PlayerScoreActivity.class);
