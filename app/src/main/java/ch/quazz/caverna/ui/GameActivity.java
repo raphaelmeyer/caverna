@@ -22,6 +22,7 @@ import java.util.List;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.score.ScoreSheet;
 
@@ -96,19 +97,25 @@ public class GameActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.game_add_player) {
-            if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
-                Intent intent = new Intent(this, PlayersActivity.class);
-                intent.putExtra(GameActivity.ExtraGameId, gameId);
-                startActivity(intent);
-            }
-            return true;
+        switch (item.getItemId()) {
+
+            case R.id.game_add_player:
+                if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
+                    Intent intent = new Intent(this, PlayersActivity.class);
+                    intent.putExtra(GameActivity.ExtraGameId, gameId);
+                    startActivity(intent);
+                }
+                return true;
+
+            case R.id.game_delete_game:
+                ScoreTable.deleteScores(dbHelper, gameId);
+                GamesTable.deleteGame(dbHelper, gameId);
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
