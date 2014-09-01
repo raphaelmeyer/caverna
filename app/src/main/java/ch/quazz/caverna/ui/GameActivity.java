@@ -145,21 +145,27 @@ public class GameActivity extends Activity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.context_player_score_edit) {
-            Intent intent = new Intent(this, PlayerScoreActivity.class);
-            intent.putExtra(PlayerScoreActivity.ExtraScoreId, info.id);
-            startActivity(intent);
-            return true;
-        } else if (item.getItemId() == R.id.context_player_score_delete) {
-            ScoreTable.deleteScore(dbHelper, info.id);
+        switch (item.getItemId()) {
 
-            List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
-            createScoringPad(scoringPad);
-            scoringPadAdapter.setScoringPad(scoringPad);
+            case R.id.context_player_score_edit:
+                Intent intent = new Intent(this, PlayerScoreActivity.class);
+                intent.putExtra(PlayerScoreActivity.ExtraScoreId, info.id);
+                startActivity(intent);
+                return true;
 
-            return true;
+            case R.id.context_player_score_delete:
+
+                ScoreTable.deleteScore(dbHelper, info.id);
+
+                List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
+                createScoringPad(scoringPad);
+                scoringPadAdapter.setScoringPad(scoringPad);
+
+                return true;
+
+            default:
+                return false;
         }
-        return false;
     }
 
     private void createScoringPad(List<ScoreSheet> scoringPad) {
