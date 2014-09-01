@@ -96,6 +96,8 @@ public class MainActivity extends Activity {
         } else if (item.getItemId() == R.id.context_game_delete) {
             GamesTable.deleteGame(dbHelper, info.id);
 
+            // TODO delete all scores with id = gameId
+
             List<Game> games = GamesTable.getGames(dbHelper);
             gamesAdapter.setGames(games);
 

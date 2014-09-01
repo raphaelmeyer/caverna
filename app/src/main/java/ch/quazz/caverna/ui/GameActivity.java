@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -19,7 +22,9 @@ import java.util.List;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.data.ScoreTable;
+import ch.quazz.caverna.games.Game;
 import ch.quazz.caverna.score.ScoreSheet;
 
 public class GameActivity extends Activity {
@@ -70,6 +75,17 @@ public class GameActivity extends Activity {
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
         }
+
+        ListView players = (ListView)findViewById(R.id.game_player_list);
+        registerForContextMenu(players);
+        players.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(GameActivity.this, PlayerScoreActivity.class);
+                intent.putExtra(PlayerScoreActivity.ExtraScoreId, id);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -106,6 +122,32 @@ public class GameActivity extends Activity {
         ListView listView = (ListView)findViewById(R.id.game_player_list);
         listView.setAdapter(scoringPadAdapter);
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_player_score, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        if (item.getItemId() == R.id.context_player_score_edit) {
+            Intent intent = new Intent(this, PlayerScoreActivity.class);
+            intent.putExtra(PlayerScoreActivity.ExtraScoreId, info.id);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.context_player_score_delete) {
+            ScoreTable.deleteScore(dbHelper, info.id);
+
+            // TODO refresh screen
+
+            return true;
+        }
+        return false;
     }
 
     private void addPlayer() {

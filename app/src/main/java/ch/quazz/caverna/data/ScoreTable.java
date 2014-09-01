@@ -153,6 +153,11 @@ public final class ScoreTable {
         return scoringPad;
     }
 
+    public static void deleteScore(final CavernaDbHelper dbHelper, final long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.delete(TableName, ColumnName.Id + "=" + id, null);
+    }
+
     private static ContentValues columnValues(PlayerScore score) {
         ContentValues values = new ContentValues();
 
