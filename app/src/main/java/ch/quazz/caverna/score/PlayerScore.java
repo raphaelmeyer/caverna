@@ -216,6 +216,16 @@ public class PlayerScore {
             score += getCount(Token.Cattle);
         }
 
+
+
+        if (has(Tile.StoneStorage)) {
+            score += getCount(Token.Stone);
+        }
+
+        if (has(Tile.OreStorage)) {
+            score += getCount(Token.Ore) / 2;
+        }
+
         if (has(Tile.WritingChamber)) {
             score += java.lang.Math.min(7, cost());
         }

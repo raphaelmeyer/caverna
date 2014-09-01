@@ -219,6 +219,26 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.MilkingParlor, 5);
     }
 
+    public void test_stone_storage_scores_a_bonus_point_for_each_stone() {
+        assertBonus(Tile.StoneStorage, 0);
+
+        testee.setCount(Token.Stone, 1);
+        assertBonus(Tile.StoneStorage, 1);
+
+        testee.setCount(Token.Stone, 6);
+        assertBonus(Tile.StoneStorage, 6);
+    }
+
+    public void test_ore_storage_scores_a_bonus_point_for_each_pair_of_ore() {
+        assertBonus(Tile.OreStorage, 0);
+
+        testee.setCount(Token.Ore, 5);
+        assertBonus(Tile.OreStorage, 2);
+
+        testee.setCount(Token.Ore, 10);
+        assertBonus(Tile.OreStorage, 5);
+    }
+
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 
