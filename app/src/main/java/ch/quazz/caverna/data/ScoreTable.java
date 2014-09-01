@@ -88,9 +88,9 @@ public final class ScoreTable {
 
     private ScoreTable() {}
 
-    public static long addScore(final CavernaDbHelper dbHelper, final long gameId) {
+    public static long addScore(final CavernaDbHelper dbHelper, final long playerId, final long gameId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        PlayerScore score = new PlayerScore(0);
+        PlayerScore score = new PlayerScore(playerId);
         ContentValues values = columnValues(score);
         values.put(ColumnName.GameId, gameId);
 
@@ -124,6 +124,18 @@ public final class ScoreTable {
         return score;
     }
 
+    public static void deleteScore(final CavernaDbHelper dbHelper, final long id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String selection = ColumnName.Id + "=" + id;
+        db.delete(TableName, selection, null);
+    }
+
+    public static void deleteScores(final CavernaDbHelper dbHelper, final long gameId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String selection = ColumnName.GameId + "=" + gameId;
+        db.delete(TableName, selection, null);
+    }
+
     public static long numberOfPlayers(final CavernaDbHelper dbHelper, final long gameId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         String selection = ColumnName.GameId + "=" + gameId;
@@ -151,11 +163,6 @@ public final class ScoreTable {
         db.close();
 
         return scoringPad;
-    }
-
-    public static void deleteScore(final CavernaDbHelper dbHelper, final long id) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TableName, ColumnName.Id + "=" + id, null);
     }
 
     private static ContentValues columnValues(PlayerScore score) {

@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.games.Game;
@@ -62,7 +65,8 @@ public class GamesAdapter extends BaseAdapter {
             view = convertView;
         }
 
-        String timestamp = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
+        String timestamp = DateFormat.getDateTimeInstance().format(new Date(games.get(position).timestamp));
+
         TextView title = (TextView)view.findViewById(R.id.item_text);
         title.setText(timestamp);
 

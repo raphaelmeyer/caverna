@@ -17,6 +17,7 @@ import java.util.List;
 import ch.quazz.caverna.data.CavernaDbHelper;
 import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.R;
+import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.games.Game;
 
 public class MainActivity extends Activity {
@@ -86,20 +87,24 @@ public class MainActivity extends Activity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.context_game_edit) {
-            startGameActivity(info.id);
-            return true;
-        } else if (item.getItemId() == R.id.context_game_delete) {
-            GamesTable.deleteGame(dbHelper, info.id);
+        switch (item.getItemId()) {
 
-            // TODO delete all scores with id = gameId
+            case R.id.context_game_edit:
+                startGameActivity(info.id);
+                return true;
 
-            List<Game> games = GamesTable.getGames(dbHelper);
-            gamesAdapter.setGames(games);
+            case R.id.context_game_delete:
+                ScoreTable.deleteScores(dbHelper, info.id);
+                GamesTable.deleteGame(dbHelper, info.id);
 
-            return true;
+                List<Game> games = GamesTable.getGames(dbHelper);
+                gamesAdapter.setGames(games);
+
+                return true;
+
+            default:
+                return false;
         }
-        return false;
     }
 
     public void newGame(View view) {

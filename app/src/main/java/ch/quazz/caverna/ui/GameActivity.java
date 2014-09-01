@@ -26,8 +26,8 @@ import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.score.ScoreSheet;
 
 public class GameActivity extends Activity {
+    final static String ExtraGameId = "ch.quazz.caverna.GameId";
 
-    public final static String ExtraGameId = "ch.quazz.caverna.GameId";
     private CavernaDbHelper dbHelper;
     private GamePlayerAdapter scoringPadAdapter;
     private long gameId;
@@ -101,7 +101,11 @@ public class GameActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.game_add_player) {
-            addPlayer();
+            if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
+                Intent intent = new Intent(this, PlayersActivity.class);
+                intent.putExtra(GameActivity.ExtraGameId, gameId);
+                startActivity(intent);
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -147,19 +151,6 @@ public class GameActivity extends Activity {
             return true;
         }
         return false;
-    }
-
-    private void addPlayer() {
-        if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
-
-            // TODO go to player activity to select a player
-
-            long scoreId = ScoreTable.addScore(dbHelper, gameId);
-
-            Intent intent = new Intent(this, PlayerScoreActivity.class);
-            intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
-            startActivity(intent);
-        }
     }
 
     private void createScoringPad(List<ScoreSheet> scoringPad) {

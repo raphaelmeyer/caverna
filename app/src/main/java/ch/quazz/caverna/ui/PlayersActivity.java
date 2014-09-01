@@ -16,9 +16,12 @@ import java.util.List;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
 import ch.quazz.caverna.data.PlayerTable;
+import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.games.Player;
 
 public class PlayersActivity extends Activity {
+    final static String ExtraPlayerId = "ch.quazz.caverna.PlayerId";
+
     private CavernaDbHelper dbHelper;
     private PlayersAdapter playersAdapter;
     private long gameId;
@@ -40,8 +43,12 @@ public class PlayersActivity extends Activity {
         games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // start player score activity
-                // id -> player id
+                long scoreId = ScoreTable.addScore(dbHelper, id, gameId);
+
+                Intent intent = new Intent(PlayersActivity.this, PlayerScoreActivity.class);
+                intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
+
+                startActivity(intent);
             }
         });
     }
@@ -60,6 +67,7 @@ public class PlayersActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.players_add_player) {
+            PlayerTable.addPlayer(dbHelper, "Name");
             return true;
         }
         return super.onOptionsItemSelected(item);

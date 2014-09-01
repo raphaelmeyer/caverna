@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Caverna</string>
+    <string name="app_name">Caverna Scoring Pad</string>
     <string name="wealth_tab">Wealth</string>
     <string name="family_tab">Family</string>
     <string name="cave_tab">Cave</string>
