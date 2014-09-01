@@ -1,6 +1,7 @@
 package ch.quazz.caverna.test;
 
 import android.test.AndroidTestCase;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -219,6 +220,10 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.MilkingParlor, 5);
     }
 
+    public void test_state_parlor_scores_four_bonus_points_for_each_adjacent_dwelling() {
+        fail();
+    }
+
     public void test_stone_storage_scores_a_bonus_point_for_each_stone() {
         assertBonus(Tile.StoneStorage, 0);
 
@@ -250,6 +255,14 @@ public class PlayerScoreTest extends AndroidTestCase {
 
         testee.set(Tile.FoodChamber);
         assertBonus(Tile.MainStorage, 8);
+    }
+
+    public void test_weapon_storage_scores_three_bonus_points_for_each_armed_dwarf() {
+        fail();
+    }
+
+    public void test_supplies_storage_scores_eight_points_if_all_dwarfs_are_armed() {
+        fail();
     }
 
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
