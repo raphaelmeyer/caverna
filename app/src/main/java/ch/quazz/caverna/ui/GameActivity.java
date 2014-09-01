@@ -22,13 +22,12 @@ import java.util.List;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
-import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.data.ScoreTable;
-import ch.quazz.caverna.games.Game;
 import ch.quazz.caverna.score.ScoreSheet;
 
 public class GameActivity extends Activity {
 
+    public final static String ExtraGameId = "ch.quazz.caverna.GameId";
     private CavernaDbHelper dbHelper;
     private GamePlayerAdapter scoringPadAdapter;
     private long gameId;
@@ -70,7 +69,7 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        gameId = intent.getLongExtra(MainActivity.ExtraGameId, 0);
+        gameId = intent.getLongExtra(ExtraGameId, 0);
 
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);

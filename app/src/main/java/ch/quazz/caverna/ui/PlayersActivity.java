@@ -1,6 +1,7 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -20,11 +21,15 @@ import ch.quazz.caverna.games.Player;
 public class PlayersActivity extends Activity {
     private CavernaDbHelper dbHelper;
     private PlayersAdapter playersAdapter;
+    private long gameId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_players);
+
+        Intent intent = getIntent();
+        gameId = intent.getLongExtra(GameActivity.ExtraGameId, 0);
 
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);

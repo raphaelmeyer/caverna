@@ -21,8 +21,6 @@ import ch.quazz.caverna.games.Game;
 
 public class MainActivity extends Activity {
 
-    public final static String ExtraGameId = "ch.quazz.caverna.GameId";
-
     private CavernaDbHelper dbHelper;
     private GamesAdapter gamesAdapter;
 
@@ -112,7 +110,7 @@ public class MainActivity extends Activity {
 
     private void startGameActivity(long gameId) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(ExtraGameId, gameId);
+        intent.putExtra(GameActivity.ExtraGameId, gameId);
         startActivity(intent);
     }
 }
