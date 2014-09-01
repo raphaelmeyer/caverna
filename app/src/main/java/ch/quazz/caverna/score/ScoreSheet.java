@@ -6,6 +6,7 @@ public class ScoreSheet {
 
     public final long id;
     public final int player;
+    public final String name;
 
     public enum Category {
         Animals,
@@ -25,9 +26,10 @@ public class ScoreSheet {
 
     private final Map<Category, Integer> points;
 
-    ScoreSheet(long id, int player, Map<Category, Integer> points) {
+    ScoreSheet(long id, int player, String name, Map<Category, Integer> points) {
         this.id = id;
         this.player = player;
+        this.name = name;
         this.points = points;
     }
 

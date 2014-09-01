@@ -1,7 +1,6 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import ch.quazz.caverna.score.ScoreSheet;
 public class GameActivity extends Activity {
 
     private CavernaDbHelper dbHelper;
-    private ScoringPadAdapter scoringPadAdapter;
+    private GamePlayerAdapter scoringPadAdapter;
     private long gameId;
 
     private static final class Row {
@@ -146,7 +145,7 @@ public class GameActivity extends Activity {
 
         //
 
-        scoringPadAdapter = new ScoringPadAdapter(this);
+        scoringPadAdapter = new GamePlayerAdapter(this);
         scoringPadAdapter.setScoringPad(scoringPad);
 
         ListView listView = (ListView)findViewById(R.id.game_player_list);

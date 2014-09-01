@@ -11,14 +11,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.quazz.caverna.R;
+import ch.quazz.caverna.data.PlayerTable;
 import ch.quazz.caverna.score.ScoreSheet;
 
-public class ScoringPadAdapter extends BaseAdapter {
+public class GamePlayerAdapter extends BaseAdapter {
 
     private final Context context;
     private List<ScoreSheet> scoringPad;
 
-    public ScoringPadAdapter(final Context context) {
+    public GamePlayerAdapter(final Context context) {
         this.context = context;
         this.scoringPad = null;
     }
@@ -54,14 +55,17 @@ public class ScoringPadAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView view;
+        View view;
         if (convertView == null) {
-            view = new TextView(context);
+            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflater.inflate(R.layout.list_item, parent, false);
         } else {
-            view = (TextView)convertView;
+            view = convertView;
         }
 
-        view.setText(String.valueOf(position + 1) + " Name");
+        ScoreSheet sheet = scoringPad.get(position);
+        TextView title = (TextView)view.findViewById(R.id.item_text);
+        title.setText(String.valueOf(sheet.player) + " " + sheet.name);
 
         return view;
     }

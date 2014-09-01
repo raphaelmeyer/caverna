@@ -141,8 +141,10 @@ public final class ScoreTable {
 
         int player = 1;
         while(cursor.moveToNext()) {
+            long playerId = cursor.getLong(cursor.getColumnIndex(ColumnName.PlayerId));
+            String name = PlayerTable.getName(dbHelper, playerId);
             PlayerScore score = parseScore(cursor);
-            scoringPad.add(score.scoreSheet(player));
+            scoringPad.add(score.scoreSheet(player, name));
             player++;
         }
         cursor.close();

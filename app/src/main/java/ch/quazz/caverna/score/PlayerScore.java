@@ -121,7 +121,7 @@ public class PlayerScore {
         listeners.remove(listener);
     }
 
-    public ScoreSheet scoreSheet(int player) {
+    public ScoreSheet scoreSheet(final int player, final String name) {
         Map<ScoreSheet.Category, Integer> points = new HashMap<ScoreSheet.Category, Integer>();
         points.put(ScoreSheet.Category.Animals, scoreAnimals());
         points.put(ScoreSheet.Category.MissingFarmAnimal, scoreMissingFarmAnimal());
@@ -136,7 +136,7 @@ public class PlayerScore {
         points.put(ScoreSheet.Category.Chambers, scoreChambers());
         points.put(ScoreSheet.Category.Assets, scoreAssets());
         points.put(ScoreSheet.Category.Total, score());
-        return new ScoreSheet(id, player, points);
+        return new ScoreSheet(id, player, name, points);
     }
 
     private void notifyScoreChanged() {

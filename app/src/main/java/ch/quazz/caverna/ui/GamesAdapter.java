@@ -63,11 +63,8 @@ public class GamesAdapter extends BaseAdapter {
         }
 
         String timestamp = DateUtils.formatDateTime(context, games.get(position).timestamp, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME);
-        TextView title = (TextView)view.findViewById(R.id.item_title);
+        TextView title = (TextView)view.findViewById(R.id.item_text);
         title.setText(timestamp);
-
-        TextView text = (TextView)view.findViewById(R.id.item_text);
-        text.setText("some text ...");
 
         return view;
     }
