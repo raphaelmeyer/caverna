@@ -3,7 +3,6 @@
     xmlns:caverna="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -13,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <GridView
@@ -25,7 +24,64 @@
             android:verticalSpacing="4dp"
             android:horizontalSpacing="4dp"
             android:gravity="center"
-            android:stretchMode="columnWidth" />
+            android:stretchMode="columnWidth"
+            android:layout_weight="3" />
+
+        <include layout="@layout/separator" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ch.quazz.caverna.widget.CountingInput
+                    android:id="@+id/adjacent_dwellings"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    caverna:min="0"
+                    caverna:max="7"
+                    caverna:label="Adjacent dwellings"
+                    caverna:icon="@drawable/ore" />
+
+                <ch.quazz.caverna.widget.CountingInput
+                    android:id="@+id/stone"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    caverna:min="0"
+                    caverna:max="30"
+                    caverna:label="@string/stone"
+                    caverna:icon="@drawable/stone" />
+
+                <ch.quazz.caverna.widget.CountingInput
+                    android:id="@+id/ore"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    caverna:min="0"
+                    caverna:max="30"
+                    caverna:label="@string/ore"
+                    caverna:icon="@drawable/ore" />
+
+                <ch.quazz.caverna.widget.CountingInput
+                    android:id="@+id/weapons"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    caverna:min="0"
+                    caverna:max="7"
+                    caverna:label="Armed dwarfs"
+                    caverna:icon="@drawable/ore" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

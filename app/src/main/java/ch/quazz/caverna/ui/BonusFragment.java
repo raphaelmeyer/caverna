@@ -49,5 +49,24 @@ public class BonusFragment extends PlayerScoreFragment {
     public void onResume() {
         super.onResume();
         bonusController.setup(playerScore, getActivity(), R.id.bonus_tiles);
+
+        bonusController.setOnSelectionChangeListener(new TileController.OnSelectionChangeListener() {
+            @Override
+            public void onSelectionChanged() {
+                View view = getActivity().findViewById(R.id.stone);
+                if (playerScore.has(Tile.StoneStorage)) {
+                    view.setVisibility(View.VISIBLE);
+                } else {
+                    view.setVisibility(View.GONE);
+                }
+
+                view = getActivity().findViewById(R.id.ore);
+                if (playerScore.has(Tile.OreStorage)) {
+                    view.setVisibility(View.VISIBLE);
+                } else {
+                    view.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 }

@@ -9,10 +9,16 @@ import ch.quazz.caverna.score.PlayerScore;
 
 public class TileController {
 
-    private TileAdapter.Item options[];
+    interface OnSelectionChangeListener {
+        abstract void onSelectionChanged();
+    }
+
+    private final TileAdapter.Item options[];
+    private OnSelectionChangeListener selectionChangeListener;
 
     TileController(TileAdapter.Item options[]) {
         this.options = options;
+        this.selectionChangeListener = null;
     }
 
     void setup(final PlayerScore playerScore, Activity activity, int gridId) {
@@ -27,6 +33,9 @@ public class TileController {
                 } else {
                     playerScore.clear(tile);
                 }
+                if (selectionChangeListener != null) {
+                    selectionChangeListener.onSelectionChanged();
+                }
             }
         };
 
@@ -38,5 +47,9 @@ public class TileController {
         };
 
         gridview.setAdapter(new TileAdapter(activity, check, options, listener));
+    }
+
+    void setOnSelectionChangeListener(final OnSelectionChangeListener listener) {
+        selectionChangeListener = listener;
     }
 }

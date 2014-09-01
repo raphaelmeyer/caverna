@@ -23,6 +23,8 @@
     <string name="ruby_mines">Ruby Mines</string>
     <string name="unused_tiles">Unused Space</string>
     <string name="dwellings">Dwellings</string>
+    <string name="stone">Stone</string>
+    <string name="ore">Ore</string>
     <string name="score">Score</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
