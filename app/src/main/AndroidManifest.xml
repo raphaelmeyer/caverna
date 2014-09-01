@@ -17,16 +17,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.GameActivity"
+            android:label="@string/title_activity_game" >
+        </activity>
+        <activity
             android:name=".ui.PlayerScoreActivity"
-            android:label="@string/title_activity_player_score" >
+            android:label="@string/title_activity_player_score"
+            android:noHistory="true" >
         </activity>
         <activity
             android:name=".ui.PlayersActivity"
-            android:label="@string/title_activity_players" >
-        </activity>
-        <activity
-            android:name=".ui.GameActivity"
-            android:label="@string/title_activity_game" >
+            android:label="@string/title_activity_players"
+            android:noHistory="true" >
         </activity>
     </application>
 
