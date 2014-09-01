@@ -85,7 +85,8 @@ public class GameActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.game_add_player) {
+            addPlayer();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -97,6 +98,30 @@ public class GameActivity extends Activity {
 
         List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
 
+        createScoringPad(scoringPad);
+
+        scoringPadAdapter = new GamePlayerAdapter(this);
+        scoringPadAdapter.setScoringPad(scoringPad);
+
+        ListView listView = (ListView)findViewById(R.id.game_player_list);
+        listView.setAdapter(scoringPadAdapter);
+
+    }
+
+    private void addPlayer() {
+        if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
+
+            // TODO go to player activity to select a player
+
+            long scoreId = ScoreTable.addScore(dbHelper, gameId);
+
+            Intent intent = new Intent(this, PlayerScoreActivity.class);
+            intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
+            startActivity(intent);
+        }
+    }
+
+    private void createScoringPad(List<ScoreSheet> scoringPad) {
         //
 
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
@@ -142,24 +167,6 @@ public class GameActivity extends Activity {
                 row.view.addView(points);
             }
         }
-
-        //
-
-        scoringPadAdapter = new GamePlayerAdapter(this);
-        scoringPadAdapter.setScoringPad(scoringPad);
-
-        ListView listView = (ListView)findViewById(R.id.game_player_list);
-        listView.setAdapter(scoringPadAdapter);
-
     }
 
-    public void addPlayerScore(View view) {
-        if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
-            long scoreId = ScoreTable.addScore(dbHelper, gameId);
-
-            Intent intent = new Intent(this, PlayerScoreActivity.class);
-            intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
-            startActivity(intent);
-        }
-    }
 }

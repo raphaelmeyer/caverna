@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ch.quazz.caverna.ui.GameActivity" >
 
-    <item android:id="@+id/add_player"
+    <item android:id="@+id/game_add_player"
         android:icon="@drawable/ic_action_user_add"
         android:title="@string/ok"
         android:showAsAction="always" />

@@ -13,13 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add Player"
-            android:id="@+id/add_player_score"
-            android:onClick="addPlayerScore" />
-
         <TableLayout
             android:id="@+id/game_scoring_pad"
             android:layout_width="match_parent"
