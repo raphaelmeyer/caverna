@@ -190,21 +190,33 @@ public class PlayerScoreTest extends AndroidTestCase {
         testee.clear(Tile.HuntingParlor);
     }
 
-    public void test_weaving_parlor_scores_a_point_for_each_pair_of_sheep() {
-        testee.set(Tile.WeavingParlor);
-        assertScore(0);
+    public void test_weaving_parlor_scores_a_bonus_point_for_each_pair_of_sheep() {
+        assertBonus(Tile.WeavingParlor, 0);
 
         testee.setCount(Token.Sheep, 1);
-        assertScore((2 + 1) + 0);
+        assertBonus(Tile.WeavingParlor, 0);
 
         testee.setCount(Token.Sheep, 2);
-        assertScore((2 + 2) + 1);
+        assertBonus(Tile.WeavingParlor, 1);
 
         testee.setCount(Token.Sheep, 3);
-        assertScore((2 + 3) + 1);
+        assertBonus(Tile.WeavingParlor, 1);
 
-        testee.setCount(Token.Sheep, 4);
-        assertScore((2 + 4) + 2);
+        testee.setCount(Token.Sheep, 8);
+        assertBonus(Tile.WeavingParlor, 4);
+    }
+
+    public void test_milking_parlor_scores_a_bonus_point_for_each_cattle() {
+        assertBonus(Tile.MilkingParlor, 0);
+
+        testee.setCount(Token.Cattle, 1);
+        assertBonus(Tile.MilkingParlor, 1);
+
+        testee.setCount(Token.Cattle, 2);
+        assertBonus(Tile.MilkingParlor, 2);
+
+        testee.setCount(Token.Cattle, 5);
+        assertBonus(Tile.MilkingParlor, 5);
     }
 
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
@@ -243,6 +255,13 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score() - initialScore, equalTo(score));
     }
 
+    private void assertBonus(Tile tile, int bonus) {
+        testee.clear(tile);
+        int normalScore = testee.score();
+
+        testee.set(tile);
+        assertThat(testee.score() - normalScore, equalTo(bonus));
+    }
 
 
 }
