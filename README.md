@@ -3,13 +3,16 @@
 [![Build Status](https://secure.travis-ci.org/raphaelmeyer/caverna.png?branch=master)](http://travis-ci.org/raphaelmeyer/caverna)
 
 TODO
-* Refactoring
+* Bonus scores
 * Optional inputs
   * Adjacent dwellings
     * State parlor
+  * Stone
+    * Stone storage
+  * Ore
+    * Ore storage
   * Weapons
     * Weapon storage
     * Supplies storage
-* Refactoring
-* Refactoring
+* String constants
 
