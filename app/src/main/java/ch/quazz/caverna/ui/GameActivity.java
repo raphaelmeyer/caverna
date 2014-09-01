@@ -1,6 +1,7 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,9 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.CavernaDbHelper;
@@ -30,32 +29,34 @@ public class GameActivity extends Activity {
     private ScoringPadAdapter scoringPadAdapter;
     private long gameId;
 
-    private static final class Entry {
+    private static final class Row {
         final ScoreSheet.Category category;
         final String name;
         final int colorId;
+        TableRow view;
 
-        Entry(final ScoreSheet.Category category, final String name, final int colorId) {
+        Row(final ScoreSheet.Category category, final String name, final int colorId) {
             this.category = category;
             this.name = name;
             this.colorId = colorId;
+            this.view = null;
         }
     }
-    private static final List<Entry> categories = new ArrayList<Entry>() {
+    private static final List<Row> rows = new ArrayList<Row>() {
         {
-            add(new Entry(ScoreSheet.Category.Animals, "Animals", R.color.white));
-            add(new Entry(ScoreSheet.Category.MissingFarmAnimal, "Missing animal", R.color.grey));
-            add(new Entry(ScoreSheet.Category.Grain, "Grain", R.color.white));
-            add(new Entry(ScoreSheet.Category.Vegetable, "Vegetable", R.color.grey));
-            add(new Entry(ScoreSheet.Category.Ruby, "Ruby", R.color.white));
-            add(new Entry(ScoreSheet.Category.Dwarf, "Dwarf", R.color.grey));
-            add(new Entry(ScoreSheet.Category.UnusedSpace, "Unused space", R.color.white));
-            add(new Entry(ScoreSheet.Category.Tiles, "Tiles, Pastures, Mines", R.color.grey));
-            add(new Entry(ScoreSheet.Category.Parlors, "Parlors", R.color.white));
-            add(new Entry(ScoreSheet.Category.Storages, "Storages", R.color.grey));
-            add(new Entry(ScoreSheet.Category.Chambers, "Chambers", R.color.white));
-            add(new Entry(ScoreSheet.Category.Assets, "Gold, Begging markers", R.color.grey));
-            add(new Entry(ScoreSheet.Category.Total, "Total", R.color.blue));
+            add(new Row(ScoreSheet.Category.Animals, "Animals", R.color.white));
+            add(new Row(ScoreSheet.Category.MissingFarmAnimal, "Missing animal", R.color.grey));
+            add(new Row(ScoreSheet.Category.Grain, "Grain", R.color.white));
+            add(new Row(ScoreSheet.Category.Vegetable, "Vegetable", R.color.grey));
+            add(new Row(ScoreSheet.Category.Ruby, "Ruby", R.color.white));
+            add(new Row(ScoreSheet.Category.Dwarf, "Dwarf", R.color.grey));
+            add(new Row(ScoreSheet.Category.UnusedSpace, "Unused space", R.color.white));
+            add(new Row(ScoreSheet.Category.Tiles, "Tiles", R.color.grey));
+            add(new Row(ScoreSheet.Category.Parlors, "Parlors", R.color.white));
+            add(new Row(ScoreSheet.Category.Storages, "Storages", R.color.grey));
+            add(new Row(ScoreSheet.Category.Chambers, "Chambers", R.color.white));
+            add(new Row(ScoreSheet.Category.Assets, "Gold, Begging", R.color.grey));
+            add(new Row(ScoreSheet.Category.Total, "Total", R.color.blue));
         }
     };
 
@@ -102,41 +103,45 @@ public class GameActivity extends Activity {
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
         TableLayout table = (TableLayout)findViewById(R.id.game_scoring_pad);
-
         table.removeAllViews();
 
-        TableRow names = new TableRow(this);
-        names.setBackgroundResource(R.color.blue);
+        // add rows
+        TableRow players = new TableRow(this);
+        players.setBackgroundResource(R.color.blue);
         TextView title = new TextView(this);
         title.setText("Player");
-        names.addView(title);
-        for (int i = 0; i < scoringPad.size(); i++) {
-            TextView name = new TextView(this);
-            name.setText(String.valueOf(i + 1));
-            name.setGravity(Gravity.CENTER);
-            name.setPadding(padding, 0, padding, 0);
-            names.addView(name);
+        players.addView(title);
+
+        table.addView(players);
+
+        for (Row row : rows) {
+            row.view = new TableRow(this);
+            row.view.setBackgroundResource(row.colorId);
+            title = new TextView(this);
+            title.setText(row.name);
+            row.view.addView(title);
+            table.addView(row.view);
         }
 
-        table.addView(names);
+        // add points
+        for (ScoreSheet sheet : scoringPad) {
 
-        for (Entry entry : categories) {
-            TableRow row = new TableRow(this);
-            row.setBackgroundResource(entry.colorId);
-            title = new TextView(this);
-            title.setText(entry.name);
-            row.addView(title);
-            for (ScoreSheet sheet : scoringPad) {
+            TextView player = new TextView(this);
+            player.setText(String.valueOf(sheet.player));
+            player.setGravity(Gravity.CENTER);
+            player.setPadding(padding, 0, padding, 0);
+            players.addView(player);
+
+            for (Row row : rows) {
                 TextView points = new TextView(this);
                 points.setGravity(Gravity.RIGHT);
-                points.setText(String.valueOf(sheet.score(entry.category)));
+                points.setText(String.valueOf(sheet.score(row.category)));
                 points.setPadding(padding, 0, padding, 0);
-                if (entry.category == ScoreSheet.Category.Total) {
+                if (row.category == ScoreSheet.Category.Total) {
                     points.setTypeface(null, Typeface.BOLD);
                 }
-                row.addView(points);
+                row.view.addView(points);
             }
-            table.addView(row);
         }
 
         //
@@ -150,11 +155,12 @@ public class GameActivity extends Activity {
     }
 
     public void addPlayerScore(View view) {
-        // if (players < 7) { ... }
-        long scoreId = ScoreTable.addScore(dbHelper, gameId);
+        if (ScoreTable.numberOfPlayers(dbHelper, gameId) < 7) {
+            long scoreId = ScoreTable.addScore(dbHelper, gameId);
 
-        Intent intent = new Intent(this, PlayerScoreActivity.class);
-        intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
-        startActivity(intent);
+            Intent intent = new Intent(this, PlayerScoreActivity.class);
+            intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
+            startActivity(intent);
+        }
     }
 }

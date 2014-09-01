@@ -2,6 +2,7 @@ package ch.quazz.caverna.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.json.JSONArray;
@@ -123,6 +124,14 @@ public final class ScoreTable {
         return score;
     }
 
+    public static long numberOfPlayers(final CavernaDbHelper dbHelper, final long gameId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selection = ColumnName.GameId + "=" + gameId;
+        long players = DatabaseUtils.queryNumEntries(db, TableName, selection);
+        db.close();
+        return players;
+    }
+
     public static List<ScoreSheet> getScoringPad(final CavernaDbHelper dbHelper, final long gameId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<ScoreSheet> scoringPad = new ArrayList<ScoreSheet>();
@@ -130,9 +139,11 @@ public final class ScoreTable {
         String selection = ColumnName.GameId + "=" + gameId;
         Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
 
+        int player = 1;
         while(cursor.moveToNext()) {
             PlayerScore score = parseScore(cursor);
-            scoringPad.add(score.scoreSheet());
+            scoringPad.add(score.scoreSheet(player));
+            player++;
         }
         cursor.close();
         db.close();
