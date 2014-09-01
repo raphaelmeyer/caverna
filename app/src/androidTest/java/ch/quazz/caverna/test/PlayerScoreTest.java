@@ -19,7 +19,7 @@ public class PlayerScoreTest extends AndroidTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        testee = new PlayerScore();
+        testee = new PlayerScore(0);
     }
 
     public void test_the_initial_score_counts_two_dwarfs() {
@@ -67,7 +67,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(initialScoreWithoutFarmAnimals + 5));
     }
 
-    public void test_setting_a_farm_animal_count_back_to_zero_readds_the_cost() {
+    public void test_setting_a_farm_animal_count_back_to_zero_re_adds_the_cost() {
         testee.setCount(Token.Sheep, 1);
         testee.setCount(Token.Sheep, 0);
 
@@ -190,7 +190,24 @@ public class PlayerScoreTest extends AndroidTestCase {
         testee.clear(Tile.HuntingParlor);
     }
 
-    public void test_the_writing_chamber_prevents_up_to_7_negative_points() {
+    public void test_weaving_parlor_scores_a_point_for_each_pair_of_sheep() {
+        testee.set(Tile.WeavingParlor);
+        assertScore(0);
+
+        testee.setCount(Token.Sheep, 1);
+        assertScore((2 + 1) + 0);
+
+        testee.setCount(Token.Sheep, 2);
+        assertScore((2 + 2) + 1);
+
+        testee.setCount(Token.Sheep, 3);
+        assertScore((2 + 3) + 1);
+
+        testee.setCount(Token.Sheep, 4);
+        assertScore((2 + 4) + 2);
+    }
+
+    public void test_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 
         testee.setCount(Token.Dwarfs, 2);           // +2

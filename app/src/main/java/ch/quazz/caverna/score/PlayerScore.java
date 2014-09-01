@@ -208,6 +208,10 @@ public class PlayerScore {
     private int scoreChambers() {
         int score = 0;
 
+        if (has(Tile.WeavingParlor)) {
+            score += getCount(Token.Sheep) / 2;
+        }
+
         if (has(Tile.WritingChamber)) {
             score += java.lang.Math.min(7, cost());
         }
