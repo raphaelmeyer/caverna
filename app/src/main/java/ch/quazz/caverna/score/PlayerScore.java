@@ -135,6 +135,7 @@ public class PlayerScore {
         points.put(ScoreSheet.Category.Storages, scoreStorages());
         points.put(ScoreSheet.Category.Chambers, scoreChambers());
         points.put(ScoreSheet.Category.Assets, scoreAssets());
+        points.put(ScoreSheet.Category.Total, score());
         return new ScoreSheet(id, points);
     }
 

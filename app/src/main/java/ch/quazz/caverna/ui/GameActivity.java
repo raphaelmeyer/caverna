@@ -2,6 +2,7 @@ package ch.quazz.caverna.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -32,19 +33,29 @@ public class GameActivity extends Activity {
     private static final class Entry {
         final ScoreSheet.Category category;
         final String name;
+        final int colorId;
 
-        Entry(final ScoreSheet.Category category, final String name) {
+        Entry(final ScoreSheet.Category category, final String name, final int colorId) {
             this.category = category;
             this.name = name;
+            this.colorId = colorId;
         }
     }
     private static final List<Entry> categories = new ArrayList<Entry>() {
         {
-            add(new Entry(ScoreSheet.Category.Animals, "Animals"));
-            add(new Entry(ScoreSheet.Category.MissingFarmAnimal, "Missing farm animal"));
-            add(new Entry(ScoreSheet.Category.Grain, "Grain"));
-            add(new Entry(ScoreSheet.Category.Vegetable, "Vegetable"));
-            add(new Entry(ScoreSheet.Category.Total, "Total"));
+            add(new Entry(ScoreSheet.Category.Animals, "Animals", R.color.white));
+            add(new Entry(ScoreSheet.Category.MissingFarmAnimal, "Missing animal", R.color.grey));
+            add(new Entry(ScoreSheet.Category.Grain, "Grain", R.color.white));
+            add(new Entry(ScoreSheet.Category.Vegetable, "Vegetable", R.color.grey));
+            add(new Entry(ScoreSheet.Category.Ruby, "Ruby", R.color.white));
+            add(new Entry(ScoreSheet.Category.Dwarf, "Dwarf", R.color.grey));
+            add(new Entry(ScoreSheet.Category.UnusedSpace, "Unused space", R.color.white));
+            add(new Entry(ScoreSheet.Category.Tiles, "Tiles, Pastures, Mines", R.color.grey));
+            add(new Entry(ScoreSheet.Category.Parlors, "Parlors", R.color.white));
+            add(new Entry(ScoreSheet.Category.Storages, "Storages", R.color.grey));
+            add(new Entry(ScoreSheet.Category.Chambers, "Chambers", R.color.white));
+            add(new Entry(ScoreSheet.Category.Assets, "Gold, Begging markers", R.color.grey));
+            add(new Entry(ScoreSheet.Category.Total, "Total", R.color.blue));
         }
     };
 
@@ -95,6 +106,7 @@ public class GameActivity extends Activity {
         table.removeAllViews();
 
         TableRow names = new TableRow(this);
+        names.setBackgroundResource(R.color.blue);
         TextView title = new TextView(this);
         title.setText("Player");
         names.addView(title);
@@ -105,10 +117,12 @@ public class GameActivity extends Activity {
             name.setPadding(padding, 0, padding, 0);
             names.addView(name);
         }
+
         table.addView(names);
 
         for (Entry entry : categories) {
             TableRow row = new TableRow(this);
+            row.setBackgroundResource(entry.colorId);
             title = new TextView(this);
             title.setText(entry.name);
             row.addView(title);
@@ -117,6 +131,9 @@ public class GameActivity extends Activity {
                 points.setGravity(Gravity.RIGHT);
                 points.setText(String.valueOf(sheet.score(entry.category)));
                 points.setPadding(padding, 0, padding, 0);
+                if (entry.category == ScoreSheet.Category.Total) {
+                    points.setTypeface(null, Typeface.BOLD);
+                }
                 row.addView(points);
             }
             table.addView(row);
