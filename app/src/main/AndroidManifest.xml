@@ -21,6 +21,10 @@
             android:label="@string/title_activity_player_score" >
         </activity>
         <activity
+            android:name=".ui.PlayersActivity"
+            android:label="@string/title_activity_players" >
+        </activity>
+        <activity
             android:name=".ui.GameActivity"
             android:label="@string/title_activity_game" >
         </activity>

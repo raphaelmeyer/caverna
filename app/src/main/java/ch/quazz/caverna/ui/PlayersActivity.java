@@ -1,7 +1,6 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -11,36 +10,33 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.Calendar;
 import java.util.List;
 
-import ch.quazz.caverna.data.CavernaDbHelper;
-import ch.quazz.caverna.data.GamesTable;
 import ch.quazz.caverna.R;
-import ch.quazz.caverna.games.Game;
+import ch.quazz.caverna.data.CavernaDbHelper;
+import ch.quazz.caverna.data.PlayerTable;
+import ch.quazz.caverna.games.Player;
 
-public class MainActivity extends Activity {
-
-    public final static String ExtraGameId = "ch.quazz.caverna.GameId";
-
+public class PlayersActivity extends Activity {
     private CavernaDbHelper dbHelper;
-    private GamesAdapter gamesAdapter;
+    private PlayersAdapter playersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_players);
 
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
         }
 
-        ListView games = (ListView)findViewById(R.id.games_list);
+        ListView games = (ListView)findViewById(R.id.players_list);
         registerForContextMenu(games);
         games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startGameActivity(id);
+                // start player score activity
+                // id -> player id
             }
         });
     }
@@ -48,7 +44,7 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.players, menu);
         return true;
     }
 
@@ -58,7 +54,7 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.players_add_player) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -68,19 +64,19 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
 
-        List<Game> games = GamesTable.getGames(dbHelper);
+        List<Player> players = PlayerTable.getPlayers(dbHelper);
 
-        gamesAdapter = new GamesAdapter(this);
-        gamesAdapter.setGames(games);
+        playersAdapter = new PlayersAdapter(this);
+        playersAdapter.setPlayers(players);
 
-        ListView listView = (ListView)findViewById(R.id.games_list);
-        listView.setAdapter(gamesAdapter);
+        ListView listView = (ListView)findViewById(R.id.players_list);
+        listView.setAdapter(playersAdapter);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_game, menu);
+        inflater.inflate(R.menu.context_players, menu);
     }
 
     @Override
@@ -88,31 +84,20 @@ public class MainActivity extends Activity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.context_game_edit) {
-            startGameActivity(info.id);
+        if (item.getItemId() == R.id.context_players_edit) {
+
+            // TODO
             return true;
-        } else if (item.getItemId() == R.id.context_game_delete) {
-            GamesTable.deleteGame(dbHelper, info.id);
 
-            // TODO delete all scores with id = gameId
+        } else if (item.getItemId() == R.id.context_players_delete) {
 
-            List<Game> games = GamesTable.getGames(dbHelper);
-            gamesAdapter.setGames(games);
+            // TODO
+            // delete player
+            // delete all scores with id = player id
+            // delete all scores with id = gameId
 
             return true;
         }
         return false;
-    }
-
-    public void newGame(View view) {
-        long timestamp = Calendar.getInstance().getTimeInMillis();
-        long id = GamesTable.addGame(dbHelper, timestamp);
-        startGameActivity(id);
-    }
-
-    private void startGameActivity(long gameId) {
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(ExtraGameId, gameId);
-        startActivity(intent);
     }
 }
