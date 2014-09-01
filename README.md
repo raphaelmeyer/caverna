@@ -4,8 +4,12 @@
 
 TODO
 * Refactoring
-* State parlor
-** Optional input
+* Optional inputs
+  * Adjacent dwellings
+    * State parlor
+  * Weapons
+    * Weapon storage
+    * Supplies storage
 * Refactoring
 * Refactoring
 

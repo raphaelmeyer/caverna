@@ -239,6 +239,19 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.OreStorage, 5);
     }
 
+    public void test_main_storage_scores_two_bonus_points_for_each_yellow_tile() {
+        assertBonus(Tile.MainStorage, 2);
+
+        testee.set(Tile.WeavingParlor);
+        assertBonus(Tile.MainStorage, 4);
+
+        testee.set(Tile.OreStorage);
+        assertBonus(Tile.MainStorage, 6);
+
+        testee.set(Tile.FoodChamber);
+        assertBonus(Tile.MainStorage, 8);
+    }
+
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 

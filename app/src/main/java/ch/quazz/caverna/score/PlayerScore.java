@@ -216,7 +216,7 @@ public class PlayerScore {
             score += getCount(Token.Cattle);
         }
 
-
+        // State parlor
 
         if (has(Tile.StoneStorage)) {
             score += getCount(Token.Stone);
@@ -225,6 +225,28 @@ public class PlayerScore {
         if (has(Tile.OreStorage)) {
             score += getCount(Token.Ore) / 2;
         }
+
+        if (has(Tile.MainStorage)) {
+            EnumSet<Tile> yellow = EnumSet.of(
+                    Tile.WeavingParlor, Tile.MilkingParlor, Tile.StateParlor,
+                    Tile.HuntingParlor, Tile.BeerParlor, Tile.BlacksmithingParlor,
+
+                    Tile.StoneStorage, Tile.OreStorage, Tile.SparePartStorage,
+                    Tile.MainStorage, Tile.WeaponStorage, Tile.SuppliesStorage,
+
+                    Tile.BroomChamber, Tile.TreasureChamber, Tile.FoodChamber,
+                    Tile.PrayerChamber, Tile.WritingChamber, Tile.FodderChamber
+            );
+            for (Tile tile : yellow) {
+                if (has(tile)) {
+                    score += 2;
+                }
+            }
+        }
+
+        // Weapon storage
+
+        // Supplies storage
 
         if (has(Tile.WritingChamber)) {
             score += java.lang.Math.min(7, cost());
