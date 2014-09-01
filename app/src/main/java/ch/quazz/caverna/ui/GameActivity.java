@@ -146,7 +146,9 @@ public class GameActivity extends Activity {
         } else if (item.getItemId() == R.id.context_player_score_delete) {
             ScoreTable.deleteScore(dbHelper, info.id);
 
-            // TODO refresh screen
+            List<ScoreSheet> scoringPad = ScoreTable.getScoringPad(dbHelper, gameId);
+            createScoringPad(scoringPad);
+            scoringPadAdapter.setScoringPad(scoringPad);
 
             return true;
         }
@@ -154,7 +156,6 @@ public class GameActivity extends Activity {
     }
 
     private void createScoringPad(List<ScoreSheet> scoringPad) {
-        //
 
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 

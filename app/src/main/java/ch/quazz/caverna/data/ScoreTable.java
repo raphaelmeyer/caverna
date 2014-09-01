@@ -1,5 +1,6 @@
 package ch.quazz.caverna.data;
 
+import android.app.ActionBar;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -91,7 +92,9 @@ public final class ScoreTable {
     public static long addScore(final CavernaDbHelper dbHelper, final long playerId, final long gameId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         PlayerScore score = new PlayerScore(playerId);
+
         ContentValues values = columnValues(score);
+        values.put(ColumnName.PlayerId, playerId);
         values.put(ColumnName.GameId, gameId);
 
         long id = db.insert(TableName, null, values);
@@ -136,14 +139,6 @@ public final class ScoreTable {
         db.delete(TableName, selection, null);
     }
 
-    public static long numberOfPlayers(final CavernaDbHelper dbHelper, final long gameId) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String selection = ColumnName.GameId + "=" + gameId;
-        long players = DatabaseUtils.queryNumEntries(db, TableName, selection);
-        db.close();
-        return players;
-    }
-
     public static List<ScoreSheet> getScoringPad(final CavernaDbHelper dbHelper, final long gameId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<ScoreSheet> scoringPad = new ArrayList<ScoreSheet>();
@@ -163,6 +158,22 @@ public final class ScoreTable {
         db.close();
 
         return scoringPad;
+    }
+
+    public static long numberOfPlayers(final CavernaDbHelper dbHelper, final long gameId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selection = ColumnName.GameId + "=" + gameId;
+        long players = DatabaseUtils.queryNumEntries(db, TableName, selection);
+        db.close();
+        return players;
+    }
+
+    public static long numberOfGames(final CavernaDbHelper dbHelper, final long playerId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String selection = ColumnName.PlayerId + "=" + playerId;
+        long games = DatabaseUtils.queryNumEntries(db, TableName, selection);
+        db.close();
+        return games;
     }
 
     private static ContentValues columnValues(PlayerScore score) {

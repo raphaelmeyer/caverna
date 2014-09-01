@@ -1,14 +1,18 @@
 package ch.quazz.caverna.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -67,7 +71,7 @@ public class PlayersActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.players_add_player) {
-            PlayerTable.addPlayer(dbHelper, "Name");
+            addPlayerName();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -97,20 +101,53 @@ public class PlayersActivity extends Activity {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        if (item.getItemId() == R.id.context_players_edit) {
+        switch (item.getItemId()) {
 
-            // TODO
-            return true;
+            case R.id.context_players_delete:
+                if (ScoreTable.numberOfGames(dbHelper, info.id) == 0) {
+                    PlayerTable.deletePlayer(dbHelper, info.id);
+                    List<Player> players = PlayerTable.getPlayers(dbHelper);
+                    playersAdapter.setPlayers(players);
+                }
 
-        } else if (item.getItemId() == R.id.context_players_delete) {
+                // TODO
+                // - delete player
+                // - delete all scores where player id = id
+                // OR
+                // - ignore if there is a score where player id = id
+                // OR
+                // - hide delete option if there is a score where player id = id
+                break;
 
-            // TODO
-            // delete player
-            // delete all scores with id = player id
-            // delete all scores with id = gameId
-
-            return true;
+            default:
+                return false;
         }
+
         return false;
+    }
+
+    private void addPlayerName() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Player name");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Name");
+        builder.setView(input);
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = input.getText().toString().trim();
+                if (!name.isEmpty()) {
+                    PlayerTable.addPlayer(dbHelper, name);
+
+                    List<Player> players = PlayerTable.getPlayers(dbHelper);
+                    playersAdapter.setPlayers(players);
+                }
+            }
+        });
+        builder.show();
     }
 }
