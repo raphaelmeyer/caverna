@@ -1,6 +1,5 @@
 package ch.quazz.caverna.data;
 
-import android.app.ActionBar;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -59,9 +58,11 @@ public final class ScoreTable {
 
                     put(Token.UnusedSpace, "unused_space");
 
-                    put(Token.Wood, "wood");
                     put(Token.Stone, "stone");
                     put(Token.Ore, "ore");
+
+                    put(Token.Weapons, "weapons");
+                    put(Token.AdjacentDwellings, "adjacent_dwellings");
                 }
             };
 

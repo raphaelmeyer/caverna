@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     caverna:min="0"
-                    caverna:max="7"
+                    caverna:max="4"
                     caverna:label="Adjacent dwellings"
                     caverna:icon="@drawable/ore" />
 

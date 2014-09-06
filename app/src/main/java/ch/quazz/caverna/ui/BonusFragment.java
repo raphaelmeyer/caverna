@@ -7,8 +7,17 @@ import android.view.ViewGroup;
 
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
+import ch.quazz.caverna.score.Token;
 
 public class BonusFragment extends PlayerScoreFragment {
+
+
+    private final TokenController.Item BonusItems[] = {
+            new TokenController.Item(R.id.stone, Token.Stone),
+            new TokenController.Item(R.id.ore, Token.Stone),
+            new TokenController.Item(R.id.weapons, Token.Weapons),
+            new TokenController.Item(R.id.adjacent_dwellings, Token.AdjacentDwellings),
+    };
 
     private static final TileAdapter.Item BonusTiles[] = {
             new TileAdapter.Item(Tile.WeavingParlor, R.drawable.weaving_parlor),
@@ -33,10 +42,12 @@ public class BonusFragment extends PlayerScoreFragment {
             new TileAdapter.Item(Tile.FodderChamber, R.drawable.fodder_chamber)
     };
 
-    private TileController bonusController;
+    private final TileController tileController;
+    private final TokenController tokenController;
 
     public BonusFragment() {
-        bonusController = new TileController(BonusTiles);
+        tileController = new TileController(BonusTiles);
+        tokenController = new TokenController(BonusItems);
     }
 
     @Override
@@ -48,25 +59,51 @@ public class BonusFragment extends PlayerScoreFragment {
     @Override
     public void onResume() {
         super.onResume();
-        bonusController.setup(playerScore, getActivity(), R.id.bonus_tiles);
 
-        bonusController.setOnSelectionChangeListener(new TileController.OnSelectionChangeListener() {
+        optionalVisibility();
+
+        tileController.setup(playerScore, getActivity(), R.id.bonus_tiles);
+        tileController.setOnSelectionChangeListener(new TileController.OnSelectionChangeListener() {
             @Override
             public void onSelectionChanged() {
-                View view = getActivity().findViewById(R.id.stone);
-                if (playerScore.has(Tile.StoneStorage)) {
-                    view.setVisibility(View.VISIBLE);
-                } else {
-                    view.setVisibility(View.GONE);
-                }
-
-                view = getActivity().findViewById(R.id.ore);
-                if (playerScore.has(Tile.OreStorage)) {
-                    view.setVisibility(View.VISIBLE);
-                } else {
-                    view.setVisibility(View.GONE);
-                }
+                optionalVisibility();
             }
         });
+
+        tokenController.setup(playerScore, getActivity());
+    }
+
+    private void optionalVisibility() {
+        View view = getActivity().findViewById(R.id.stone);
+        if (playerScore.has(Tile.StoneStorage)) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+
+        view = getActivity().findViewById(R.id.ore);
+        if (playerScore.has(Tile.OreStorage)) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+
+        boolean showWeapons = playerScore.has(Tile.WeaponStorage) ||
+                playerScore.has(Tile.SuppliesStorage) ||
+                playerScore.has(Tile.PrayerChamber);
+
+        view = getActivity().findViewById(R.id.weapons);
+        if (showWeapons) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+
+        view = getActivity().findViewById(R.id.adjacent_dwellings);
+        if (playerScore.has(Tile.StateParlor)) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 }

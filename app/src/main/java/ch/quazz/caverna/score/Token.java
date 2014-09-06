@@ -17,14 +17,16 @@ public enum Token {
     Gold,
     BeggingMarkers,
 
-    Stone,
-    Ore,
-    Wood,
-
     SmallPastures,
     LargePastures,
     OreMines,
     RubyMines,
 
-    UnusedSpace
+    UnusedSpace,
+
+    Stone,
+    Ore,
+
+    Weapons,
+    AdjacentDwellings
 }
