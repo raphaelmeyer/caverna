@@ -63,7 +63,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/cattle"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/cattle" />
 
             <include layout="@layout/separator" />
 
@@ -74,7 +74,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/grain"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/grain" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/vegetable"
@@ -83,7 +83,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/vegetable"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/vegetable" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/rubies"
