@@ -23,7 +23,7 @@
             caverna:min="2"
             caverna:max="6"
             caverna:label="@string/dwarfs"
-            caverna:icon="@drawable/ore" />
+            caverna:icon="@drawable/dwarf" />
 
         <ch.quazz.caverna.widget.CountingInput
             android:id="@+id/dwellings"
