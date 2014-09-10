@@ -101,7 +101,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/gold"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/gold" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/begging_markers"
@@ -109,7 +109,8 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="20"
-                caverna:label="@string/begging_markers" />
+                caverna:label="@string/begging_markers"
+                caverna:icon="@drawable/begging_marker" />
 
             <include layout="@layout/separator" />
 
