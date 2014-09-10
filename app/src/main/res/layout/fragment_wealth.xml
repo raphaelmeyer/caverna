@@ -121,7 +121,7 @@
                 caverna:min="0"
                 caverna:max="12"
                 caverna:label="@string/small_pastures"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/small_pasture" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/large_pastures"
@@ -129,7 +129,8 @@
                 android:layout_height="wrap_content"
                 caverna:min="0"
                 caverna:max="6"
-                caverna:label="@string/large_pastures" />
+                caverna:label="@string/large_pastures"
+                caverna:icon="@drawable/large_pasture" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/ore_mines"
@@ -138,7 +139,7 @@
                 caverna:min="0"
                 caverna:max="5"
                 caverna:label="@string/ore_mines"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/ore_mine" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/ruby_mines"
@@ -147,7 +148,7 @@
                 caverna:min="0"
                 caverna:max="10"
                 caverna:label="@string/ruby_mines"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/ruby_mine" />
 
             <include layout="@layout/separator" />
 
@@ -158,7 +159,7 @@
                 caverna:min="0"
                 caverna:max="22"
                 caverna:label="@string/unused_tiles"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/unused" />
 
         </LinearLayout>
     </ScrollView>
