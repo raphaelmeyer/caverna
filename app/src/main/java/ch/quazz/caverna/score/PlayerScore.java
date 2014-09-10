@@ -216,7 +216,9 @@ public class PlayerScore {
             score += getCount(Token.Cattle);
         }
 
-        // State parlor
+        if (has(Tile.StateParlor)) {
+            score += 4 * getCount(Token.AdjacentDwellings);
+        }
 
         if (has(Tile.StoneStorage)) {
             score += getCount(Token.Stone);
@@ -244,9 +246,21 @@ public class PlayerScore {
             }
         }
 
-        // Weapon storage
+        if (has(Tile.WeaponStorage)) {
+            score += 3 * getCount(Token.Weapons);
+        }
 
-        // Supplies storage
+        if (has(Tile.SuppliesStorage)) {
+            if (getCount(Token.Weapons) == getCount(Token.Dwarfs)) {
+                score += 8;
+            }
+        }
+
+        if (has(Tile.PrayerChamber)) {
+            if (getCount(Token.Weapons) == 0) {
+                score += 8;
+            }
+        }
 
         if (has(Tile.WritingChamber)) {
             score += java.lang.Math.min(7, cost());

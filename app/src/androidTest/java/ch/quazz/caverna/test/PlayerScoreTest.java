@@ -221,7 +221,13 @@ public class PlayerScoreTest extends AndroidTestCase {
     }
 
     public void test_state_parlor_scores_four_bonus_points_for_each_adjacent_dwelling() {
-        fail();
+        assertBonus(Tile.StateParlor, 0);
+
+        testee.setCount(Token.AdjacentDwellings, 1);
+        assertBonus(Tile.StateParlor, 4);
+
+        testee.setCount(Token.AdjacentDwellings, 4);
+        assertBonus(Tile.StateParlor, 16);
     }
 
     public void test_stone_storage_scores_a_bonus_point_for_each_stone() {
@@ -258,11 +264,46 @@ public class PlayerScoreTest extends AndroidTestCase {
     }
 
     public void test_weapon_storage_scores_three_bonus_points_for_each_armed_dwarf() {
-        fail();
+        assertBonus(Tile.WeaponStorage, 0);
+
+        testee.setCount(Token.Weapons, 1);
+        assertBonus(Tile.WeaponStorage, 3);
+
+        testee.setCount(Token.Weapons, 4);
+        assertBonus(Tile.WeaponStorage, 12);
     }
 
     public void test_supplies_storage_scores_eight_points_if_all_dwarfs_are_armed() {
-        fail();
+        assertBonus(Tile.SuppliesStorage, 0);
+
+        testee.setCount(Token.Weapons, 1);
+        assertBonus(Tile.SuppliesStorage, 0);
+
+        testee.setCount(Token.Weapons, 2);
+        assertBonus(Tile.SuppliesStorage, 8);
+
+        testee.setCount(Token.Dwarfs, 4);
+        testee.setCount(Token.Weapons, 3);
+        assertBonus(Tile.SuppliesStorage, 0);
+
+        testee.setCount(Token.Dwarfs, 4);
+        testee.setCount(Token.Weapons, 4);
+        assertBonus(Tile.SuppliesStorage, 8);
+    }
+
+    public void test_prayer_chamber_scores_eight_points_if_no_dwarfs_are_armed() {
+        assertBonus(Tile.PrayerChamber, 8);
+
+        testee.setCount(Token.Weapons, 1);
+        assertBonus(Tile.PrayerChamber, 0);
+
+        testee.setCount(Token.Dwarfs, 5);
+
+        testee.setCount(Token.Weapons, 0);
+        assertBonus(Tile.PrayerChamber, 8);
+
+        testee.setCount(Token.Weapons, 3);
+        assertBonus(Tile.PrayerChamber, 0);
     }
 
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
