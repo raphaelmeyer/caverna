@@ -27,7 +27,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/dogs"
-                caverna:icon="@drawable/ruby" />
+                caverna:icon="@drawable/dog" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/sheep"
@@ -36,7 +36,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/sheep"
-                caverna:icon="@drawable/ore" />
+                caverna:icon="@drawable/sheep" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/donkeys"
@@ -45,7 +45,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/donkeys"
-                caverna:icon="@drawable/stone" />
+                caverna:icon="@drawable/donkey" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/boars"
@@ -54,7 +54,7 @@
                 caverna:min="0"
                 caverna:max="30"
                 caverna:label="@string/boars"
-                caverna:icon="@drawable/wood" />
+                caverna:icon="@drawable/boar" />
 
             <ch.quazz.caverna.widget.CountingInput
                 android:id="@+id/cattle"
