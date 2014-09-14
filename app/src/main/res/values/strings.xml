@@ -28,7 +28,6 @@
     <string name="score">Score</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_player_score">Score</string>
     <string name="title_activity_game">Scoring Pad</string>
     <string name="button_new_game">New Scoring Pad</string>
