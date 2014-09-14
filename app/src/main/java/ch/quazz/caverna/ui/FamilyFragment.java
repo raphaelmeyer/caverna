@@ -9,7 +9,7 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.Token;
 
-class FamilyFragment extends PlayerScoreFragment {
+public class FamilyFragment extends PlayerScoreFragment {
 
     private static final TokenController.Item FamilyItems[] = {
             new TokenController.Item(R.id.dwarfs, Token.Dwarfs),

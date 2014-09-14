@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 
-class CaveFragment extends PlayerScoreFragment {
+public class CaveFragment extends PlayerScoreFragment {
 
     private static final TileAdapter.Item[] Caves = {
             new TileAdapter.Item(Tile.Carpenter, R.drawable.carpenter),
