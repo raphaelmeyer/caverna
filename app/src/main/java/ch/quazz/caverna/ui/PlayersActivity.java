@@ -109,14 +109,6 @@ public class PlayersActivity extends Activity {
                     List<Player> players = PlayerTable.getPlayers(dbHelper);
                     playersAdapter.setPlayers(players);
                 }
-
-                // TODO
-                // - delete player
-                // - delete all scores where player id = id
-                // OR
-                // - ignore if there is a score where player id = id
-                // OR
-                // - hide delete option if there is a score where player id = id
                 break;
 
             default:

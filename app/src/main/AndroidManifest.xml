@@ -18,8 +18,7 @@
         </activity>
         <activity
             android:name=".ui.GameActivity"
-            android:label="@string/title_activity_game"
-            android:parentActivityName=".ui.MainActivity" >
+            android:label="@string/title_activity_game" >
         </activity>
         <activity
             android:name=".ui.PlayerScoreActivity"
