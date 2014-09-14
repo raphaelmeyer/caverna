@@ -1,51 +1,49 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:caverna="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
 
-    tools:context="ch.quazz.caverna.ui.CaveFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
 
-    <LinearLayout
+    tools:context="ch.quazz.caverna.ui.CaveFragment" >
+
+    <ch.quazz.caverna.widget.CountingInput
+        android:id="@+id/dwarfs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        caverna:min="2"
+        caverna:max="6"
+        caverna:label="@string/dwarfs"
+        caverna:icon="@drawable/dwarf" />
+
+    <ch.quazz.caverna.widget.CountingInput
+        android:id="@+id/dwellings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        caverna:min="0"
+        caverna:max="3"
+        caverna:label="@string/dwellings"
+        caverna:icon="@drawable/dwelling" />
+
+    <include layout="@layout/separator" />
+
+    <GridView
+        android:id="@+id/special_dwellings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:numColumns="auto_fit"
+        android:columnWidth="96dp"
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" />
 
-        <ch.quazz.caverna.widget.CountingInput
-            android:id="@+id/dwarfs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            caverna:min="2"
-            caverna:max="6"
-            caverna:label="@string/dwarfs"
-            caverna:icon="@drawable/dwarf" />
-
-        <ch.quazz.caverna.widget.CountingInput
-            android:id="@+id/dwellings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            caverna:min="0"
-            caverna:max="3"
-            caverna:label="@string/dwellings"
-            caverna:icon="@drawable/dwelling" />
-
-        <include layout="@layout/separator" />
-
-        <GridView
-            android:id="@+id/special_dwellings"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="auto_fit"
-            android:columnWidth="96dp"
-            android:verticalSpacing="4dp"
-            android:horizontalSpacing="4dp"
-            android:gravity="center"
-            android:stretchMode="columnWidth" />
-
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

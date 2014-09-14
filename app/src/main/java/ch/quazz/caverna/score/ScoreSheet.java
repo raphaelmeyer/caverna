@@ -22,7 +22,7 @@ public class ScoreSheet {
         Chambers,
         Assets,
         Total
-    };
+    }
 
     private final Map<Category, Integer> points;
 

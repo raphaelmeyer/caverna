@@ -12,7 +12,7 @@ import ch.quazz.caverna.score.Token;
 public class BonusFragment extends PlayerScoreFragment {
 
 
-    private final TokenController.Item BonusItems[] = {
+    private static final TokenController.Item BonusItems[] = {
             new TokenController.Item(R.id.stone, Token.Stone),
             new TokenController.Item(R.id.ore, Token.Ore),
             new TokenController.Item(R.id.weapons, Token.Weapons),

@@ -10,7 +10,7 @@ import ch.quazz.caverna.R;
 
 public class WealthFragment extends PlayerScoreFragment {
 
-    private final TokenController.Item wealthItems[] = {
+    private static final TokenController.Item wealthItems[] = {
         new TokenController.Item(R.id.dogs, Token.Dogs),
         new TokenController.Item(R.id.sheep, Token.Sheep),
         new TokenController.Item(R.id.donkeys, Token.Donkeys),

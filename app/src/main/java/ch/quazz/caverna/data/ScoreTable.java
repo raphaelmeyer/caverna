@@ -66,7 +66,7 @@ public final class ScoreTable {
                 }
             };
 
-    static final String createTableSql() {
+    static String createTableSql() {
         String sql = "CREATE TABLE " + TableName;
 
         sql += " ( " + ColumnName.Id + " INTEGER PRIMARY KEY";
@@ -84,7 +84,7 @@ public final class ScoreTable {
         return sql;
     }
 
-    static final String deleteTableSql() {
+    static String deleteTableSql() {
         return "DROP TABLE IF EXISTS " + TableName;
     }
 

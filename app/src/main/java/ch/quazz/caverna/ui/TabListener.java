@@ -10,7 +10,7 @@ class TabListener implements ActionBar.TabListener {
     private final Fragment fragment;
     private final String tag;
 
-    TabListener(int id, Fragment fragment, String tag) {
+    TabListener(final int id, final Fragment fragment, final String tag) {
         this.id = id;
         this.fragment = fragment;
         this.tag = tag;

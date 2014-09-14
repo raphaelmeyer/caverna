@@ -18,14 +18,14 @@ public final class GamesTable {
         static final String TimeStamp = "timestamp";
     }
 
-    static final String createTableSql() {
+    static String createTableSql() {
         return "CREATE TABLE " + TableName +
                 " ( " + ColumnName.Id + " INTEGER PRIMARY KEY" +
                 " , " + ColumnName.TimeStamp + " INTEGER " +
                 ")";
     }
 
-    static final String deleteTableSql() {
+    static String deleteTableSql() {
         return "DROP TABLE IF EXISTS " + TableName;
     }
 
