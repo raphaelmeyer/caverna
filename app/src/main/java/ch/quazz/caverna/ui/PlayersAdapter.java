@@ -1,7 +1,6 @@
 package ch.quazz.caverna.ui;
 
 import android.content.Context;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import ch.quazz.caverna.R;
-import ch.quazz.caverna.games.Game;
 import ch.quazz.caverna.games.Player;
 
 class PlayersAdapter extends BaseAdapter {

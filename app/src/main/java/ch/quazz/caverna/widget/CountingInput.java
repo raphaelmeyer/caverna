@@ -10,9 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ch.quazz.caverna.R;
 
 public class CountingInput extends LinearLayout {
