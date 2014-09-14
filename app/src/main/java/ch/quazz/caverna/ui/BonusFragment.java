@@ -9,7 +9,7 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.Token;
 
-public class BonusFragment extends PlayerScoreFragment {
+class BonusFragment extends PlayerScoreFragment {
 
 
     private static final TokenController.Item BonusItems[] = {

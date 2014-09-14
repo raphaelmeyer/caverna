@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.R;
 
-public class WealthFragment extends PlayerScoreFragment {
+class WealthFragment extends PlayerScoreFragment {
 
     private static final TokenController.Item wealthItems[] = {
         new TokenController.Item(R.id.dogs, Token.Dogs),

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 
-public class CaveFragment extends PlayerScoreFragment {
+class CaveFragment extends PlayerScoreFragment {
 
     private static final TileAdapter.Item[] Caves = {
             new TileAdapter.Item(Tile.Carpenter, R.drawable.carpenter),
@@ -40,7 +40,7 @@ public class CaveFragment extends PlayerScoreFragment {
             new TileAdapter.Item(Tile.Seam, R.drawable.seam)
     };
 
-    private TileController cavesController;
+    private final TileController cavesController;
 
     public CaveFragment() {
         cavesController = new TileController(Caves);

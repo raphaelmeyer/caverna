@@ -14,7 +14,7 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.games.Game;
 import ch.quazz.caverna.games.Player;
 
-public class PlayersAdapter extends BaseAdapter {
+class PlayersAdapter extends BaseAdapter {
     private final Context context;
     private List<Player> players;
 

@@ -7,7 +7,7 @@ import android.widget.GridView;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.PlayerScore;
 
-public class TileController {
+class TileController {
 
     interface OnSelectionChangeListener {
         abstract void onSelectionChanged();

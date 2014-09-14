@@ -9,7 +9,7 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.score.Tile;
 import ch.quazz.caverna.score.Token;
 
-public class FamilyFragment extends PlayerScoreFragment {
+class FamilyFragment extends PlayerScoreFragment {
 
     private static final TokenController.Item FamilyItems[] = {
             new TokenController.Item(R.id.dwarfs, Token.Dwarfs),
@@ -24,8 +24,8 @@ public class FamilyFragment extends PlayerScoreFragment {
             new TileAdapter.Item(Tile.AdditionalDwelling, R.drawable.additional_dwelling),
     };
 
-    private TokenController familyItemController;
-    private TileController dwellingsController;
+    private final TokenController familyItemController;
+    private final TileController dwellingsController;
 
     public FamilyFragment() {
         familyItemController = new TokenController(FamilyItems);

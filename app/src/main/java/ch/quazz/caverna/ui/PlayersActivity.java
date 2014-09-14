@@ -24,7 +24,6 @@ import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.games.Player;
 
 public class PlayersActivity extends Activity {
-    final static String ExtraPlayerId = "ch.quazz.caverna.PlayerId";
 
     private CavernaDbHelper dbHelper;
     private PlayersAdapter playersAdapter;

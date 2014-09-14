@@ -16,7 +16,7 @@ import java.util.Locale;
 import ch.quazz.caverna.R;
 import ch.quazz.caverna.games.Game;
 
-public class GamesAdapter extends BaseAdapter {
+class GamesAdapter extends BaseAdapter {
 
     private final Context context;
     private List<Game> games;

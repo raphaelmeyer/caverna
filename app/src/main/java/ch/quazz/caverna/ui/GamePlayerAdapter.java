@@ -14,7 +14,7 @@ import ch.quazz.caverna.R;
 import ch.quazz.caverna.data.PlayerTable;
 import ch.quazz.caverna.score.ScoreSheet;
 
-public class GamePlayerAdapter extends BaseAdapter {
+class GamePlayerAdapter extends BaseAdapter {
 
     private final Context context;
     private List<ScoreSheet> scoringPad;

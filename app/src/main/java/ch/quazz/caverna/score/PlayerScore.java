@@ -198,14 +198,6 @@ public class PlayerScore {
     }
 
     private int scoreParlors() {
-        return 0;
-    }
-
-    private int scoreStorages() {
-        return 0;
-    }
-
-    private int scoreChambers() {
         int score = 0;
 
         if (has(Tile.WeavingParlor)) {
@@ -219,6 +211,13 @@ public class PlayerScore {
         if (has(Tile.StateParlor)) {
             score += 4 * getCount(Token.AdjacentDwellings);
         }
+
+        return score;
+    }
+
+    private int scoreStorages()
+    {
+        int score = 0;
 
         if (has(Tile.StoneStorage)) {
             score += getCount(Token.Stone);
@@ -255,6 +254,12 @@ public class PlayerScore {
                 score += 8;
             }
         }
+
+        return score;
+    }
+
+    private int scoreChambers() {
+        int score = 0;
 
         if (has(Tile.PrayerChamber)) {
             if (getCount(Token.Weapons) == 0) {

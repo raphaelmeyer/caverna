@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 
 import ch.quazz.caverna.score.Tile;
 
-public class TileAdapter extends BaseAdapter {
+class TileAdapter extends BaseAdapter {
 
     final static class Item {
         final Tile tile;
