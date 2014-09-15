@@ -291,6 +291,61 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.SuppliesStorage, 8);
     }
 
+
+    public void test_broom_chamber_scores_no_points_for_four_dwarfs_or_less() {
+        assertBonus(Tile.BroomChamber, 0);
+
+        testee.setCount(Token.Dwarfs, 3);
+        assertBonus(Tile.BroomChamber, 0);
+
+        testee.setCount(Token.Dwarfs, 4);
+        assertBonus(Tile.BroomChamber, 0);
+    }
+
+    public void test_broom_chamber_scores_five_points_for_five_dwarfs() {
+        testee.setCount(Token.Dwarfs, 5);
+        assertBonus(Tile.BroomChamber, 5);
+    }
+
+    public void test_broom_chamber_scores_ten_points_for_six_dwarfs() {
+        testee.setCount(Token.Dwarfs, 6);
+        assertBonus(Tile.BroomChamber, 10);
+    }
+
+    public void test_treasure_chamber_scores_an_additional_point_for_each_ruby() {
+        assertBonus(Tile.TreasureChamber, 0);
+
+        testee.setCount(Token.Rubies, 1);
+        assertBonus(Tile.TreasureChamber, 1);
+
+        testee.setCount(Token.Rubies, 5);
+        assertBonus(Tile.TreasureChamber, 5);
+    }
+
+    public void test_food_chamber_scores_two_points_for_each_set_of_grain_and_vegetable() {
+        assertBonus(Tile.FoodChamber, 0);
+
+        testee.setCount(Token.Grains, 0);
+        testee.setCount(Token.Vegetables, 1);
+        assertBonus(Tile.FoodChamber, 0);
+
+        testee.setCount(Token.Grains, 1);
+        testee.setCount(Token.Vegetables, 0);
+        assertBonus(Tile.FoodChamber, 0);
+
+        testee.setCount(Token.Grains, 1);
+        testee.setCount(Token.Vegetables, 1);
+        assertBonus(Tile.FoodChamber, 2);
+
+        testee.setCount(Token.Grains, 3);
+        testee.setCount(Token.Vegetables, 4);
+        assertBonus(Tile.FoodChamber, 6);
+
+        testee.setCount(Token.Grains, 5);
+        testee.setCount(Token.Vegetables, 2);
+        assertBonus(Tile.FoodChamber, 4);
+    }
+
     public void test_prayer_chamber_scores_eight_points_if_no_dwarfs_are_armed() {
         assertBonus(Tile.PrayerChamber, 8);
 
@@ -336,6 +391,23 @@ public class PlayerScoreTest extends AndroidTestCase {
 
         testee.setCount(Token.Boars, 2);            // + 2 - (-2)
         assertThat(testee.score(), equalTo(9 + -0 + 0));
+    }
+
+    public void test_fodder_chamber_scores_one_point_for_every_three_farm_animals() {
+        testee.setCount(Token.Dogs, 7);
+        assertBonus(Tile.FodderChamber, 0);
+
+        testee.setCount(Token.Sheep, 4);
+        assertBonus(Tile.FodderChamber, 1);
+
+        testee.setCount(Token.Cattle, 4);
+        assertBonus(Tile.FodderChamber, 2);
+
+        testee.setCount(Token.Donkeys, 4);
+        assertBonus(Tile.FodderChamber, 4);
+
+        testee.setCount(Token.Boars, 4);
+        assertBonus(Tile.FodderChamber, 5);
     }
 
     private void assertScore(int score) {

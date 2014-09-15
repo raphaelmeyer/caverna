@@ -261,6 +261,23 @@ public class PlayerScore {
     private int scoreChambers() {
         int score = 0;
 
+        if (has(Tile.BroomChamber)) {
+            if (getCount(Token.Dwarfs) == 5) {
+                score += 5;
+            } else if (getCount(Token.Dwarfs) == 6) {
+                score += 10;
+            }
+        }
+
+        if (has(Tile.TreasureChamber)) {
+            score += getCount(Token.Rubies);
+        }
+
+        if (has(Tile.FoodChamber)) {
+            int sets = Math.min(getCount(Token.Grains), getCount(Token.Vegetables));
+            score += 2 * sets;
+        }
+
         if (has(Tile.PrayerChamber)) {
             if (getCount(Token.Weapons) == 0) {
                 score += 8;
@@ -269,6 +286,14 @@ public class PlayerScore {
 
         if (has(Tile.WritingChamber)) {
             score += java.lang.Math.min(7, cost());
+        }
+
+        if (has(Tile.FodderChamber)) {
+            int farmAnimals = 0;
+            for (Token farmAnimal : EnumSet.of(Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+                farmAnimals += getCount(farmAnimal);
+            }
+            score += farmAnimals / 3;
         }
 
         return score;
