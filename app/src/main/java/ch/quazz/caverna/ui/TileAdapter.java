@@ -1,6 +1,7 @@
 package ch.quazz.caverna.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
@@ -63,7 +64,8 @@ class TileAdapter extends BaseAdapter {
             checkBox = (CheckBox)convertView;
         }
 
-        int iconSize = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 64, parent.getResources().getDisplayMetrics());
+        int boxSize = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96, parent.getResources().getDisplayMetrics());
+        int iconSize = boxSize - checkBox.getPaddingLeft();
 
         Drawable icon = parent.getResources().getDrawable(furnishings[position].icon);
         icon.setBounds(0, 0, iconSize, iconSize);
