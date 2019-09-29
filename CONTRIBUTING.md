@@ -31,7 +31,7 @@ At least the following commands must run without errors:
     ./gradlew ... # TODO 
     ./gradlew build check
 
-Pull request must pass the build on [https://travis-ci.org/raphaelmeyer/caverna](travis ci).
+Pull request must pass the build on [travis ci](https://travis-ci.org/raphaelmeyer/caverna).
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed,
 the reviewer may ask you to complete additional design work, tests,
