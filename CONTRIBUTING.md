@@ -25,7 +25,7 @@ An additional description of why you think your proposal is an enhancement is of
 
 Please respect these prerequisites to have your contribution considered by the maintainers:
 
-After applying your changes the app should still build and all tests must pass.
+After applying your changes the app should still **build** and all **tests must pass**.
 At least the following commands must run without errors:
 
     ./gradlew ...
