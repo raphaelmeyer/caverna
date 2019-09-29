@@ -28,8 +28,10 @@ Please respect these prerequisites to have your contribution considered by the m
 After applying your changes the app should still **build** and all **tests must pass**.
 At least the following commands must run without errors:
 
-    ./gradlew ...
-    ...
+    ./gradlew ... # TODO 
+    ./gradlew build check
+
+Pull request must pass the build on [https://travis-ci.org/raphaelmeyer/caverna](travis ci).
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed,
 the reviewer may ask you to complete additional design work, tests,
