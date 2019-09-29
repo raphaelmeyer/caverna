@@ -8,4 +8,12 @@ An android scoring pad app for Caverna - The Cave Farmers.
 
 # Dear Hacktoberfesters
 
-Before picking up any "implementation" issue, maybe first have a look at issues [#13](https://github.com/raphaelmeyer/caverna/issues/13) and [#14](https://github.com/raphaelmeyer/caverna/issues/14) to bring the project up to date. Because I haven't touched it in years!
+I haven't touched the project in years!
+Therefore the infrastructure (travis, android api, gradle) is quite out of date.
+
+Before picking up any "implementation"/"new feature" issue, maybe first have a look at issues
+[#18](https://github.com/raphaelmeyer/caverna/issues/14),
+[#16](https://github.com/raphaelmeyer/caverna/issues/14),
+[#14](https://github.com/raphaelmeyer/caverna/issues/14) and
+[#13](https://github.com/raphaelmeyer/caverna/issues/13)
+to bring the project up and running first. 
