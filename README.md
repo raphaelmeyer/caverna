@@ -9,7 +9,7 @@ An android scoring pad app for Caverna - The Cave Farmers.
 # Dear Hacktoberfesters
 
 I haven't touched the project in years!
-Therefore the infrastructure (travis, android api, gradle) is quite out of date.
+Therefore the infrastructure (travis, android api, gradle etc.) is out of date.
 
 Before picking up any "implementation"/"new feature" issue, maybe first have a look at issues
 [#18](https://github.com/raphaelmeyer/caverna/issues/14),
