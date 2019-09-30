@@ -1,10 +1,17 @@
-.gradle
-/local.properties
+# Android Studio
+*.iws
+/.idea/libraries/
+/.idea/caches/
+/.idea/gradle.xml
+/.idea/tasks.xml
+/.idea/vcs.xml
 /.idea/workspace.xml
-.DS_Store
+/local.properties
+
+# gradle
+/.gradle/
+
+# builds and artifacts
 /build
-Caverna_Regeln_DE.pdf
-Caverna_Rules_EN.pdf
-Caverna_Appendix_V2.pdf
-app/*.apk
+/app/*.apk
 
