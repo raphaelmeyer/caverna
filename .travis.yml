@@ -4,7 +4,7 @@ jdk: oraclejdk8
 
 env:
   global:
-    - ANDROID_API=29
+    - ANDROID_API=20
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -19,7 +19,7 @@ cache:
 android:
   components:
     - tools
-    - build-tools-29.0.2
+    - build-tools-20.0.0
     - android-$ANDROID_API
 
 before_install:
