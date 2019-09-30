@@ -1,11 +1,29 @@
 language: android
-jdk: oraclejdk9
+sudo: required
+jdk: oraclejdk8
+
+env:
+  global:
+    - ANDROID_API=29
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
 
 android:
   components:
-    - build-tools-20.0.0
-    - android-20
+    - tools
+    - build-tools-29.0.2
+    - android-$ANDROID_API
+
+before_install:
+  - yes | sdkmanager "platforms;android-$ANDROID_API"
 
 script:
   - ./gradlew build check
-
