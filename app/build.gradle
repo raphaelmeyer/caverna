@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion compileSdk
 
     defaultConfig {
         applicationId "ch.quazz.caverna"
-        minSdkVersion 14
-        targetSdkVersion 20
+        minSdkVersion minSdk
+        targetSdkVersion compileSdk
         versionCode 5
         versionName "1.0"
     }
