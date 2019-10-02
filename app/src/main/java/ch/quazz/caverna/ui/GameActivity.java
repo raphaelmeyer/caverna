@@ -59,7 +59,7 @@ public class GameActivity extends Activity {
             add(new Row(ScoreSheet.Category.Parlors, "Parlors", R.color.white));
             add(new Row(ScoreSheet.Category.Storages, "Storages", R.color.grey));
             add(new Row(ScoreSheet.Category.Chambers, "Chambers", R.color.white));
-            add(new Row(ScoreSheet.Category.Assets, "GOLD, Begging", R.color.grey));
+            add(new Row(ScoreSheet.Category.Assets, "Gold, Begging", R.color.grey));
             add(new Row(ScoreSheet.Category.Total, "Total", R.color.blue));
         }
     };
