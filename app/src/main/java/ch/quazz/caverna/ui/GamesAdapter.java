@@ -19,7 +19,7 @@ class GamesAdapter extends BaseAdapter {
     private final Context context;
     private List<Game> games;
 
-    public GamesAdapter(final Context context) {
+    GamesAdapter(final Context context) {
         this.context = context;
         this.games = null;
     }
@@ -57,7 +57,7 @@ class GamesAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(R.layout.list_item, parent, false);
         } else {
             view = convertView;
@@ -65,7 +65,7 @@ class GamesAdapter extends BaseAdapter {
 
         String timestamp = DateFormat.getDateTimeInstance().format(new Date(games.get(position).timestamp));
 
-        TextView title = (TextView)view.findViewById(R.id.item_text);
+        TextView title = view.findViewById(R.id.item_text);
         title.setText(timestamp);
 
         return view;

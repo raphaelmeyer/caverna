@@ -12,14 +12,14 @@ import ch.quazz.caverna.score.Token;
 public class BonusFragment extends PlayerScoreFragment {
 
 
-    private static final TokenController.Item BonusItems[] = {
-            new TokenController.Item(R.id.stone, Token.Stone),
-            new TokenController.Item(R.id.ore, Token.Ore),
-            new TokenController.Item(R.id.weapons, Token.Weapons),
-            new TokenController.Item(R.id.adjacent_dwellings, Token.AdjacentDwellings),
+    private static final TokenController.Item[] BonusItems = {
+            new TokenController.Item(R.id.stone, Token.STONE),
+            new TokenController.Item(R.id.ore, Token.ORE),
+            new TokenController.Item(R.id.weapons, Token.WEAPONS),
+            new TokenController.Item(R.id.adjacent_dwellings, Token.ADJACENT_DWELLINGS),
     };
 
-    private static final TileAdapter.Item BonusTiles[] = {
+    private static final TileAdapter.Item[] BonusTiles = {
             new TileAdapter.Item(Tile.WeavingParlor, R.drawable.weaving_parlor),
             new TileAdapter.Item(Tile.MilkingParlor, R.drawable.milking_parlor),
             new TileAdapter.Item(Tile.StateParlor, R.drawable.state_parlor),

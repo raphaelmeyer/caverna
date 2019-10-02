@@ -10,19 +10,19 @@ import ch.quazz.caverna.score.PlayerScore;
 class TileController {
 
     interface OnSelectionChangeListener {
-        abstract void onSelectionChanged();
+         void onSelectionChanged();
     }
 
-    private final TileAdapter.Item options[];
+    private final TileAdapter.Item[] options;
     private OnSelectionChangeListener selectionChangeListener;
 
-    TileController(TileAdapter.Item options[]) {
+    TileController(TileAdapter.Item[] options) {
         this.options = options;
         this.selectionChangeListener = null;
     }
 
     void setup(final PlayerScore playerScore, Activity activity, int gridId) {
-        GridView gridview = (GridView)activity.findViewById(gridId);
+        GridView gridview = activity.findViewById(gridId);
 
         CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
             @Override

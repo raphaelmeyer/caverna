@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+
 import ch.quazz.caverna.data.CavernaDbHelper;
 import ch.quazz.caverna.data.ScoreTable;
 import ch.quazz.caverna.score.PlayerScore;
@@ -14,17 +16,17 @@ import ch.quazz.caverna.R;
 
 public class PlayerScoreActivity extends Activity {
 
-    public final static String ExtraScoreId = "ch.quazz.caverna.ScoreId";
+    public static final String EXTRA_SCORE_ID = "ch.quazz.caverna.ScoreId";
 
-    private static final String Wealth = "wealth";
-    private static final String Family = "family";
-    private static final String Cave = "cave";
-    private static final String Bonus = "bonus";
+    private static final String WEALTH = "wealthFragment";
+    private static final String FAMILY = "familyFragment";
+    private static final String CAVE = "caveFragment";
+    private static final String BONUS = "bonusFragment";
 
-    private WealthFragment wealth;
-    private FamilyFragment family;
-    private CaveFragment cave;
-    private BonusFragment bonus;
+    private WealthFragment wealthFragment;
+    private FamilyFragment familyFragment;
+    private CaveFragment caveFragment;
+    private BonusFragment bonusFragment;
 
     private CavernaDbHelper dbHelper;
     private PlayerScore playerScore;
@@ -37,7 +39,7 @@ public class PlayerScoreActivity extends Activity {
         setContentView(R.layout.activity_player_score);
 
         Intent intent = getIntent();
-        scoreId = intent.getLongExtra(PlayerScoreActivity.ExtraScoreId, 0);
+        scoreId = intent.getLongExtra(PlayerScoreActivity.EXTRA_SCORE_ID, 0);
 
         if (dbHelper == null) {
             dbHelper = new CavernaDbHelper(this);
@@ -66,16 +68,16 @@ public class PlayerScoreActivity extends Activity {
             }
         });
 
-        wealth.setPlayerScore(playerScore);
-        family.setPlayerScore(playerScore);
-        cave.setPlayerScore(playerScore);
-        bonus.setPlayerScore(playerScore);
+        wealthFragment.setPlayerScore(playerScore);
+        familyFragment.setPlayerScore(playerScore);
+        caveFragment.setPlayerScore(playerScore);
+        bonusFragment.setPlayerScore(playerScore);
 
         updateScore();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (getActionBar() != null) {
             outState.putInt("navigation_index", getActionBar().getSelectedNavigationIndex());
@@ -83,7 +85,7 @@ public class PlayerScoreActivity extends Activity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (getActionBar() != null) {
             getActionBar().setSelectedNavigationItem(savedInstanceState.getInt("navigation_index"));
@@ -102,41 +104,41 @@ public class PlayerScoreActivity extends Activity {
 
             actionBar.addTab(actionBar.newTab()
                     .setText(R.string.wealth_tab)
-                    .setTabListener(new TabListener(R.id.player_score_fragment, wealth, Wealth)));
+                    .setTabListener(new TabListener(R.id.player_score_fragment, wealthFragment, WEALTH)));
 
             actionBar.addTab(actionBar.newTab()
                     .setText(R.string.family_tab)
-                    .setTabListener(new TabListener(R.id.player_score_fragment, family, Family)));
+                    .setTabListener(new TabListener(R.id.player_score_fragment, familyFragment, FAMILY)));
 
             actionBar.addTab(actionBar.newTab()
                     .setText(R.string.cave_tab)
-                    .setTabListener(new TabListener(R.id.player_score_fragment, cave, Cave)));
+                    .setTabListener(new TabListener(R.id.player_score_fragment, caveFragment, CAVE)));
 
             actionBar.addTab(actionBar.newTab()
                     .setText(R.string.bonus_tab)
-                    .setTabListener(new TabListener(R.id.player_score_fragment, bonus, Bonus)));
+                    .setTabListener(new TabListener(R.id.player_score_fragment, bonusFragment, BONUS)));
         }
     }
 
     private void setupTabFragments() {
         if (getFragmentManager() != null) {
-            wealth = (WealthFragment)getFragmentManager().findFragmentByTag(Wealth);
-            family = (FamilyFragment)getFragmentManager().findFragmentByTag(Family);
-            cave = (CaveFragment)getFragmentManager().findFragmentByTag(Cave);
-            bonus = (BonusFragment)getFragmentManager().findFragmentByTag(Bonus);
+            wealthFragment = (WealthFragment)getFragmentManager().findFragmentByTag(WEALTH);
+            familyFragment = (FamilyFragment)getFragmentManager().findFragmentByTag(FAMILY);
+            caveFragment = (CaveFragment)getFragmentManager().findFragmentByTag(CAVE);
+            bonusFragment = (BonusFragment)getFragmentManager().findFragmentByTag(BONUS);
         }
 
-        if (wealth == null) {
-            wealth = new WealthFragment();
+        if (wealthFragment == null) {
+            wealthFragment = new WealthFragment();
         }
-        if (family == null) {
-            family = new FamilyFragment();
+        if (familyFragment == null) {
+            familyFragment = new FamilyFragment();
         }
-        if (cave == null) {
-            cave = new CaveFragment();
+        if (caveFragment == null) {
+            caveFragment = new CaveFragment();
         }
-        if (bonus == null) {
-            bonus = new BonusFragment();
+        if (bonusFragment == null) {
+            bonusFragment = new BonusFragment();
         }
     }
 
@@ -147,7 +149,7 @@ public class PlayerScoreActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.player_score_ok:
                 finish();

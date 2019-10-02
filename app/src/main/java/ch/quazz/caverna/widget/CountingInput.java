@@ -1,5 +1,6 @@
 package ch.quazz.caverna.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -14,10 +15,10 @@ import ch.quazz.caverna.R;
 
 public class CountingInput extends LinearLayout {
 
-    private int count = 0;
-    private int min = 0;
-    private int max = 0;
-    private String label = "";
+    private int count;
+    private int min;
+    private int max;
+    private String label;
 
     private final TextView countText;
     private final SeekBar countSlider;
@@ -44,15 +45,15 @@ public class CountingInput extends LinearLayout {
         min = attributes.getInteger(R.styleable.CountingInput_min, 0);
         max = attributes.getInteger(R.styleable.CountingInput_max, 100);
 
-        ImageView icon = (ImageView)findViewById(R.id.count_icon);
+        ImageView icon = findViewById(R.id.count_icon);
         icon.setImageDrawable(attributes.getDrawable(R.styleable.CountingInput_icon));
 
         attributes.recycle();
 
         count = min;
 
-        countText = (TextView)findViewById(R.id.count_text);
-        countSlider = (SeekBar)findViewById(R.id.count_slider);
+        countText = findViewById(R.id.count_text);
+        countSlider = findViewById(R.id.count_slider);
 
         setupSeekbar();
     }
@@ -64,12 +65,13 @@ public class CountingInput extends LinearLayout {
         updateText();
     }
 
+    @SuppressWarnings("unused")
     public int getCount() {
         return count;
     }
 
     public interface OnCountChangeListener {
-        public abstract void onCountChanged(CountingInput input, int count, boolean fromUser);
+        void onCountChanged(CountingInput input, int count, boolean fromUser);
     }
 
     public void setOnCountChangeListener(OnCountChangeListener listener) {
@@ -103,6 +105,6 @@ public class CountingInput extends LinearLayout {
     }
 
     private void updateText() {
-        countText.setText(label + ": " + Integer.toString(count));
+        countText.setText(label + ": " + (count));
     }
 }
