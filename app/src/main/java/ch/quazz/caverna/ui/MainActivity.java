@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class MainActivity extends Activity {
             dbHelper = new CavernaDbHelper(this);
         }
 
-        ListView games = (ListView)findViewById(R.id.games_list);
+        ListView games = findViewById(R.id.games_list);
         registerForContextMenu(games);
         games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,7 +62,7 @@ public class MainActivity extends Activity {
         gamesAdapter = new GamesAdapter(this);
         gamesAdapter.setGames(games);
 
-        ListView listView = (ListView)findViewById(R.id.games_list);
+        ListView listView = findViewById(R.id.games_list);
         listView.setAdapter(gamesAdapter);
     }
 
@@ -71,7 +73,7 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 

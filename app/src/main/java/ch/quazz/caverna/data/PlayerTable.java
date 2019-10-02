@@ -10,53 +10,52 @@ import java.util.List;
 import ch.quazz.caverna.games.Player;
 
 public final class PlayerTable {
-    private static final String TableName = "players";
+    private static final String TABLE_NAME = "players";
 
     private static final class ColumnName {
-        static final String Id = "id";
-        static final String Name = "name";
+        static final String ID = "ID";
+        static final String NAME = "name";
     }
 
     static String createTableSql() {
-        return "CREATE TABLE " + TableName +
-                " ( " + ColumnName.Id + " INTEGER PRIMARY KEY" +
-                " , " + ColumnName.Name + " INTEGER " +
+        return "CREATE TABLE " + TABLE_NAME +
+                " ( " + ColumnName.ID + " INTEGER PRIMARY KEY" +
+                " , " + ColumnName.NAME + " INTEGER " +
                 ")";
     }
 
     static String deleteTableSql() {
-        return "DROP TABLE IF EXISTS " + TableName;
+        return "DROP TABLE IF EXISTS " + TABLE_NAME;
     }
 
     private PlayerTable() {}
 
-    public static long addPlayer(final CavernaDbHelper dbHelper, final String name) {
+    public static void addPlayer(final CavernaDbHelper dbHelper, final String name) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ColumnName.Name, name);
+        values.put(ColumnName.NAME, name);
 
-        long id = db.insert(TableName, null, values);
+        db.insert(TABLE_NAME, null, values);
         db.close();
 
-        return id;
     }
 
     public static void deletePlayer(final CavernaDbHelper dbHelper, final long id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        db.delete(TableName, ColumnName.Id + "=" + id, null);
+        db.delete(TABLE_NAME, ColumnName.ID + "=" + id, null);
         db.close();
     }
 
     public static List<Player> getPlayers(final CavernaDbHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        List<Player> players = new ArrayList<Player>();
+        List<Player> players = new ArrayList<>();
 
-        Cursor cursor = db.query(TableName, null, null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
         while (cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndex(ColumnName.Id));
-            String name = cursor.getString(cursor.getColumnIndex(ColumnName.Name));
+            long id = cursor.getLong(cursor.getColumnIndex(ColumnName.ID));
+            String name = cursor.getString(cursor.getColumnIndex(ColumnName.NAME));
             players.add(new Player(id, name));
         }
         cursor.close();
@@ -65,15 +64,15 @@ public final class PlayerTable {
         return players;
     }
 
-    public static String getName(final CavernaDbHelper dbHelper, final long id) {
+    static String getName(final CavernaDbHelper dbHelper, final long id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String name = null;
-        String selection = ColumnName.Id + "=" + id;
-        Cursor cursor = db.query(TableName, null, selection, null, null, null, null);
+        String selection = ColumnName.ID + "=" + id;
+        Cursor cursor = db.query(TABLE_NAME, null, selection, null, null, null, null);
 
         if (cursor.moveToNext()) {
-            name = cursor.getString(cursor.getColumnIndex(ColumnName.Name));
+            name = cursor.getString(cursor.getColumnIndex(ColumnName.NAME));
         }
         cursor.close();
         db.close();

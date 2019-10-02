@@ -64,7 +64,7 @@ public class PlayerScore {
 
     public PlayerScore(final long id) {
         itemCount = new HashMap<Token, Integer>();
-        itemCount.put(Token.Dwarfs, 2);
+        itemCount.put(Token.DWARFS, 2);
 
         tiles = new HashSet<Tile>();
 
@@ -147,7 +147,7 @@ public class PlayerScore {
 
     private int scoreAnimals() {
         int score = 0;
-        for (Token animal : EnumSet.of(Token.Dogs, Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+        for (Token animal : EnumSet.of(Token.DOGS, Token.SHEEP, Token.DONKEYS, Token.BOARS, Token.CATTLE)) {
             score += getCount(animal);
         }
         return score;
@@ -158,19 +158,19 @@ public class PlayerScore {
     }
 
     private int scoreGrain() {
-        return (getCount(Token.Grains) + 1) / 2;
+        return (getCount(Token.GRAINS) + 1) / 2;
     }
 
     private int scoreVegetable() {
-        return getCount(Token.Vegetables);
+        return getCount(Token.VEGETABLES);
     }
 
     private int scoreRubies() {
-        return getCount(Token.Rubies);
+        return getCount(Token.RUBIES);
     }
 
     private int scoreDwarfs() {
-        return getCount(Token.Dwarfs);
+        return getCount(Token.DWARFS);
     }
 
     private int scoreUnusedSpace() {
@@ -180,11 +180,11 @@ public class PlayerScore {
     private int scoreTiles() {
         int score = 0;
 
-        score += 2 * getCount(Token.SmallPastures);
-        score += 4 * getCount(Token.LargePastures);
+        score += 2 * getCount(Token.SMALL_PASTURES);
+        score += 4 * getCount(Token.LARGE_PASTURES);
 
-        score += 3 * getCount(Token.OreMines);
-        score += 4 * getCount(Token.RubyMines);
+        score += 3 * getCount(Token.ORE_MINES);
+        score += 4 * getCount(Token.RUBY_MINES);
 
         for (Map.Entry<Tile, Integer> tile: FurnishingPoints.entrySet()) {
             if (has(tile.getKey())) {
@@ -192,7 +192,7 @@ public class PlayerScore {
             }
         }
 
-        score += 3 * getCount(Token.Dwellings);
+        score += 3 * getCount(Token.DWELLINGS);
 
         return score;
     }
@@ -201,15 +201,15 @@ public class PlayerScore {
         int score = 0;
 
         if (has(Tile.WeavingParlor)) {
-            score += getCount(Token.Sheep) / 2;
+            score += getCount(Token.SHEEP) / 2;
         }
 
         if (has(Tile.MilkingParlor)) {
-            score += getCount(Token.Cattle);
+            score += getCount(Token.CATTLE);
         }
 
         if (has(Tile.StateParlor)) {
-            score += 4 * getCount(Token.AdjacentDwellings);
+            score += 4 * getCount(Token.ADJACENT_DWELLINGS);
         }
 
         return score;
@@ -220,11 +220,11 @@ public class PlayerScore {
         int score = 0;
 
         if (has(Tile.StoneStorage)) {
-            score += getCount(Token.Stone);
+            score += getCount(Token.STONE);
         }
 
         if (has(Tile.OreStorage)) {
-            score += getCount(Token.Ore) / 2;
+            score += getCount(Token.ORE) / 2;
         }
 
         if (has(Tile.MainStorage)) {
@@ -246,11 +246,11 @@ public class PlayerScore {
         }
 
         if (has(Tile.WeaponStorage)) {
-            score += 3 * getCount(Token.Weapons);
+            score += 3 * getCount(Token.WEAPONS);
         }
 
         if (has(Tile.SuppliesStorage)) {
-            if (getCount(Token.Weapons) == getCount(Token.Dwarfs)) {
+            if (getCount(Token.WEAPONS) == getCount(Token.DWARFS)) {
                 score += 8;
             }
         }
@@ -262,35 +262,35 @@ public class PlayerScore {
         int score = 0;
 
         if (has(Tile.BroomChamber)) {
-            if (getCount(Token.Dwarfs) == 5) {
+            if (getCount(Token.DWARFS) == 5) {
                 score += 5;
-            } else if (getCount(Token.Dwarfs) == 6) {
+            } else if (getCount(Token.DWARFS) == 6) {
                 score += 10;
             }
         }
 
         if (has(Tile.TreasureChamber)) {
-            score += getCount(Token.Rubies);
+            score += getCount(Token.RUBIES);
         }
 
         if (has(Tile.FoodChamber)) {
-            int sets = Math.min(getCount(Token.Grains), getCount(Token.Vegetables));
+            int sets = Math.min(getCount(Token.GRAINS), getCount(Token.VEGETABLES));
             score += 2 * sets;
         }
 
         if (has(Tile.PrayerChamber)) {
-            if (getCount(Token.Weapons) == 0) {
+            if (getCount(Token.WEAPONS) == 0) {
                 score += 8;
             }
         }
 
         if (has(Tile.WritingChamber)) {
-            score += java.lang.Math.min(7, cost());
+            score += Math.min(7, cost());
         }
 
         if (has(Tile.FodderChamber)) {
             int farmAnimals = 0;
-            for (Token farmAnimal : EnumSet.of(Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+            for (Token farmAnimal : EnumSet.of(Token.SHEEP, Token.DONKEYS, Token.BOARS, Token.CATTLE)) {
                 farmAnimals += getCount(farmAnimal);
             }
             score += farmAnimals / 3;
@@ -300,7 +300,7 @@ public class PlayerScore {
     }
 
     private int scoreAssets() {
-        return getCount(Token.Gold) - beggingCost();
+        return getCount(Token.GOLD) - beggingCost();
     }
 
     private int cost() {
@@ -312,7 +312,7 @@ public class PlayerScore {
 
     private int missingFarmAnimalCost() {
         int cost = 0;
-        for (Token farmAnimal : EnumSet.of(Token.Sheep, Token.Donkeys, Token.Boars, Token.Cattle)) {
+        for (Token farmAnimal : EnumSet.of(Token.SHEEP, Token.DONKEYS, Token.BOARS, Token.CATTLE)) {
             if (getCount(farmAnimal) == 0) {
                 cost += 2;
             }
@@ -321,11 +321,11 @@ public class PlayerScore {
     }
 
     private int unusedSpaceCost() {
-        return getCount(Token.UnusedSpace);
+        return getCount(Token.UNUSED_SPACE);
     }
 
     private int beggingCost() {
-        return 3 * getCount(Token.BeggingMarkers);
+        return 3 * getCount(Token.BEGGING_MARKERS);
     }
 
 }

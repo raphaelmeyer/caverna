@@ -1,32 +1,6 @@
 package ch.quazz.caverna.score;
 
 public enum Token {
-    Dogs,
-    Sheep,
-    Donkeys,
-    Boars,
-    Cattle,
-
-    Dwarfs,
-    Dwellings,
-
-    Grains,
-    Vegetables,
-
-    Rubies,
-    Gold,
-    BeggingMarkers,
-
-    SmallPastures,
-    LargePastures,
-    OreMines,
-    RubyMines,
-
-    UnusedSpace,
-
-    Stone,
-    Ore,
-
-    Weapons,
-    AdjacentDwellings
+    DWARFS, DWELLINGS, DOGS, SHEEP, DONKEYS, BOARS, CATTLE, GRAINS, VEGETABLES, RUBIES, GOLD, BEGGING_MARKERS,
+    SMALL_PASTURES, LARGE_PASTURES, ORE_MINES, RUBY_MINES, UNUSED_SPACE, STONE, ORE, WEAPONS, ADJACENT_DWELLINGS
 }

@@ -82,7 +82,7 @@ public class GameActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(GameActivity.this, PlayerScoreActivity.class);
-                intent.putExtra(PlayerScoreActivity.ExtraScoreId, id);
+                intent.putExtra(PlayerScoreActivity.EXTRA_SCORE_ID, id);
                 startActivity(intent);
             }
         });
@@ -149,7 +149,7 @@ public class GameActivity extends Activity {
 
             case R.id.context_player_score_edit:
                 Intent intent = new Intent(this, PlayerScoreActivity.class);
-                intent.putExtra(PlayerScoreActivity.ExtraScoreId, info.id);
+                intent.putExtra(PlayerScoreActivity.EXTRA_SCORE_ID, info.id);
                 startActivity(intent);
                 return true;
 

@@ -17,7 +17,7 @@ class GamePlayerAdapter extends BaseAdapter {
     private final Context context;
     private List<ScoreSheet> scoringPad;
 
-    public GamePlayerAdapter(final Context context) {
+    GamePlayerAdapter(final Context context) {
         this.context = context;
         this.scoringPad = null;
     }
@@ -56,16 +56,14 @@ class GamePlayerAdapter extends BaseAdapter {
         View view;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.list_item, parent, false);
+            view = inflater != null ? inflater.inflate(R.layout.list_item, parent, false) : null;
         } else {
             view = convertView;
         }
 
         ScoreSheet sheet = scoringPad.get(position);
-        TextView title = (TextView)view.findViewById(R.id.item_text);
-        title.setText(String.valueOf(sheet.player) + " " + sheet.name);
-
+        TextView title = view != null ? (TextView) view.findViewById(R.id.item_text) : null;
+        title.setText((sheet.player) + " " + sheet.name);
         return view;
     }
-
 }

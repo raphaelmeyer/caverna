@@ -2,25 +2,25 @@ package ch.quazz.caverna.ui;
 
 import android.app.Activity;
 
-import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.score.PlayerScore;
+import ch.quazz.caverna.score.Token;
 import ch.quazz.caverna.widget.CountingInput;
 
 class TokenController {
 
-    final static class Item {
+    static final class Item {
         final int id;
-        final Token item;
+        final Token itemName;
 
-        Item(int id, Token item) {
+        Item(int id, Token itemName) {
             this.id = id;
-            this.item = item;
+            this.itemName = itemName;
         }
     }
 
-    private final Item items[];
+    private final Item[] items;
 
-    TokenController(final Item items[]) {
+    TokenController(final Item[] items) {
         this.items = items;
     }
 
@@ -30,15 +30,15 @@ class TokenController {
             @Override
             public void onCountChanged(CountingInput input, int count, boolean fromUser) {
                 if (fromUser) {
-                    playerScore.setCount((Token)input.getTag(), count);
+                    playerScore.setCount((Token) input.getTag(), count);
                 }
             }
         };
 
         for (final Item item : items) {
-            CountingInput countingInput = (CountingInput)activity.findViewById(item.id);
-            countingInput.setTag(item.item);
-            countingInput.setCount(playerScore.getCount(item.item));
+            CountingInput countingInput = activity.findViewById(item.id);
+            countingInput.setTag(item.itemName);
+            countingInput.setCount(playerScore.getCount(item.itemName));
             countingInput.setOnCountChangeListener(listener);
         }
     }

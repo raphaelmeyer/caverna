@@ -16,7 +16,7 @@ class PlayersAdapter extends BaseAdapter {
     private final Context context;
     private List<Player> players;
 
-    public PlayersAdapter(final Context context) {
+    PlayersAdapter(final Context context) {
         this.context = context;
         this.players = null;
     }
@@ -54,13 +54,13 @@ class PlayersAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = LayoutInflater.from(context);
             view = inflater.inflate(R.layout.list_item, parent, false);
         } else {
             view = convertView;
         }
 
-        TextView title = (TextView)view.findViewById(R.id.item_text);
+        TextView title = view.findViewById(R.id.item_text);
         title.setText(players.get(position).name);
 
         return view;

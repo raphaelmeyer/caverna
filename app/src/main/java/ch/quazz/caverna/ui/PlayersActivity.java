@@ -15,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 import ch.quazz.caverna.R;
@@ -41,7 +43,7 @@ public class PlayersActivity extends Activity {
             dbHelper = new CavernaDbHelper(this);
         }
 
-        ListView games = (ListView)findViewById(R.id.players_list);
+        ListView games = findViewById(R.id.players_list);
         registerForContextMenu(games);
         games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,7 +51,7 @@ public class PlayersActivity extends Activity {
                 long scoreId = ScoreTable.addScore(dbHelper, id, gameId);
 
                 Intent intent = new Intent(PlayersActivity.this, PlayerScoreActivity.class);
-                intent.putExtra(PlayerScoreActivity.ExtraScoreId, scoreId);
+                intent.putExtra(PlayerScoreActivity.EXTRA_SCORE_ID, scoreId);
 
                 startActivity(intent);
             }
@@ -64,7 +66,7 @@ public class PlayersActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -85,7 +87,7 @@ public class PlayersActivity extends Activity {
         playersAdapter = new PlayersAdapter(this);
         playersAdapter.setPlayers(players);
 
-        ListView listView = (ListView)findViewById(R.id.players_list);
+        ListView listView = findViewById(R.id.players_list);
         listView.setAdapter(playersAdapter);
     }
 
@@ -96,22 +98,18 @@ public class PlayersActivity extends Activity {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
         AdapterView.AdapterContextMenuInfo info;
         info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-        switch (item.getItemId()) {
-
-            case R.id.context_players_delete:
-                if (ScoreTable.numberOfGames(dbHelper, info.id) == 0) {
-                    PlayerTable.deletePlayer(dbHelper, info.id);
-                    List<Player> players = PlayerTable.getPlayers(dbHelper);
-                    playersAdapter.setPlayers(players);
-                }
-                break;
-
-            default:
-                return false;
+        if (item.getItemId() == R.id.context_players_delete) {
+            if (ScoreTable.numberOfGames(dbHelper, info.id) == 0) {
+                PlayerTable.deletePlayer(dbHelper, info.id);
+                List<Player> players = PlayerTable.getPlayers(dbHelper);
+                playersAdapter.setPlayers(players);
+            }
+        } else {
+            return false;
         }
 
         return false;

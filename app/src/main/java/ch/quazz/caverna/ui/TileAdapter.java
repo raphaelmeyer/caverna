@@ -1,7 +1,6 @@
 package ch.quazz.caverna.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,7 +13,7 @@ import ch.quazz.caverna.score.Tile;
 
 class TileAdapter extends BaseAdapter {
 
-    final static class Item {
+    static final class Item {
         final Tile tile;
         final int icon;
 
@@ -33,7 +32,7 @@ class TileAdapter extends BaseAdapter {
     private final Item[] furnishings;
     private final CompoundButton.OnCheckedChangeListener listener;
 
-    public TileAdapter(Context context, Check check, final Item[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
+    TileAdapter(Context context, Check check, final Item[] furnishings, CompoundButton.OnCheckedChangeListener listener) {
         this.context = context;
         this.check = check;
         this.furnishings = furnishings;
@@ -67,8 +66,10 @@ class TileAdapter extends BaseAdapter {
         int boxSize = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 96, parent.getResources().getDisplayMetrics());
         int iconSize = boxSize - checkBox.getPaddingLeft();
 
-        Drawable icon = parent.getResources().getDrawable(furnishings[position].icon);
-        icon.setBounds(0, 0, iconSize, iconSize);
+        Drawable icon = context.getDrawable(furnishings[position].icon);
+        if (icon != null) {
+            icon.setBounds(0, 0, iconSize, iconSize);
+        }
 
         checkBox.setCompoundDrawables(icon, null, null, null);
 

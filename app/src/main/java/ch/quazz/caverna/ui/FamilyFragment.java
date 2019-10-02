@@ -12,8 +12,8 @@ import ch.quazz.caverna.score.Token;
 public class FamilyFragment extends PlayerScoreFragment {
 
     private static final TokenController.Item FamilyItems[] = {
-            new TokenController.Item(R.id.dwarfs, Token.Dwarfs),
-            new TokenController.Item(R.id.dwellings, Token.Dwellings)
+            new TokenController.Item(R.id.dwarfs, Token.DWARFS),
+            new TokenController.Item(R.id.dwellings, Token.DWELLINGS)
     };
 
     private static final TileAdapter.Item[] Dwellings = {
