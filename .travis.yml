@@ -26,5 +26,6 @@ before_install:
   - yes | sdkmanager "platforms;android-$ANDROID_API"
 
 script:
-  - ./gradlew build check
+  - ./gradlew build
+  - ./gradlew check
   - ./gradlew test

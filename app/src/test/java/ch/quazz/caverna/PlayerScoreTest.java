@@ -25,13 +25,13 @@ public class PlayerScoreTest {
 
     @Test
     public void test_the_initial_score_counts_two_dwarfs() {
-        assertThat(testee.getCount(Token.Dwarfs), equalTo(2));
+        assertThat(testee.getCount(Token.DWARFS), equalTo(2));
     }
 
     @Test
     public void test_the_initial_count_of_anything_else_than_dwarfs_is_zero() {
         for (Token item : Token.values()) {
-            if (item != Token.Dwarfs) {
+            if (item != Token.DWARFS) {
                 assertThat(testee.getCount(item), equalTo(0));
             }
         }
@@ -46,10 +46,10 @@ public class PlayerScoreTest {
     public void test_each_dwarf_scores_a_point() {
         final int initialScoreWithoutDwarfs = initialScore - initialScoreDwarfs;
 
-        testee.setCount(Token.Dwarfs, 3);
+        testee.setCount(Token.DWARFS, 3);
         assertThat(testee.score(), equalTo(initialScoreWithoutDwarfs + 3));
 
-        testee.setCount(Token.Dwarfs, 5);
+        testee.setCount(Token.DWARFS, 5);
         assertThat(testee.score(), equalTo(initialScoreWithoutDwarfs + 5));
     }
 
@@ -65,122 +65,122 @@ public class PlayerScoreTest {
     public void test_each_animal_scores_a_point() {
         final int initialScoreWithoutFarmAnimals = initialScore - initialScoreFarmAnimals;
 
-        testee.setCount(Token.Dogs, 1);
-        testee.setCount(Token.Sheep, 1);
-        testee.setCount(Token.Donkeys, 1);
-        testee.setCount(Token.Boars, 1);
-        testee.setCount(Token.Cattle, 1);
+        testee.setCount(Token.DOGS, 1);
+        testee.setCount(Token.SHEEP, 1);
+        testee.setCount(Token.DONKEYS, 1);
+        testee.setCount(Token.BOARS, 1);
+        testee.setCount(Token.CATTLE, 1);
 
         assertThat(testee.score(), equalTo(initialScoreWithoutFarmAnimals + 5));
     }
 
     @Test
     public void test_setting_a_farm_animal_count_back_to_zero_re_adds_the_cost() {
-        testee.setCount(Token.Sheep, 1);
-        testee.setCount(Token.Sheep, 0);
+        testee.setCount(Token.SHEEP, 1);
+        testee.setCount(Token.SHEEP, 0);
 
         assertThat(testee.score(), equalTo(initialScore));
     }
 
     @Test
     public void test_each_small_pasture_scores_two_points() {
-        testee.setCount(Token.SmallPastures, 1);
+        testee.setCount(Token.SMALL_PASTURES, 1);
         assertScore(2);
 
-        testee.setCount(Token.SmallPastures, 3);
+        testee.setCount(Token.SMALL_PASTURES, 3);
         assertScore(6);
     }
 
     @Test
     public void test_each_large_pasture_scores_four_points() {
-        testee.setCount(Token.LargePastures, 1);
+        testee.setCount(Token.LARGE_PASTURES, 1);
         assertScore(4);
 
-        testee.setCount(Token.LargePastures, 3);
+        testee.setCount(Token.LARGE_PASTURES, 3);
         assertScore(12);
     }
 
     @Test
     public void test_each_ore_mine_scores_three_points() {
-        testee.setCount(Token.OreMines, 1);
+        testee.setCount(Token.ORE_MINES, 1);
         assertScore(3);
 
-        testee.setCount(Token.OreMines, 3);
+        testee.setCount(Token.ORE_MINES, 3);
         assertScore(9);
     }
 
     @Test
     public void test_each_ruby_mine_scores_four_points() {
-        testee.setCount(Token.RubyMines, 1);
+        testee.setCount(Token.RUBY_MINES, 1);
         assertScore(4);
 
-        testee.setCount(Token.RubyMines, 2);
+        testee.setCount(Token.RUBY_MINES, 2);
         assertScore(8);
     }
 
     @Test
     public void test_each_pair_of_grains_scores_a_point() {
-        testee.setCount(Token.Grains, 2);
+        testee.setCount(Token.GRAINS, 2);
         assertScore(1);
 
-        testee.setCount(Token.Grains, 6);
+        testee.setCount(Token.GRAINS, 6);
         assertScore(3);
     }
 
     @Test
     public void test_an_odd_number_of_grains_scores_one_more_point() {
-        testee.setCount(Token.Grains, 1);
+        testee.setCount(Token.GRAINS, 1);
         assertScore(1);
 
-        testee.setCount(Token.Grains, 7);
+        testee.setCount(Token.GRAINS, 7);
         assertScore(4);
     }
 
     @Test
     public void test_each_vegetable_scores_a_point() {
-        testee.setCount(Token.Vegetables, 2);
+        testee.setCount(Token.VEGETABLES, 2);
         assertScore(2);
 
-        testee.setCount(Token.Vegetables, 11);
+        testee.setCount(Token.VEGETABLES, 11);
         assertScore(11);
     }
 
     @Test
     public void test_each_ruby_scores_a_point() {
-        testee.setCount(Token.Rubies, 5);
+        testee.setCount(Token.RUBIES, 5);
         assertScore(5);
     }
 
     @Test
     public void test_each_gold_scores_a_point() {
-        testee.setCount(Token.Gold, 13);
+        testee.setCount(Token.GOLD, 13);
         assertScore(13);
     }
 
     @Test
     public void test_each_begging_marker_costs_three_points() {
-        testee.setCount(Token.BeggingMarkers, 1);
+        testee.setCount(Token.BEGGING_MARKERS, 1);
         assertScore(-3);
 
-        testee.setCount(Token.BeggingMarkers, 3);
+        testee.setCount(Token.BEGGING_MARKERS, 3);
         assertScore(-9);
     }
 
     @Test
     public void test_each_unused_space_costs_one_point() {
-        testee.setCount(Token.UnusedSpace, 1);
+        testee.setCount(Token.UNUSED_SPACE, 1);
         assertScore(-1);
 
-        testee.setCount(Token.UnusedSpace, 4);
+        testee.setCount(Token.UNUSED_SPACE, 4);
         assertScore(-4);
     }
 
     @Test
     public void test_each_dwelling_scores_3_points() {
-        testee.setCount(Token.Dwellings, 1);
+        testee.setCount(Token.DWELLINGS, 1);
         assertScore(3);
 
-        testee.setCount(Token.Dwellings, 3);
+        testee.setCount(Token.DWELLINGS, 3);
         assertScore(9);
     }
 
@@ -215,16 +215,16 @@ public class PlayerScoreTest {
     public void test_weaving_parlor_scores_a_bonus_point_for_each_pair_of_sheep() {
         assertBonus(Tile.WeavingParlor, 0);
 
-        testee.setCount(Token.Sheep, 1);
+        testee.setCount(Token.SHEEP, 1);
         assertBonus(Tile.WeavingParlor, 0);
 
-        testee.setCount(Token.Sheep, 2);
+        testee.setCount(Token.SHEEP, 2);
         assertBonus(Tile.WeavingParlor, 1);
 
-        testee.setCount(Token.Sheep, 3);
+        testee.setCount(Token.SHEEP, 3);
         assertBonus(Tile.WeavingParlor, 1);
 
-        testee.setCount(Token.Sheep, 8);
+        testee.setCount(Token.SHEEP, 8);
         assertBonus(Tile.WeavingParlor, 4);
     }
 
@@ -232,13 +232,13 @@ public class PlayerScoreTest {
     public void test_milking_parlor_scores_a_bonus_point_for_each_cattle() {
         assertBonus(Tile.MilkingParlor, 0);
 
-        testee.setCount(Token.Cattle, 1);
+        testee.setCount(Token.CATTLE, 1);
         assertBonus(Tile.MilkingParlor, 1);
 
-        testee.setCount(Token.Cattle, 2);
+        testee.setCount(Token.CATTLE, 2);
         assertBonus(Tile.MilkingParlor, 2);
 
-        testee.setCount(Token.Cattle, 5);
+        testee.setCount(Token.CATTLE, 5);
         assertBonus(Tile.MilkingParlor, 5);
     }
 
@@ -246,10 +246,10 @@ public class PlayerScoreTest {
     public void test_state_parlor_scores_four_bonus_points_for_each_adjacent_dwelling() {
         assertBonus(Tile.StateParlor, 0);
 
-        testee.setCount(Token.AdjacentDwellings, 1);
+        testee.setCount(Token.ADJACENT_DWELLINGS, 1);
         assertBonus(Tile.StateParlor, 4);
 
-        testee.setCount(Token.AdjacentDwellings, 4);
+        testee.setCount(Token.ADJACENT_DWELLINGS, 4);
         assertBonus(Tile.StateParlor, 16);
     }
 
@@ -257,10 +257,10 @@ public class PlayerScoreTest {
     public void test_stone_storage_scores_a_bonus_point_for_each_stone() {
         assertBonus(Tile.StoneStorage, 0);
 
-        testee.setCount(Token.Stone, 1);
+        testee.setCount(Token.STONE, 1);
         assertBonus(Tile.StoneStorage, 1);
 
-        testee.setCount(Token.Stone, 6);
+        testee.setCount(Token.STONE, 6);
         assertBonus(Tile.StoneStorage, 6);
     }
 
@@ -268,10 +268,10 @@ public class PlayerScoreTest {
     public void test_ore_storage_scores_a_bonus_point_for_each_pair_of_ore() {
         assertBonus(Tile.OreStorage, 0);
 
-        testee.setCount(Token.Ore, 5);
+        testee.setCount(Token.ORE, 5);
         assertBonus(Tile.OreStorage, 2);
 
-        testee.setCount(Token.Ore, 10);
+        testee.setCount(Token.ORE, 10);
         assertBonus(Tile.OreStorage, 5);
     }
 
@@ -293,10 +293,10 @@ public class PlayerScoreTest {
     public void test_weapon_storage_scores_three_bonus_points_for_each_armed_dwarf() {
         assertBonus(Tile.WeaponStorage, 0);
 
-        testee.setCount(Token.Weapons, 1);
+        testee.setCount(Token.WEAPONS, 1);
         assertBonus(Tile.WeaponStorage, 3);
 
-        testee.setCount(Token.Weapons, 4);
+        testee.setCount(Token.WEAPONS, 4);
         assertBonus(Tile.WeaponStorage, 12);
     }
 
@@ -304,18 +304,18 @@ public class PlayerScoreTest {
     public void test_supplies_storage_scores_eight_points_if_all_dwarfs_are_armed() {
         assertBonus(Tile.SuppliesStorage, 0);
 
-        testee.setCount(Token.Weapons, 1);
+        testee.setCount(Token.WEAPONS, 1);
         assertBonus(Tile.SuppliesStorage, 0);
 
-        testee.setCount(Token.Weapons, 2);
+        testee.setCount(Token.WEAPONS, 2);
         assertBonus(Tile.SuppliesStorage, 8);
 
-        testee.setCount(Token.Dwarfs, 4);
-        testee.setCount(Token.Weapons, 3);
+        testee.setCount(Token.DWARFS, 4);
+        testee.setCount(Token.WEAPONS, 3);
         assertBonus(Tile.SuppliesStorage, 0);
 
-        testee.setCount(Token.Dwarfs, 4);
-        testee.setCount(Token.Weapons, 4);
+        testee.setCount(Token.DWARFS, 4);
+        testee.setCount(Token.WEAPONS, 4);
         assertBonus(Tile.SuppliesStorage, 8);
     }
 
@@ -323,22 +323,22 @@ public class PlayerScoreTest {
     public void test_broom_chamber_scores_no_points_for_four_dwarfs_or_less() {
         assertBonus(Tile.BroomChamber, 0);
 
-        testee.setCount(Token.Dwarfs, 3);
+        testee.setCount(Token.DWARFS, 3);
         assertBonus(Tile.BroomChamber, 0);
 
-        testee.setCount(Token.Dwarfs, 4);
+        testee.setCount(Token.DWARFS, 4);
         assertBonus(Tile.BroomChamber, 0);
     }
 
     @Test
     public void test_broom_chamber_scores_five_points_for_five_dwarfs() {
-        testee.setCount(Token.Dwarfs, 5);
+        testee.setCount(Token.DWARFS, 5);
         assertBonus(Tile.BroomChamber, 5);
     }
 
     @Test
     public void test_broom_chamber_scores_ten_points_for_six_dwarfs() {
-        testee.setCount(Token.Dwarfs, 6);
+        testee.setCount(Token.DWARFS, 6);
         assertBonus(Tile.BroomChamber, 10);
     }
 
@@ -346,10 +346,10 @@ public class PlayerScoreTest {
     public void test_treasure_chamber_scores_an_additional_point_for_each_ruby() {
         assertBonus(Tile.TreasureChamber, 0);
 
-        testee.setCount(Token.Rubies, 1);
+        testee.setCount(Token.RUBIES, 1);
         assertBonus(Tile.TreasureChamber, 1);
 
-        testee.setCount(Token.Rubies, 5);
+        testee.setCount(Token.RUBIES, 5);
         assertBonus(Tile.TreasureChamber, 5);
     }
 
@@ -357,24 +357,24 @@ public class PlayerScoreTest {
     public void test_food_chamber_scores_two_points_for_each_set_of_grain_and_vegetable() {
         assertBonus(Tile.FoodChamber, 0);
 
-        testee.setCount(Token.Grains, 0);
-        testee.setCount(Token.Vegetables, 1);
+        testee.setCount(Token.GRAINS, 0);
+        testee.setCount(Token.VEGETABLES, 1);
         assertBonus(Tile.FoodChamber, 0);
 
-        testee.setCount(Token.Grains, 1);
-        testee.setCount(Token.Vegetables, 0);
+        testee.setCount(Token.GRAINS, 1);
+        testee.setCount(Token.VEGETABLES, 0);
         assertBonus(Tile.FoodChamber, 0);
 
-        testee.setCount(Token.Grains, 1);
-        testee.setCount(Token.Vegetables, 1);
+        testee.setCount(Token.GRAINS, 1);
+        testee.setCount(Token.VEGETABLES, 1);
         assertBonus(Tile.FoodChamber, 2);
 
-        testee.setCount(Token.Grains, 3);
-        testee.setCount(Token.Vegetables, 4);
+        testee.setCount(Token.GRAINS, 3);
+        testee.setCount(Token.VEGETABLES, 4);
         assertBonus(Tile.FoodChamber, 6);
 
-        testee.setCount(Token.Grains, 5);
-        testee.setCount(Token.Vegetables, 2);
+        testee.setCount(Token.GRAINS, 5);
+        testee.setCount(Token.VEGETABLES, 2);
         assertBonus(Tile.FoodChamber, 4);
     }
 
@@ -382,15 +382,15 @@ public class PlayerScoreTest {
     public void test_prayer_chamber_scores_eight_points_if_no_dwarfs_are_armed() {
         assertBonus(Tile.PrayerChamber, 8);
 
-        testee.setCount(Token.Weapons, 1);
+        testee.setCount(Token.WEAPONS, 1);
         assertBonus(Tile.PrayerChamber, 0);
 
-        testee.setCount(Token.Dwarfs, 5);
+        testee.setCount(Token.DWARFS, 5);
 
-        testee.setCount(Token.Weapons, 0);
+        testee.setCount(Token.WEAPONS, 0);
         assertBonus(Tile.PrayerChamber, 8);
 
-        testee.setCount(Token.Weapons, 3);
+        testee.setCount(Token.WEAPONS, 3);
         assertBonus(Tile.PrayerChamber, 0);
     }
 
@@ -398,50 +398,50 @@ public class PlayerScoreTest {
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 
-        testee.setCount(Token.Dwarfs, 2);           // +2
-        testee.setCount(Token.UnusedSpace, 1);      // -1
-        testee.setCount(Token.Sheep, 0);            // -2
-        testee.setCount(Token.Donkeys, 0);          // -2
-        testee.setCount(Token.Boars, 0);            // -2
-        testee.setCount(Token.Cattle, 0);           // -2
-        testee.setCount(Token.BeggingMarkers, 1);   // -3
+        testee.setCount(Token.DWARFS, 2);           // +2
+        testee.setCount(Token.UNUSED_SPACE, 1);      // -1
+        testee.setCount(Token.SHEEP, 0);            // -2
+        testee.setCount(Token.DONKEYS, 0);          // -2
+        testee.setCount(Token.BOARS, 0);            // -2
+        testee.setCount(Token.CATTLE, 0);           // -2
+        testee.setCount(Token.BEGGING_MARKERS, 1);   // -3
 
         assertThat(testee.score(), equalTo(2 + -12 + 7));
 
-        testee.setCount(Token.Cattle, 1);           // + 1 - (-2)
+        testee.setCount(Token.CATTLE, 1);           // + 1 - (-2)
         assertThat(testee.score(), equalTo(3 + -10 + 7));
 
-        testee.setCount(Token.Donkeys, 1);          // + 1 - (-2)
+        testee.setCount(Token.DONKEYS, 1);          // + 1 - (-2)
         assertThat(testee.score(), equalTo(4 + -8 + 7));
 
-        testee.setCount(Token.UnusedSpace, 0);      // + 0 - (-1)
+        testee.setCount(Token.UNUSED_SPACE, 0);      // + 0 - (-1)
         assertThat(testee.score(), equalTo(4 + -7 + 7));
 
-        testee.setCount(Token.BeggingMarkers, 0);   // + 0 - (-3)
+        testee.setCount(Token.BEGGING_MARKERS, 0);   // + 0 - (-3)
         assertThat(testee.score(), equalTo(4 + -4 + 4));
 
-        testee.setCount(Token.Sheep, 3);            // + 3 - (-2)
+        testee.setCount(Token.SHEEP, 3);            // + 3 - (-2)
         assertThat(testee.score(), equalTo(7 + -2 + 2));
 
-        testee.setCount(Token.Boars, 2);            // + 2 - (-2)
+        testee.setCount(Token.BOARS, 2);            // + 2 - (-2)
         assertThat(testee.score(), equalTo(9 + -0 + 0));
     }
 
     @Test
     public void test_fodder_chamber_scores_one_point_for_every_three_farm_animals() {
-        testee.setCount(Token.Dogs, 7);
+        testee.setCount(Token.DOGS, 7);
         assertBonus(Tile.FodderChamber, 0);
 
-        testee.setCount(Token.Sheep, 4);
+        testee.setCount(Token.SHEEP, 4);
         assertBonus(Tile.FodderChamber, 1);
 
-        testee.setCount(Token.Cattle, 4);
+        testee.setCount(Token.CATTLE, 4);
         assertBonus(Tile.FodderChamber, 2);
 
-        testee.setCount(Token.Donkeys, 4);
+        testee.setCount(Token.DONKEYS, 4);
         assertBonus(Tile.FodderChamber, 4);
 
-        testee.setCount(Token.Boars, 4);
+        testee.setCount(Token.BOARS, 4);
         assertBonus(Tile.FodderChamber, 5);
     }
 
