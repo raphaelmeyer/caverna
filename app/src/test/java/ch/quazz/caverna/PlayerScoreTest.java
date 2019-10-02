@@ -1,16 +1,16 @@
-package ch.quazz.caverna.test;
+package ch.quazz.caverna;
 
-import android.test.AndroidTestCase;
+import org.junit.Before;
+import org.junit.Test;
+
+import ch.quazz.caverna.score.PlayerScore;
+import ch.quazz.caverna.score.Tile;
+import ch.quazz.caverna.score.Token;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-import ch.quazz.caverna.score.Tile;
-import ch.quazz.caverna.score.Token;
-import ch.quazz.caverna.score.PlayerScore;
-
-
-public class PlayerScoreTest extends AndroidTestCase {
+public class PlayerScoreTest {
 
     private PlayerScore testee;
 
@@ -18,15 +18,17 @@ public class PlayerScoreTest extends AndroidTestCase {
     private final int initialScoreFarmAnimals = -8;
     private final int initialScore = initialScoreDwarfs + initialScoreFarmAnimals;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() {
         testee = new PlayerScore(0);
     }
 
+    @Test
     public void test_the_initial_score_counts_two_dwarfs() {
         assertThat(testee.getCount(Token.Dwarfs), equalTo(2));
     }
 
+    @Test
     public void test_the_initial_count_of_anything_else_than_dwarfs_is_zero() {
         for (Token item : Token.values()) {
             if (item != Token.Dwarfs) {
@@ -35,10 +37,12 @@ public class PlayerScoreTest extends AndroidTestCase {
         }
     }
 
+    @Test
     public void test_initial_score_is_two_dwarfs_and_missing_farm_animal_cost() {
         assertThat(testee.score(), equalTo(initialScore));
     }
 
+    @Test
     public void test_each_dwarf_scores_a_point() {
         final int initialScoreWithoutDwarfs = initialScore - initialScoreDwarfs;
 
@@ -49,6 +53,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(initialScoreWithoutDwarfs + 5));
     }
 
+    @Test
     public void test_each_missing_type_of_farm_animal_costs_two_points() {
         final int initialScoreWithoutFarmAnimals = initialScore - initialScoreFarmAnimals;
 
@@ -56,6 +61,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(initialScoreWithoutFarmAnimals - (farmAnimals * 2)));
     }
 
+    @Test
     public void test_each_animal_scores_a_point() {
         final int initialScoreWithoutFarmAnimals = initialScore - initialScoreFarmAnimals;
 
@@ -68,6 +74,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(initialScoreWithoutFarmAnimals + 5));
     }
 
+    @Test
     public void test_setting_a_farm_animal_count_back_to_zero_re_adds_the_cost() {
         testee.setCount(Token.Sheep, 1);
         testee.setCount(Token.Sheep, 0);
@@ -75,6 +82,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(initialScore));
     }
 
+    @Test
     public void test_each_small_pasture_scores_two_points() {
         testee.setCount(Token.SmallPastures, 1);
         assertScore(2);
@@ -83,6 +91,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(6);
     }
 
+    @Test
     public void test_each_large_pasture_scores_four_points() {
         testee.setCount(Token.LargePastures, 1);
         assertScore(4);
@@ -91,6 +100,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(12);
     }
 
+    @Test
     public void test_each_ore_mine_scores_three_points() {
         testee.setCount(Token.OreMines, 1);
         assertScore(3);
@@ -99,6 +109,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(9);
     }
 
+    @Test
     public void test_each_ruby_mine_scores_four_points() {
         testee.setCount(Token.RubyMines, 1);
         assertScore(4);
@@ -107,6 +118,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(8);
     }
 
+    @Test
     public void test_each_pair_of_grains_scores_a_point() {
         testee.setCount(Token.Grains, 2);
         assertScore(1);
@@ -115,6 +127,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(3);
     }
 
+    @Test
     public void test_an_odd_number_of_grains_scores_one_more_point() {
         testee.setCount(Token.Grains, 1);
         assertScore(1);
@@ -123,6 +136,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(4);
     }
 
+    @Test
     public void test_each_vegetable_scores_a_point() {
         testee.setCount(Token.Vegetables, 2);
         assertScore(2);
@@ -131,16 +145,19 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(11);
     }
 
+    @Test
     public void test_each_ruby_scores_a_point() {
         testee.setCount(Token.Rubies, 5);
         assertScore(5);
     }
 
+    @Test
     public void test_each_gold_scores_a_point() {
         testee.setCount(Token.Gold, 13);
         assertScore(13);
     }
 
+    @Test
     public void test_each_begging_marker_costs_three_points() {
         testee.setCount(Token.BeggingMarkers, 1);
         assertScore(-3);
@@ -149,6 +166,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(-9);
     }
 
+    @Test
     public void test_each_unused_space_costs_one_point() {
         testee.setCount(Token.UnusedSpace, 1);
         assertScore(-1);
@@ -157,6 +175,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(-4);
     }
 
+    @Test
     public void test_each_dwelling_scores_3_points() {
         testee.setCount(Token.Dwellings, 1);
         assertScore(3);
@@ -165,6 +184,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertScore(9);
     }
 
+    @Test
     public void test_furnishing_tiles_score_given_number_of_points() {
         testee.set(Tile.CoupleDwelling);
         assertScore(5);
@@ -191,6 +211,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         testee.clear(Tile.HuntingParlor);
     }
 
+    @Test
     public void test_weaving_parlor_scores_a_bonus_point_for_each_pair_of_sheep() {
         assertBonus(Tile.WeavingParlor, 0);
 
@@ -207,6 +228,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.WeavingParlor, 4);
     }
 
+    @Test
     public void test_milking_parlor_scores_a_bonus_point_for_each_cattle() {
         assertBonus(Tile.MilkingParlor, 0);
 
@@ -220,6 +242,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.MilkingParlor, 5);
     }
 
+    @Test
     public void test_state_parlor_scores_four_bonus_points_for_each_adjacent_dwelling() {
         assertBonus(Tile.StateParlor, 0);
 
@@ -230,6 +253,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.StateParlor, 16);
     }
 
+    @Test
     public void test_stone_storage_scores_a_bonus_point_for_each_stone() {
         assertBonus(Tile.StoneStorage, 0);
 
@@ -240,6 +264,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.StoneStorage, 6);
     }
 
+    @Test
     public void test_ore_storage_scores_a_bonus_point_for_each_pair_of_ore() {
         assertBonus(Tile.OreStorage, 0);
 
@@ -250,6 +275,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.OreStorage, 5);
     }
 
+    @Test
     public void test_main_storage_scores_two_bonus_points_for_each_yellow_tile() {
         assertBonus(Tile.MainStorage, 2);
 
@@ -263,6 +289,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.MainStorage, 8);
     }
 
+    @Test
     public void test_weapon_storage_scores_three_bonus_points_for_each_armed_dwarf() {
         assertBonus(Tile.WeaponStorage, 0);
 
@@ -273,6 +300,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.WeaponStorage, 12);
     }
 
+    @Test
     public void test_supplies_storage_scores_eight_points_if_all_dwarfs_are_armed() {
         assertBonus(Tile.SuppliesStorage, 0);
 
@@ -291,7 +319,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.SuppliesStorage, 8);
     }
 
-
+    @Test
     public void test_broom_chamber_scores_no_points_for_four_dwarfs_or_less() {
         assertBonus(Tile.BroomChamber, 0);
 
@@ -302,16 +330,19 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.BroomChamber, 0);
     }
 
+    @Test
     public void test_broom_chamber_scores_five_points_for_five_dwarfs() {
         testee.setCount(Token.Dwarfs, 5);
         assertBonus(Tile.BroomChamber, 5);
     }
 
+    @Test
     public void test_broom_chamber_scores_ten_points_for_six_dwarfs() {
         testee.setCount(Token.Dwarfs, 6);
         assertBonus(Tile.BroomChamber, 10);
     }
 
+    @Test
     public void test_treasure_chamber_scores_an_additional_point_for_each_ruby() {
         assertBonus(Tile.TreasureChamber, 0);
 
@@ -322,6 +353,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.TreasureChamber, 5);
     }
 
+    @Test
     public void test_food_chamber_scores_two_points_for_each_set_of_grain_and_vegetable() {
         assertBonus(Tile.FoodChamber, 0);
 
@@ -346,6 +378,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.FoodChamber, 4);
     }
 
+    @Test
     public void test_prayer_chamber_scores_eight_points_if_no_dwarfs_are_armed() {
         assertBonus(Tile.PrayerChamber, 8);
 
@@ -361,6 +394,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertBonus(Tile.PrayerChamber, 0);
     }
 
+    @Test
     public void test_writing_chamber_prevents_up_to_7_negative_points() {
         testee.set(Tile.WritingChamber);
 
@@ -393,6 +427,7 @@ public class PlayerScoreTest extends AndroidTestCase {
         assertThat(testee.score(), equalTo(9 + -0 + 0));
     }
 
+    @Test
     public void test_fodder_chamber_scores_one_point_for_every_three_farm_animals() {
         testee.setCount(Token.Dogs, 7);
         assertBonus(Tile.FodderChamber, 0);
