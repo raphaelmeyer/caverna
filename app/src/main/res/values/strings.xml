@@ -34,5 +34,6 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="title_activity_players">Players</string>
+    <string name="count">count</string>
 
 </resources>
