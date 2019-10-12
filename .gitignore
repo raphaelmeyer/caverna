@@ -15,3 +15,5 @@
 /build
 /app/*.apk
 
+.idea
+*.iml
