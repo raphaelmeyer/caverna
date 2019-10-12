@@ -76,7 +76,7 @@ public class GameActivity extends Activity {
             dbHelper = new CavernaDbHelper(this);
         }
 
-        ListView players = (ListView)findViewById(R.id.game_player_list);
+        ListView players = findViewById(R.id.game_player_list);
         registerForContextMenu(players);
         players.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,7 +129,7 @@ public class GameActivity extends Activity {
         scoringPadAdapter = new GamePlayerAdapter(this);
         scoringPadAdapter.setScoringPad(scoringPad);
 
-        ListView listView = (ListView)findViewById(R.id.game_player_list);
+        ListView listView = findViewById(R.id.game_player_list);
         listView.setAdapter(scoringPadAdapter);
 
     }
@@ -172,14 +172,14 @@ public class GameActivity extends Activity {
 
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics());
 
-        TableLayout table = (TableLayout)findViewById(R.id.game_scoring_pad);
+        TableLayout table = findViewById(R.id.game_scoring_pad);
         table.removeAllViews();
 
         // add rows
         TableRow players = new TableRow(this);
         players.setBackgroundResource(R.color.blue);
         TextView title = new TextView(this);
-        title.setText("Player");
+        title.setText(getString(R.string.player));
         players.addView(title);
 
         table.addView(players);
@@ -204,7 +204,7 @@ public class GameActivity extends Activity {
 
             for (Row row : rows) {
                 TextView points = new TextView(this);
-                points.setGravity(Gravity.RIGHT);
+                points.setGravity(Gravity.END);
                 points.setText(String.valueOf(sheet.score(row.category)));
                 points.setPadding(padding, 0, padding, 0);
                 if (row.category == ScoreSheet.Category.Total) {
