@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         caverna:min="0"
-        caverna:max="3"
+        caverna:max="4"
         caverna:label="@string/dwellings"
         caverna:icon="@drawable/dwelling" />
 
