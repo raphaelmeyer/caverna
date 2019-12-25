@@ -12,4 +12,5 @@ Please read the [contribution guidelines](CONTRIBUTING.md).
 
 ## Contributors
 
-[Alexey](https://github.com/AlexeyPanchenko)
+[Contributors](https://github.com/raphaelmeyer/caverna/graphs/contributors)
+
