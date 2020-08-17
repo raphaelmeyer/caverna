@@ -55,7 +55,7 @@ class GamePlayerAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater != null ? inflater.inflate(R.layout.list_item, parent, false) : null;
         } else {
             view = convertView;
@@ -63,7 +63,9 @@ class GamePlayerAdapter extends BaseAdapter {
 
         ScoreSheet sheet = scoringPad.get(position);
         TextView title = view != null ? (TextView) view.findViewById(R.id.item_text) : null;
-        title.setText((sheet.player) + " " + sheet.name);
+        if (title != null) {
+            title.setText(context.getResources().getString(R.string.score_sheet_title, sheet.player, sheet.name));
+        }
         return view;
     }
 }

@@ -24,9 +24,11 @@ public class CountingInput extends LinearLayout {
     private final SeekBar countSlider;
 
     private OnCountChangeListener listener;
+    private Context context;
 
     public CountingInput(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
 
         LayoutInflater.from(context).inflate(R.layout.counting_input, this, true);
 
@@ -105,6 +107,6 @@ public class CountingInput extends LinearLayout {
     }
 
     private void updateText() {
-        countText.setText(label + ": " + (count));
+        countText.setText(context.getResources().getString(R.string.count_text, label, count));
     }
 }
